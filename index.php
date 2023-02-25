@@ -11,7 +11,7 @@
   
   $db = Database::connect();
 
-    $query = "select * from essai";
+    $query = "select * from utilisateur";
     $statement = $db->query($query);
     $test = $statement->fetch();
 
