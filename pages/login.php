@@ -1,6 +1,8 @@
 <?php
-include ('../bdd-env.php');
-$conn = mysqli_connect("localhost", "root", "elias123", "jaya");
+/*include ('../bdd-env.php');
+$conn = mysqli_connect("localhost", "root", "elias123", "jaya"); */
+include("../application_config/db_class.php");
+$conn = Database::connect();
 ?>
 
 <!DOCTYPE html>
@@ -19,19 +21,26 @@ $conn = mysqli_connect("localhost", "root", "elias123", "jaya");
 			$password = $_POST["password"];
 
 			// Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
-			$query = "SELECT id, password FROM utilisateur WHERE email = '" . mysqli_real_escape_string($conn, $email) . "'";
-			$result = mysqli_query($conn, $query);
-
-			// Vérifier si l'utilisateur existe et si le mot de passe est correct
-			if (mysqli_num_rows($result) == 1) {
-				$user = mysqli_fetch_assoc($result);
-				if (password_verify($password, $user["password"])) {
-					// L'utilisateur est authentifié - rediriger vers la page d'accueil
-					header("Location: index.php");
+			$query = "SELECT ID_UTILISATEUR, MDP_Utilisateur FROM utilisateur WHERE Mail_Utilisateur = '" . $email . "'";
+			$result = $conn->query($query);
+			$user = $result->fetch();
+	
+			if ($user) { // Vérifier si l'utilisateur existe
+				// Vérifier si le mot de passe est correct
+				if (($password == $user["MDP_Utilisateur"])) {
+					// Authentification réussie, rediriger l'utilisateur vers une page protégée
+					header("Location: page_protegee.php");
 					exit();
+				} else {
+					// Mot de passe incorrect
+					$error_message = "Mot de passe incorrect";
+					echo $error_message;
 				}
+			} else {
+				// Utilisateur non trouvé
+				$error_message = "Aucun utilisateur trouvé avec cet email";
+				echo $error_message;
 			}
-
 		}
 	?>
 
