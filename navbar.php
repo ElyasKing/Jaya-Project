@@ -3,13 +3,13 @@
         <div class="col-xs-6 col-md-4">
             <a href="index.php"><img class="img-navbar" src="images/JAYA-LOGO.png" alt="logo_jaya"></a>
         </div>
-        <div class="col-xs-6 col-md-4">
-        <!-- <img src="images/notification-icon.png" alt="notification-icon"> -->
-        <!-- <a href="pages/login.php"><img class="img-navbar2" src="images/logOut-icon.png" alt="logOut-icon"></a> -->
-        </div>
-        
+
+        <a href="index.php"><img id="notification-icon" src="images/notification-icon.svg" alt="logo_jaya"></a>
+
+        <a href="pages/login.php"><img id="logout-icon" src="images/logout-icon.svg" alt="logout-icon"></a>
+  
+          
         <div id="navbar-userInfo" class="col-xs-6 col-md-4">
-            
             <?php
                 echo "<table>";
                 echo "<tr><td><strong>".$connectedUser."</td></tr>";
