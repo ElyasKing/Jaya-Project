@@ -29,8 +29,10 @@ $conn = Database::connect();
          // Vérifier si l'utilisateur existe
          // Vérifier si le mot de passe est correct
          if ($password == $user["MDP_Utilisateur"]) {
+            session_start();
+            $_SESSION["user_id"] = $user["ID_UTILISATEUR"]; // Ajout dans la session l'ID
              // Authentification réussie, rediriger l'utilisateur vers une page protégée
-             header("Location: page_protegee.php");
+             header("Location: manage_account.php");
              exit();
          } else {
              // Mot de passe incorrect
