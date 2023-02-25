@@ -1,0 +1,108 @@
+/* NAVBAR */
+.img-navbar{
+    margin: 13px;
+    padding: 0px;
+    width: 40%;
+    height: 80%;
+}
+
+#navbar{
+    background-color: #23314e;
+    border-color: #23314e;
+}
+
+#navbar-userInfo > table{
+    text-align: center !important;
+    margin-left: auto;
+    margin-top: 4%;
+    color: white;
+}
+
+.nav{
+    color: white;
+    background-color: #23314e;
+    padding: 0px;
+    box-shadow: -1px 2px 5px 3px rgba(0,0,0,0.5);
+}
+
+.nav > li > a{
+    color: white;
+    font-size: 18px;
+}
+
+.nav > li > a:hover{
+    color: #23314e;
+    background-color: #d5d8db;
+    font-size: 18px;
+}
+
+#nav-perso{
+    margin-top: -10px;
+}
+
+
+
+/* INDEX */
+.space{
+    margin-top: 7%;
+}
+
+table,th,td{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+.center{
+    text-align: center;
+}
+
+.colored{
+    color: #23314e;
+}
+
+hr{
+    clear: both;
+    opacity: 1;
+    width: 80%;
+    color: transparent;
+    background-color: transparent;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 10px;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    background-image: url(../images/ombre-horizontal.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: auto;
+}
+
+
+/* PAGINATION DATATABLE */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    color: white !important;
+    border: 1px solid transparent !important;
+    background-color: none !important;
+    background: none !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover{
+    z-index: 3;
+    color: white;
+    cursor: default;
+    background-color: #23314e;
+    border-color: #23314e;   
+}
+
+.pagination > li > a,
+.pagination > li > span{
+    color: #23314e;
+}
