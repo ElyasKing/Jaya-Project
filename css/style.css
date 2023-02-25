@@ -11,7 +11,7 @@
     border-color: #23314e;
 }
 
-#navbar-userInfo > table{
+ #navbar-userInfo > table{
     text-align: center !important;
     margin-left: auto;
     margin-top: 4%;
@@ -36,15 +36,15 @@
     font-size: 18px;
 }
 
-#nav-perso{
+/* #nav-perso{
     margin-top: -10px;
-}
+} */
 
 
 
 /* INDEX */
 .space{
-    margin-top: 7%;
+    margin-top: 10%;
 }
 
 table,th,td{
