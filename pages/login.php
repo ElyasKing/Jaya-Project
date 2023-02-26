@@ -30,7 +30,7 @@ $conn = Database::connect();
          // Vérifier si le mot de passe est correct
          if ($password == $user["MDP_Utilisateur"]) {
              // Authentification réussie, rediriger l'utilisateur vers une page protégée
-             header("Location: page_protegee.php");
+             header("Location: grades_student.php");
              exit();
          } else {
              // Mot de passe incorrect
