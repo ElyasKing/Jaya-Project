@@ -1,5 +1,5 @@
 <?php
-include "../application_config/db_class.php";
+include "application_config/db_class.php";
 $conn = Database::connect();
 ?>
 
@@ -7,7 +7,7 @@ $conn = Database::connect();
 <html>
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="./styles.css" />
+	<link rel="stylesheet" type="text/css" href="cc/styles.css" />
 </head>
 <body>
 

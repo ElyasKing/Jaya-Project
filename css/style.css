@@ -1,55 +1,24 @@
 /* NAVBAR */
 
-/* .grid-navbar-top-right{
-    display: grid;
-    grid-gap: 0px;
-    grid-template-columns: auto auto;
-  }
-  
-  .grid-navbar-top-right > * {
-    padding: 0 10px; /* Ajoutez du padding pour espacer le contenu de la grille
-    display: flex;
-    align-items: center;
-  } */
-
-.img-navbar{
-    margin: 13px;
-    padding: 0px;
-    width: 40%;
-    height: 80%;
+.navbar{
+    background-color: #23314e !important;
+    border-color: #23314e !important;
+    /* padding: 0% 0% 2% 1% !important; */
 }
 
 #notification-icon{
-    margin: 2% 0% 0% 16%; 
-    width: 1.5%;
+    position: absolute;
+    margin-top: -2px;
+    margin-left: -94px;
 }
 
 #logout-icon{
-    margin: 2% 0% 0% 2%; 
-    width: 1%;
-}
+    position: absolute;
+    margin-top: -18px;
+    margin-left: -44px;
+} /* */
 
-#navbar{
-    background-color: #23314e;
-    border-color: #23314e;
-}
-
- #navbar-userInfo > table{
-    text-align: center !important;
-    margin-left: 180%;
-    /* margin-right: 10% !important; */
-    margin-top: 4% !important;
-    color: white;
-}
-
-.nav{
-    color: white;
-    background-color: #23314e;
-    padding: 0px;
-    box-shadow: -1px 2px 5px 3px rgba(0,0,0,0.5);
-}
-
-.nav > li > a{
+/* .nav > li > a{
     color: white;
     font-size: 18px;
 }
@@ -58,21 +27,19 @@
     color: #23314e;
     background-color: #d5d8db;
     font-size: 18px;
-}
-
-/* #nav-perso{
-    margin-top: -10px;
 } */
+
+
 
 
 
 /* INDEX */
 .space{
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 table,th,td{
-    text-align: center;
+    text-align: center !important;
 }
 
 h2{
@@ -124,14 +91,14 @@ hr{
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover{
-    z-index: 3;
-    color: white;
-    cursor: default;
-    background-color: #23314e;
-    border-color: #23314e;   
+    z-index: 3 !important;
+    color: white !important;
+    cursor: default !important;
+    background-color: #23314e !important;
+    border-color: #23314e !important ;   
 }
 
 .pagination > li > a,
 .pagination > li > span{
-    color: #23314e;
+    color: #23314e !important;
 }
