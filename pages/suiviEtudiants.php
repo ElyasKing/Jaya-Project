@@ -50,6 +50,12 @@ $etudiants = $result->fetchAll();
 			$resultat = $conn->query($queryTuteur);
 			$tuteur = $resultat->fetch();
 
+			$queryMA = "SELECT invite.Nom_Invite, invite.Mail_Invite FROM invite 
+			 JOIN est_apprenti ON invite.ID_Invite = est_apprenti.ID_Invite
+			WHERE est_apprenti.Id_Utilisateur  LIKE  $userId ";
+			$resultatMA = $conn->query($queryMA);
+			$mas = $resultatMA->fetchAll();
+
 			if($tuteur == NULL)
 			{
 				$tuteur= ["nom_Utilisateur"=>"", "Mail_Utilisateur" => ""];
@@ -61,11 +67,29 @@ $etudiants = $result->fetchAll();
 			<td><?php echo $etudiant['Promo_Utilisateur']; ?></td>
 			<td><?php echo $etudiant['Entreprise_Invite']; ?></td>
 			<td><?php echo $etudiant['Ville_Invite']; ?></td>
-			<td><?php echo $etudiant['Nom_Invite']; ?></td>
+			<td>
+				<?php 
+				foreach($mas as $ma)
+				{
+					echo $ma['Nom_Invite'];
+				}
+				?>
+			</td>
+			<td>
+				<?php 
+				foreach($mas as $ma)
+				{
+					echo $ma['Mail_Invite'];
+				}
+				?>
+			</td>				
 			<td><?php echo $etudiant['Mail_Invite']; ?></td>
 			<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
 			<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
 			<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
+			<td>
+				<span class="glyphicon glyphicon-pencil"></span>
+			</td>
 		</tr>
 		<?php
 		}
