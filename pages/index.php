@@ -1,56 +1,37 @@
 <?php
-include("../application_config/db_class.php");
-include("../application_config/get_connectUser.php");
+
+include 'header.php';
+$connectedUser = "Wiki Jaya";
+$userProfile = ".";
+include 'navbar.php';
+
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
-
 <head>
-  <?php
-  include("header.php");
-  
-  ?>
+	<title>Index des pages</title>
+  <style>
+		body {
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
 </head>
-
 <body>
-  <div class="content">
-    <div class="bar">
-      <span class="sphere"></span>
-    </div>
-    <div id="content">
-      <?php
-      include("navbar.php");
-      // *************** TEST ****************
-      // $db = Database::connect();
-
-      //   $query = "select * from essai";
-      //   $statement = $db->query($query);
-      //   $test = $statement->fetch();
-
-      //   echo "index ok <br><br>";
-
-      //   var_dump($test);
-
-      // $db = Database::disconnect();
-      // *************** TEST ****************
-
-
-      // switch($_SESSION['profilUser']){
-      //   case "Administrateur":  // Si profil detecté dans get_connectUser = administrateur
-      //     include("administrateur/indexAdmin.php");
-      //     break;
-      //   case "Scolarite":
-      //     include("scolarite/indexScolarite.php"); // Si profil detecté dans get_connectUser = administrateur
-      //     break;
-      //   default:
-      //     include("default.php");
-      // }
-
-      include("indexAdmin.php");
-      ?>
-    </div>
-  </div>
+	<h1 style="">Liste des pages disponibles</h1>
+	<ul>
+		<?php
+		$dir = ".";
+		$files = scandir($dir);
+		foreach ($files as $file) {
+			if (pathinfo($file, PATHINFO_EXTENSION) == "php") {
+				echo "<li><a href=\"$file\">$file</a></li>";
+			}
+		}
+		?>
+	</ul>
 </body>
-
 </html>
