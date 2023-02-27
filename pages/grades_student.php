@@ -18,6 +18,7 @@ $listparam = $conn->query($query)->fetchAll();
 
 $conn = Database::disconnect();
 
+$count = 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,10 +42,11 @@ $conn = Database::disconnect();
             <?php } ?>
         </select>
         <br>
-        <!---liste des notes affectée à la soutenance--->
-        <?php foreach ($listparam as $param) { ?>
+        <!---liste des notes affectées à la soutenance--->
+        <?php foreach ($listparam as $param) { 
+            $count = $count + 1; ?>
             <label for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
-            <input type="number" id="<?php echo $param['nom_param']; ?>" name="<?php echo $param['nom_param']; ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
+            <input type="number" id=<?php echo $count; ?> name="<?php echo $param['nom_param']; ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
             <br>
         <?php } ?>
         <br>

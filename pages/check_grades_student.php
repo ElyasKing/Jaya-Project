@@ -5,18 +5,15 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
-    var_dump($_POST);
-
+    $count = 0;
     $total = 0;
-    $listparam = $conn->query("SELECT nom_param, nbpoint_param from parametres")->fetchAll();
+    $listparam = $conn->query("SELECT nom_param from parametres  where nbpoint_param is not null")->fetchAll();
     foreach ($listparam as $param) {
-        if (isset($_POST[$param['nom_param']]))
-        $total = $total + $_POST[$param['nom_param']];
-        echo $_POST[$param['nom_param']];
-        echo $total;
-    
+         $count = $count + 1;
+        $total = $total + intval($_POST[$count]);
+        echo $_POST[$param[$count]]; 
     }
-echo $total;
+
 
 
     $etud_ID = $conn->query("SELECT ID_Utilisateur from utilisateur where Nom_Utilisateur='".$_POST["liste-noms"]."'")->fetch()['ID_Utilisateur'];
