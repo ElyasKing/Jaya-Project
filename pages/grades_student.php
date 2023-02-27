@@ -13,7 +13,7 @@ $query = "SELECT Nom_Utilisateur FROM utilisateur WHERE ID_Utilisateur !=  ".$_S
 $listEtud = $conn->query($query)->fetchAll();
 
 // Requête SQL pour récupérer les informations des paramètres
-$query = "SELECT nom_param, nbpoint_param from parametres";
+$query = "SELECT nom_param, nbpoint_param from parametres where nbpoint_param is not null";
 $listparam = $conn->query($query)->fetchAll();
 
 $conn = Database::disconnect();
