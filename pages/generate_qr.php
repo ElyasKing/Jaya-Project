@@ -13,7 +13,7 @@ require_once $qr_lib_path;
 $text = "ratio florian!";
 
 // Chemin du fichier où le QR code sera enregistré
-$filename = './QR_IMG/qrcode.png';
+$filename = '../images/QR_IMG/qrcode.png';
 
 // Taille et niveau de correction d'erreur du QR code
 $size = 5;
