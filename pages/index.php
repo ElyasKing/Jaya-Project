@@ -1,6 +1,6 @@
 <?php
-include("application_config/db_class.php");
-include("application_config/get_connectUser.php");
+include("../application_config/db_class.php");
+include("../application_config/get_connectUser.php");
 ?>
 
 <!DOCTYPE html>

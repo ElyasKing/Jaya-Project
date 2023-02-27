@@ -1,5 +1,5 @@
 <?php
-include "application_config/db_class.php";
+include "../application_config/db_class.php";
 $conn = Database::connect();
 ?>
 
