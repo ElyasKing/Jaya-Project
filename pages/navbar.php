@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="index.php"><img src="images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
+      <a class="navbar-brand" href="index.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" href="index.php">Accueil</a>
@@ -28,8 +28,8 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='images/notification-icon2.svg' alt='logo_jaya'></a>";
-            echo "<a class='nav-link active' href='login.php'><img id='logout-icon' src='images/logout-icon2.svg' alt='logout-icon'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='login.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
       </ul>
@@ -39,7 +39,7 @@
             echo "<div class='nav-link active'>";
             echo "<table>";
             echo "<tr><td><strong>".$connectedUser."</td></tr>";
-            echo "<tr><td><font size=-1><a class='nav-link active' href='changeProfile.php'>".$userProfile."</a></font></td></tr>";
+            echo "<tr><td><font size=-1><a class='nav-link active' href='./changeProfile.php'>".$userProfile."</a></font></td></tr>";
             echo "</table>";
             echo "</div>";
           ?>
