@@ -83,7 +83,6 @@ $etudiants = $result->fetchAll();
 				}
 				?>
 			</td>				
-			<td><?php echo $etudiant['Mail_Invite']; ?></td>
 			<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
 			<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
 			<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
