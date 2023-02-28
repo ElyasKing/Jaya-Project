@@ -43,10 +43,15 @@ $count = 0;
         </select>
         <br>
         <!---liste des notes affectées à la soutenance--->
-        <?php foreach ($listparam as $param) { 
-            $count = $count + 1; ?>
+        <?php 
+        
+        
+        foreach ($listparam as $param) { 
+            //traitement qui va remplacer les " " par des "_" avant le passet dans tes inputs
+            $count=$count+1?>
             <label for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
-            <input type="number" id=<?php echo $count; ?> name="<?php echo $param['nom_param']; ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
+            <input type="number" id="<?php echo str_replace(" ","_",$param['nom_param']); ?>" name="<?php echo str_replace(" ","_",$param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
+            <?php echo $param['nom_param']; ?>
             <br>
         <?php } ?>
         <br>
