@@ -4,7 +4,6 @@ $conn = Database::connect();
 if(isset($_POST)) 
 {
 
-    var_dump($_POST);
     $id = $_GET['id'];
     $idTuteur = $_POST['idTuteur'];
     $nomEtudiant = $_POST['nomEtudiant'];
@@ -14,6 +13,8 @@ if(isset($_POST))
     $ville=$_POST['ville'];
     $nomTuteur = $_POST['nomTuteur'];
     $emailTuteur =$_POST['emailTuteur'];
+
+    $nomMa = $_POST[''];
 
     if(isset($_POST['huitClos']) == false)
     {

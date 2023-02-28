@@ -72,29 +72,21 @@ WHERE utilisateur.ID_Utilisateur = $id";
       </div>
       <?php
       foreach ($mas as $ma) {
-        $compteur = 1
+       
       ?>
         <div class="mb-3">
           <label for="nomMA<? $compteur ?>" class="form-label">Maitre d'apprentissage <? $compteur ?></label>
-          <input type="text" class="form-control" name="nomMA-<?php echo $ma['ID_Invite']?>" value="<?= $ma['Nom_Invite'] ?>">
+          <input type="text" class="form-control" name="nomma-<?php echo $ma['ID_Invite']?>" value="<?= $ma['Nom_Invite'] ?>">
         </div>
-
-      <?php
-        $compteur = $compteur + 1;
-      }
-      foreach ($mas as $ma) {
-
-        $compteur = 1
-      ?>
-
         <div class="mb-3">
           <label for="emailMA<? $compteur ?>" class="form-label">Email maitre d'apprentissage <? $compteur ?></label>
-          <input type="text" class="form-control" name="emailMA-<?php echo $ma['ID_Invite'] ?>" value="<?= $ma['Mail_Invite'] ?>">
+          <input type="text" class="form-control" name="emailma-<?php echo $ma['ID_Invite'] ?>" value="<?= $ma['Mail_Invite'] ?>">
         </div>
 
       <?php
-
-      } ?>
+       
+      }
+?>
 
       <div class="mb-3">
         <label for="nomTuteur" class="form-label">Nom du tuteur</label>
