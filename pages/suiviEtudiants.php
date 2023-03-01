@@ -1,5 +1,9 @@
 <?php
 include "../application_config/db_class.php";
+include "../application_config/get_connectUser.php";
+include 'header.php';
+include 'navbar.php';
+
 $conn = Database::connect();
 ?>
 
@@ -26,8 +30,8 @@ $etudiants = $result->fetchAll();
 
 ?>
 
-<table>
-	<thead>
+<table class="table mt-3">
+	<thead class="table-primary">
 		<th>Etudiant</th>
 		<th>Email étudiant</th>
 		<th>Promo</th>
@@ -88,8 +92,9 @@ $etudiants = $result->fetchAll();
 			<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
 			<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
 			<td>
-				<span class="glyphicon glyphicon-pencil"></span>
+			<a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur']?>"><i class="bi bi-pencil-fill"></i></a>
 			</td>
+
 		</tr>
 		<?php
 		}
