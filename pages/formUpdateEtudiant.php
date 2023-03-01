@@ -45,7 +45,7 @@ WHERE utilisateur.ID_Utilisateur = $id";
 
   <div class="container bg-light p-3">
 
-    <form action="updateEtudiant.php?id=<?php echo $id?>" method="post">
+    <form action="updateEtudiant.php" method="post">
       
       <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
       <input type="hidden" class="form-control" name="idTuteur" value="<?= $tuteur['ID_Utilisateur'] ?>">
@@ -74,13 +74,14 @@ WHERE utilisateur.ID_Utilisateur = $id";
       foreach ($mas as $ma) {
        
       ?>
+       <input type="hidden" class="form-control" name="idMA" value="<?= $ma['ID_Invite'] ?>">
         <div class="mb-3">
           <label for="nomMA<? $compteur ?>" class="form-label">Maitre d'apprentissage <? $compteur ?></label>
-          <input type="text" class="form-control" name="nomma-<?php echo $ma['ID_Invite']?>" value="<?= $ma['Nom_Invite'] ?>">
+          <input type="text" class="form-control" name="nomma[]" value="<?= $ma['Nom_Invite'] ?>">
         </div>
         <div class="mb-3">
           <label for="emailMA<? $compteur ?>" class="form-label">Email maitre d'apprentissage <? $compteur ?></label>
-          <input type="text" class="form-control" name="emailma-<?php echo $ma['ID_Invite'] ?>" value="<?= $ma['Mail_Invite'] ?>">
+          <input type="text" class="form-control" name="emailma[]" value="<?= $ma['Mail_Invite'] ?>">
         </div>
 
       <?php

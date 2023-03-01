@@ -4,7 +4,7 @@ $conn = Database::connect();
 if(isset($_POST)) 
 {
 
-    $id = $_GET['id'];
+    $id = $_POST['id'];
     $idTuteur = $_POST['idTuteur'];
     $nomEtudiant = $_POST['nomEtudiant'];
     $emailEtudiant = $_POST['emailEtudiant'];
@@ -14,7 +14,25 @@ if(isset($_POST))
     $nomTuteur = $_POST['nomTuteur'];
     $emailTuteur =$_POST['emailTuteur'];
 
-    $nomMa = $_POST[''];
+    if(is_array($_POST['idMA']))
+    {
+        foreach ($_POST['idMA'] as $key => $idMa) {
+            $nomMa = $_POST['nomma'][$key];
+            $emailMa = $_POST['emailma'][$key];
+        
+            $queryMa = 'UPDATE invite SET Nom_Invite="'.$nomMa.'", Mail_Invite="'.$emailMa.'", Entreprise_Invite="'.$entreprise.'", Ville_Invite="'.$ville.'" WHERE ID_Invite="'.$idMa.'"';
+            $resultats = $conn->query($queryMa);
+        }
+    } else {
+        $idMa = $_POST['idMA'];
+       
+        $nomMa = $_POST['nomma'][0];
+        $emailMa = $_POST['emailma'][0];
+    
+        $queryMa = 'UPDATE invite SET Nom_Invite="'.$nomMa.'", Mail_Invite="'.$emailMa.'", Entreprise_Invite="'.$entreprise.'", Ville_Invite="'.$ville.'" WHERE ID_Invite="'.$idMa.'"';
+        $resultats = $conn->query($queryMa);
+
+    }
 
     if(isset($_POST['huitClos']) == false)
     {
@@ -30,6 +48,8 @@ if(isset($_POST))
 
     $queryTuteur = 'UPDATE utilisateur SET Nom_Utilisateur = "'.$nomTuteur.'", Mail_Utilisateur = "'.$emailTuteur.'" WHERE ID_Utilisateur = "'.$idTuteur.'" ';
     $resultats = $conn->query($queryTuteur);
+
+    header('Location: /pages/suiviEtudiants.php');
 
 
 }

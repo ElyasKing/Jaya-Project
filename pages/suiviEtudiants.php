@@ -38,6 +38,7 @@ $etudiants = $result->fetchAll();
 		<th>Tuteur</th>
 		<th>Email Tuteur</th>
 		<th>Huit clos</th>
+		<th></th>
 	</thead>
 	<tbody>
 		<?php 
