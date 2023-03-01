@@ -50,8 +50,7 @@ if(isset($_POST))
     $resultats = $conn->query($queryTuteur);
 
     header('Location: /pages/suiviEtudiants.php');
-
-
+    
 }
 
 ?>
