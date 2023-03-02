@@ -10,14 +10,16 @@ $conn = Database::connect();
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Suivi étudiant</title>
-	
+	<link rel="stylesheet" href="../css/MDB/css/datatables.min.css">
+
 <body>
 
-<?php
-$query =
-'SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, utilisateur.HuitClos_Utilisateur,
+	<?php
+	$query =
+		'SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, utilisateur.HuitClos_Utilisateur,
 invite.Entreprise_Invite, invite.Ville_Invite, invite.Nom_Invite, invite.Mail_Invite FROM utilisateur 
  JOIN est_apprenti ON utilisateur.ID_Utilisateur = est_apprenti.ID_Utilisateur 
  JOIN invite ON est_apprenti.ID_Invite = invite.ID_Invite 
@@ -25,81 +27,80 @@ invite.Entreprise_Invite, invite.Ville_Invite, invite.Nom_Invite, invite.Mail_In
 WHERE habilitations.Etudiant_Habilitations LIKE "oui"
 
 ';
-$result = $conn->query($query);
-$etudiants = $result->fetchAll();
+	$result = $conn->query($query);
+	$etudiants = $result->fetchAll();
 
-?>
+	?>
 
-<table class="table mt-3">
-	<thead class="table-primary">
-		<th>Etudiant</th>
-		<th>Email étudiant</th>
-		<th>Promo</th>
-		<th>Entreprise</th>
-		<th>Ville</th>
-		<th>Maitre d'apprentissage</th>
-		<th>Email MA</th>
-		<th>Tuteur</th>
-		<th>Email Tuteur</th>
-		<th>Huit clos</th>
-		<th></th>
-	</thead>
-	<tbody>
-		<?php 
-		foreach($etudiants as $etudiant)
-		{ 
-			$userId = $etudiant['ID_Utilisateur'];
-			$queryTuteur = "SELECT utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur FROM utilisateur 
+	<div class="container-fluid">
+		<table id='dtVisuData' class="table table-hover table-borderless mt-5 table-striped table-responsive">
+			<thead class="table-primary">
+				<th>Etudiant</th>
+				<th>Email étudiant</th>
+				<th>Promo</th>
+				<th>Entreprise</th>
+				<th>Ville</th>
+				<th>Maitre d'apprentissage</th>
+				<th>Email MA</th>
+				<th>Tuteur</th>
+				<th>Email Tuteur</th>
+				<th>Huit clos</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<?php
+				foreach ($etudiants as $etudiant) {
+					$userId = $etudiant['ID_Utilisateur'];
+					$queryTuteur = "SELECT utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur FROM utilisateur 
 			JOIN etudiant_tuteur ON utilisateur.ID_Utilisateur = etudiant_tuteur.ID_Tuteur
 			WHERE etudiant_tuteur.Id_etudiant  LIKE  $userId ";
-			$resultat = $conn->query($queryTuteur);
-			$tuteur = $resultat->fetch();
+					$resultat = $conn->query($queryTuteur);
+					$tuteur = $resultat->fetch();
 
-			$queryMA = "SELECT invite.Nom_Invite, invite.Mail_Invite FROM invite 
+					$queryMA = "SELECT invite.Nom_Invite, invite.Mail_Invite FROM invite 
 			 JOIN est_apprenti ON invite.ID_Invite = est_apprenti.ID_Invite
 			WHERE est_apprenti.Id_Utilisateur  LIKE  $userId ";
-			$resultatMA = $conn->query($queryMA);
-			$mas = $resultatMA->fetchAll();
+					$resultatMA = $conn->query($queryMA);
+					$mas = $resultatMA->fetchAll();
 
-			if($tuteur == NULL)
-			{
-				$tuteur= ["nom_Utilisateur"=>"", "Mail_Utilisateur" => ""];
-			}
-			?>
-			<tr>
-			<td><?php echo $etudiant['nom_Utilisateur']; ?></td>
-			<td><?php echo $etudiant['Mail_Utilisateur']; ?></td>
-			<td><?php echo $etudiant['Promo_Utilisateur']; ?></td>
-			<td><?php echo $etudiant['Entreprise_Invite']; ?></td>
-			<td><?php echo $etudiant['Ville_Invite']; ?></td>
-			<td>
-				<?php 
-				foreach($mas as $ma)
-				{
-					echo $ma['Nom_Invite'];
+					if ($tuteur == NULL) {
+						$tuteur = ["nom_Utilisateur" => "", "Mail_Utilisateur" => ""];
+					}
+				?>
+					<tr>
+						<td><?php echo $etudiant['nom_Utilisateur']; ?></td>
+						<td><?php echo $etudiant['Mail_Utilisateur']; ?></td>
+						<td><?php echo $etudiant['Promo_Utilisateur']; ?></td>
+						<td><?php echo $etudiant['Entreprise_Invite']; ?></td>
+						<td><?php echo $etudiant['Ville_Invite']; ?></td>
+						<td>
+							<?php
+							foreach ($mas as $ma) {
+								echo $ma['Nom_Invite'];
+							}
+							?>
+						</td>
+						<td>
+							<?php
+							foreach ($mas as $ma) {
+								echo $ma['Mail_Invite'];
+							}
+							?>
+						</td>
+						<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
+						<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
+						<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
+						<td>
+							<a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur'] ?>"><i class="bi bi-pencil-fill"></i></a>
+						</td>
+
+					</tr>
+				<?php
 				}
 				?>
-			</td>
-			<td>
-				<?php 
-				foreach($mas as $ma)
-				{
-					echo $ma['Mail_Invite'];
-				}
-				?>
-			</td>				
-			<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
-			<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
-			<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
-			<td>
-			<a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur']?>"><i class="bi bi-pencil-fill"></i></a>
-			</td>
-
-		</tr>
-		<?php
-		}
-		?>
-	</tbody>
-</table>
-	
+			</tbody>
+		</table>
+	</div>
+	<script src="../css/MDB/js/datatables.min.js"></script>
+	<script src="../css/MDB/js/app.js"></script>
 </body>

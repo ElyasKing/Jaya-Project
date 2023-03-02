@@ -14,6 +14,7 @@ $conn = Database::connect();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modification d'un étudiant</title>
+
 </head>
 
 <body> <?php
@@ -122,6 +123,7 @@ WHERE utilisateur.ID_Utilisateur = $id";
     </form>
 
   </div>
+
 
 </body>
 
