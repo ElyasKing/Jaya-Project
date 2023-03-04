@@ -1,111 +1,84 @@
 <?php
-include "../application_config/db_class.php";
-$conn = Database::connect();
-session_start();
+// Connexion à la base de données
+$dsn = 'mysql:host=localhost;dbname=jaya;charset=utf8';
+$username = 'root';
+$password = '';
+$options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+try {
+    $db = new PDO($dsn, $username, $password, $options);
+} catch (PDOException $e) {
+    die('Erreur de connexion à la base de données : ' . $e->getMessage());
+}
+
+// Vérification de la soumission du formulaire de mise à jour
+if (isset($_POST['update'])) {
+    // Récupération des données du formulaire
+    $id = $_POST['id'];
+    $poster = $_POST['poster'];
+    $rapport = $_POST['rapport'];
+    $soutenance = $_POST['soutenance'];
+
+    // Mise à jour des données de l'étudiant correspondant
+    $query = "UPDATE etudiants SET poster = :poster, rapport = :rapport, soutenance = :soutenance WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':poster', $poster);
+    $statement->bindValue(':rapport', $rapport);
+    $statement->bindValue(':soutenance', $soutenance);
+    $result = $statement->execute();
+
+    // Redirection vers la page actuelle pour mettre à jour l'affichage
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
+}
+
+// Récupération des données de la table "etudiants"
+$query = "SELECT id, etudiant, poster, appreciation, rapport, soutenance, note_finale FROM etudiants";
+$statement = $db->query($query);
+if ($statement) {
+    $etudiants = $statement->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    die('Erreur lors de l\'exécution de la requête : ' . $db->errorInfo()[2]);
+}
+
+// Fermeture de la connexion à la base de données
+$db = null;
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Noter un étudiant</title>
-	<link rel="stylesheet" type="text/css" href="./styles.css" />
-</head>
-<body>
-
-
-<?php
- //Permet de mettre les informatinos à jour en db
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     // Récupérer les données du formulaire
-     $email = $_POST["email"];
-     $password = $_POST["password"];
-     $password_confirm = $_POST["password_confirm"];
-
-         // Vérifier si le mot de passe correspond à la confirmation du mot de passe 
-         if ($password != $password_confirm) {
-             $error_message = "Les mots de passe ne correspondent pas ! ";
-             echo $error_message;
-         } else {
-            //longueur trop faible
-            if ((strlen($password)<8) OR  (strlen($email)<8)){
-             $error_message = "La taille du mot de passe ou de l'email est trop petite";
-             echo $error_message;
-         }else{
-            //requete pour mettre à jour informations de l'utilisateur 
-            $query = "UPDATE utilisateur SET Mail_UTILISATEUR = '".$email."', MDP_Utilisateur = '".$password."' WHERE ID_Utilisateur = " .$_SESSION['user_id'];
-            $result = $conn->query($query);
-            $user = $result->fetch();
-
-            header("Location: manage_account.php");
-             exit();
-         }    
-     }
- 
-        
-       }
-?>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Etudiant</th>
+      <th>Poster</th>
+      <th>Appréciation</th>
+      <th>Rapport</th>
+      <th>Soutenance</th>
+      <th>Note finale</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($etudiants as $etudiant) { ?>
+      <tr>
+        <td><?php echo $etudiant['etudiant']; ?></td>
+        <td><?php echo $etudiant['poster']; ?></td>
+        <td><?php echo $etudiant['appreciation']; ?></td>
+        <td><?php echo $etudiant['rapport']; ?></td>
+        <td><?php echo $etudiant['soutenance']; ?></td>
+        <td><?php echo $etudiant['note_finale']; ?></td>
+        <td>
+          <form method="POST">
+            <input type="hidden" name="id" value="<?php echo $etudiant['id']; ?>">
+            <label>Poster : <input type="number" name="poster" value="<?php echo $etudiant['poster']; ?>"></label>
+            <label>Rapport : <input type="number" name="rapport" value="<?php echo $etudiant['rapport']; ?>"></label>
+            <label>Soutenance : <input type="number" name="soutenance" value="<?php echo $etudiant['soutenance']; ?>"></label>
+            <button type="submit" name="update">Mettre à jour</button>
+          </form>
+        </td>
+      </tr>
+    <?php } ?>
+  </tbody>
+</table>
 
 
 
-<?php
-     // Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
-     $query = "SELECT * FROM utilisateur WHERE ID_Utilisateur = ".$_SESSION['user_id'];
-     $result = $conn->query($query);
-     $user = $result->fetch();
-
-     // Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
-     $query2 = "SELECT Nom_Utilisateur  FROM utilisateur WHERE ID_Utilisateur != ".$_SESSION['user_id'];
-     $result2 = $conn->query($query);
-     $listEtud = $result2->fetch();
-     
-    // Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
-     $query3 = "SELECT * from parametres";
-     $result3 = $conn->query($query);
-     $listparam = $result3->fetch();
-
-
-     
-
-    
-
-     if ($user) {
-         ?>
-
-        <form method="post">
-		<h2>Noter un étudiant</h2>
-        <label for="nom">Votre nom :</label>
-        <br>
-        <php 
-        while ($row = mysqli_fetch_array($resultat)) {
-         echo '<option value="'.$row['nom'].'">'.$row['nom'].'</option>';
-        } ?>
-        <label for="email">Email :</label>
-		<input type="text" id="email" name="email" <?php print($user['Mail_Utilisateur']) ?> required>
-        <br>
-        <label for="password">Mot de passe :</label>
-		<input type="password" id="password" name="password" required>
-        <br>
-        <label for="password_confirm">Confirmer mot de passe : </label>
-        <input type="password" id="password_confirm" name="password_confirm" required>
-        <br>
-		<input type="submit" value="Confirmer">
-	</form>
-
-
-
-
-
-         <?php
-     } else {
-         // Utilisateur non trouvé
-         $error_message = "Aucun utilisateur trouvé";
-         echo $error_message;
-     }
-?>
-
-
-
-
-
-</body>
-</html>
