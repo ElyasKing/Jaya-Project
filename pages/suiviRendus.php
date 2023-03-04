@@ -85,7 +85,11 @@ $etudiants = $result->fetchAll();
                     <td><?php echo $noteSuivi ?></td>
                     <td><?php echo $noteOral ?></td>
                     <td><?php echo $notePP ?></td>
-                    <td><i class="bi bi-pencil-fill"></i></td>
+                    <td>
+                        <a href="formUpdateRendus.php?id=<?php echo $etudiant['ID_Utilisateur'] ?>">
+                            <i class="bi bi-pencil-fill"></i></a>
+
+                    </td>
 
                     </tr>
 
