@@ -23,7 +23,7 @@ $etudiants = $result->fetchAll();
 
 <head>
     <title>Suivi des rendus</title>
-    <link rel="stylesheet" href="../../css/MDB/css/datatables.min.css">
+    <link rel="stylesheet" href="../css/MDB/css/datatables.min.css">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
@@ -101,7 +101,7 @@ $etudiants = $result->fetchAll();
     </div>
 </body>
 
-<script src="../../css/MDB/js/datatables.min.js"></script>
-<script src="../../css/MDB/js/app.js"></script>
+<script src="../css/MDB/js/datatables.min.js"></script>
+<script src="../css/MDB/js/app.js"></script>
 
 </html>
