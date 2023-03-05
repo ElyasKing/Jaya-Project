@@ -12,26 +12,26 @@ session_start();
 </head>
 <body>
 
-<?php 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     // Récupérer les données du formulaire
-     $fullname = $_POST["fullname"];
-     $company = $_POST["company"];
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupérer les données du formulaire
+    $fullname = $_POST["fullname"];
+    $company = $_POST["company"];
 
-     // Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
-     $query =
-         "SELECT * FROM invite WHERE Nom_Invite = '" . $fullname . "' AND Entreprise_Invite = '" . $company . "'";
-     $result = $conn->query($query);
-     $user = $result->fetch();
+    // Requête SQL pour récupérer les informations de l'utilisateur correspondant à l'email fourni
+    $query =
+        "SELECT * FROM invite WHERE Nom_Invite = '" . $fullname . "' AND Entreprise_Invite = '" . $company . "'";
+    $result = $conn->query($query);
+    $user = $result->fetch();
 
-     if ($user) {
+    if ($user) {
         header("Location: soutenance_page.php");
         exit();
-     } else {
+    } else {
         // INSERT INTO
         header("Location: soutenance_page.php");
-     }
- }
+    }
+}
 ?>
 
 	<form method="post">
