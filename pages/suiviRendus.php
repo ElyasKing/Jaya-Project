@@ -62,9 +62,9 @@ $etudiants = $result->fetchAll();
                     }
 
 
-                    $noteOral = $noteOral - $etudiant['orthographe'];
+                    $noteOralFinale = $noteOral - $etudiant['orthographe'];
                     $noteSuivi =  $etudiant['noteFinale_NF'];
-                    $notePP = (2 * $noteOral + $noteSuivi) / 3;
+                    $notePP = (2 * $noteOralFinale + $noteSuivi) / 3;
                     $notePP = round($notePP, 2);
 
                     if ($etudiant['Poster_NF'] == 'non' || $etudiant['Rapport_NF'] == 'non') {
