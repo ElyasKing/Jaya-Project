@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire 
     $etud_ID = $conn->query("SELECT ID_Utilisateur from utilisateur where Nom_Utilisateur='".$_POST["liste-noms"]."'")->fetchColumn();
     $commentaire = $_POST["commentaire"];
+    $ID_NS=$conn->query("SELECT ID_NS FROM `notes_soutenance` WHERE ID_NS='25'")->fetchColumn();;
 
     $total = 0;
     $count = 0;
@@ -22,16 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     
-    //requete pour mettre à jour informations de l'utilisateur 
-    $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_Utilisateur`, `ID_Invite`) VALUES ('".$total."', '".$commentaire."', '".$etud_ID."', '".$_SESSION['user_id']."')";
+     //requete pour mettre à jour informations de l'utilisateur 
+    $query = "UPDATE `notes_soutenance` SET `NoteFinale_NS` = '".$total."', `Commentaire_NS` = '".$commentaire."', `ID_Utilisateur` = '".$etud_ID."' WHERE ID_NS ='".$ID_NS."';";
     $result = $conn->query($query);
 
-    //On récupère l'ID de la dernière note ajoutée
-    $note_ID = $conn->query("SELECT ID_NS FROM `notes_soutenance` order by ID_NS DESC LIMIT 1")->fetchColumn();
+    //requete pour supprimer les informations liées à la note dans est_compose
+    $query = "Delete from  `est_compose` WHERE ID_NO ='".$ID_NS."';";
+    $result = $conn->query($query);
+
 
     //On ajoute l'ID de la note ajoutée à tous ses paramètres
     foreach($param_ID as $id) {
-        $query = "INSERT INTO `est_compose` (`ID_NO`, `ID_Parametre`) VALUES ('".$note_ID."', '".$id."');";
+        $query = "INSERT INTO `est_compose` (`ID_NO`, `ID_Parametre`) VALUES ('".$ID_NS."', '".$id."');";
         $result = $conn->query($query);
     }
     

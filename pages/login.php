@@ -32,7 +32,7 @@ $conn = Database::connect();
             session_start();
             $_SESSION["user_id"] = $user["ID_UTILISATEUR"]; // Ajout dans la session l'ID
              // Authentification réussie, rediriger l'utilisateur vers une page protégée
-             header("Location: manage_account.php");
+             header("Location: Modify_grades_student.php");
              exit();
          } else {
              // Mot de passe incorrect

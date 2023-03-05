@@ -12,14 +12,21 @@ $user = $conn->query($query)->fetch();
 $query = "SELECT Nom_Utilisateur FROM utilisateur WHERE ID_Utilisateur !=  ".$_SESSION['user_id'];
 $listEtud = $conn->query($query)->fetchAll();
 
+//On récupère la dernière note attribuée
+$query = "SELECT NoteFinale_NS FROM `notes_soutenance` WHERE ID_NS='25'";
+$lastNote = $conn->query($query)->fetchColumn();
+
+//On récupère la dernière note attribuée
+$query = "SELECT Commentaire_NS FROM `notes_soutenance` WHERE ID_NS='25'";
+$lastCommentaire= $conn->query($query)->fetchColumn();
+
 // Requête SQL pour récupérer les informations des paramètres
 $query = "SELECT nom_param, nbpoint_param from parametres where nbpoint_param is not null";
 $listparam = $conn->query($query)->fetchAll();
 
 $conn = Database::disconnect();
-
-$count = 0;
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +34,16 @@ $count = 0;
     <link rel="stylesheet" type="text/css" href="./styles.css" />
 </head>
 <body>
-    <form id="note_etud_oral" method="post" action="check_grades_student.php">
+    <form id="modif_note_etud_oral" method="post" action="check_modifiy_student_grades.php">
         <h2>Noter un étudiant</h2>
+        <br>
+         <!---ID de la note--->
+        <label for="id_note">ID note:</label>
+        <input type="text" id="id_note" name="id_note" value="25" disabled>
+        <br>
+         <!---Dernière note attribuée--->
+        <label for="last_note">Dernière note attribuée:</label>
+        <input type="text" id="last_note" name="last_note" value="<?php echo($lastNote) ?>" disabled>
         <br>
         <!---personne attribuée à la session--->
         <label for="nom">Nom :</label>
@@ -56,7 +71,7 @@ $count = 0;
         <br>
         <!---commentaire--->
         <label for="commentaire">Commentaire :</label>
-        <input type="text" id="commentaire" name="commentaire">
+        <input type="text" id="commentaire" name="commentaire" value = "<?php echo($lastCommentaire) ?>">
         <br>
         <br>
         <input type="submit" value="Confirmer">
