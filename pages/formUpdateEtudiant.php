@@ -30,9 +30,6 @@ WHERE utilisateur.ID_Utilisateur = $id";
         $result = $conn->query($query);
         $etudiant = $result->fetch();
 
-
-
-
         $queryMA = "SELECT invite.ID_Invite, invite.Nom_Invite, invite.Mail_Invite FROM invite 
 			 JOIN est_apprenti ON invite.ID_Invite = est_apprenti.ID_Invite
 			WHERE est_apprenti.Id_Utilisateur  LIKE  $id ";
