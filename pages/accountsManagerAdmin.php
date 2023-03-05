@@ -9,7 +9,7 @@ include("../application_config/get_connectUser.php");
 
 <head>
     <?php
-    include("../header.php");
+    include("header.php");
     ?>
 </head>
 
@@ -20,7 +20,7 @@ include("../application_config/get_connectUser.php");
         </div>
         <div id="content">
             <?php
-            include("../navbar.php");
+            include("navbar.php");
             ?>
 
             <div class="container-fluid space">
