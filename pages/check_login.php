@@ -19,7 +19,7 @@ $conn = Database::connect();
             $_SESSION["user_id"] = $user["ID_UTILISATEUR"]; // Ajout dans la session l'ID
              // Authentification réussie, rediriger l'utilisateur vers une page protégée
               $_SESSION['flag']=0;
-             header("Location: grades_student.php");
+             header("Location: users_grades_student.php");
          } else {
             // Mot de passe incorrect
             $_SESSION['flag']=1;

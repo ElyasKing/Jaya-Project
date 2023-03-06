@@ -27,7 +27,7 @@ $count = 0;
     <link rel="stylesheet" type="text/css" href="./styles.css" />
 </head>
 <body>
-    <form id="note_etud_oral" method="post" action="check_grades_student.php">
+    <form id="note_etud_oral" method="post" action="users_check_grades_student.php">
         <h2>Noter un étudiant</h2>
         <br>
         <!---personne attribuée à la session--->
@@ -53,6 +53,10 @@ $count = 0;
             <?php echo $param['nom_param']; ?>
             <br>
         <?php } ?>
+        <br>
+         <!---Note finale--->
+        <label for="note_finale">Note finale :</label>
+        <input type="number" id="note_finale" name="note_finale" min ="0" max="20" value="">
         <br>
         <!---commentaire--->
         <label for="commentaire">Commentaire :</label>
