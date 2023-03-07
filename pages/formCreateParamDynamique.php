@@ -39,7 +39,7 @@ foreach ($nbPoints as $point) {
             <textarea type="text" class="form-control" name="nom"></textarea>
             <div class="mt-3">
                 <label for="point" class="form-label">Nombre de points</label>
-                <input type="text" class="form-control" name="point">
+                <input type="number" min="0.1" step="0.01" class="form-control" name="point">
             </div>
             <p class="mt-3">Nombre de points actuels : <?= $totalPoint ?></p>
 

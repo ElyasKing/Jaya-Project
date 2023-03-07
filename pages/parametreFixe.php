@@ -38,7 +38,7 @@ if (isset($_GET['status'])) {
                 <a href="parametreFixe.php" class="btn btn-primary">Paramètres fixes</a>
             </div>
         </div>
-        <div class="bg-light mt-3 border">
+        <div class="bg-light mt-3 border p-3">
 
 
             <form action="updateParamFixe.php" method="post">
@@ -49,18 +49,33 @@ if (isset($_GET['status'])) {
 
                 foreach ($parametres as $parametre) {
 
-                ?>
-                    <div class="row mt-3">
-                        <div class=" col-4 mb-3">
-                            <input type="hidden" class="form-control" name="id[]" value="<?= $parametre['ID_param'] ?>">
-                            <label for="description" class="form-label"><?= $parametre['Nom_param'] ?></label>
-                        </div>
-                        <div class="col-6">
-                            <input type="text" class="form-control" name="description[]" value="<?= $parametre['Description_param'] ?>">
-                        </div>
-                    </div>
-                <?php
+                    if ($parametre['Nom_param'] == "Date de début des sessions de soutenance" || $parametre['Nom_param'] == "Date de fin des sessions de soutenances") {
 
+                ?>
+                        <div class="row mt-3">
+                            <div class=" col-4 mb-3">
+                                <input type="hidden" class="form-control" name="id[]" value="<?= $parametre['ID_param'] ?>">
+                                <label for="description" class="form-label"><?= $parametre['Nom_param'] ?></label>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" class="form-control" name="description[]" value="<?= $parametre['Description_param'] ?>">
+                            </div>
+                        </div>
+
+                    <?php
+                    } else {
+                    ?>
+                        <div class="row mt-3">
+                            <div class=" col-4 mb-3">
+                                <input type="hidden" class="form-control" name="id[]" value="<?= $parametre['ID_param'] ?>">
+                                <label for="description" class="form-label"><?= $parametre['Nom_param'] ?></label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control" name="description[]" value="<?= $parametre['Description_param'] ?>">
+                            </div>
+                        </div>
+                <?php
+                    }
                 }
 
                 ?>

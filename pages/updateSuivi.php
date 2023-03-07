@@ -22,8 +22,16 @@ if (isset($_POST)) {
     }
 
     $query = 'UPDATE notes_suivi SET NoteFinale_NF = "' . $suivi . '", Poster_NF = "' . $poster . '", 
-    Remarque_NF = "' . $remarque . '", Rapport_NF= "' . $rapport . '", Appreciation_NF= "' . $appreciation . '" WHERE ID_Utilisateur = "' . $id . '"';
+    Remarque_NF = "' . $remarque . '", Rapport_NF= "' . $rapport . '", Appreciation_NF= "' . $appreciation . '", Orthographe_NF= "' . $orthographe . '" 
+    WHERE ID_Utilisateur = "' . $id . '"';
     $result = $conn->query($query);
+    $etudiant = $result->fetch();
+
+    if ($etudiant == false) {
+        $query = $query = 'INSERT INTO notes_suivi (NoteFinale_NF, Poster_NF, Remarque_NF, Rapport_NF, Appreciation_NF, Orthographe_NF, ID_Utilisateur) 
+        VALUES ("' . $suivi . '","' . $poster . '","' . $remarque . '","' . $rapport . '","' . $appreciation . '","' . $orthographe . '","' . $id . '")';
+        $result = $conn->query($query);
+    }
 
     header('Location: /pages/suiviRendus.php');
 }

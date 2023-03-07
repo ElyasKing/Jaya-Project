@@ -9,9 +9,9 @@ $id = $_GET['id'];
 
 $query =
     "SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, 
-    notes_suivi.Poster_NF, notes_suivi.Remarque_NF, notes_suivi.Rapport_NF, notes_suivi.Appreciation_NF, notes_suivi.noteFinale_NF, notes_suivi.orthographe FROM utilisateur
+    notes_suivi.Poster_NF, notes_suivi.Remarque_NF, notes_suivi.Rapport_NF, notes_suivi.Appreciation_NF, notes_suivi.noteFinale_NF, notes_suivi.Orthographe_NF FROM utilisateur
     LEFT JOIN notes_suivi ON utilisateur.ID_Utilisateur = notes_suivi.ID_Utilisateur 
-    LEFT JOIN notes_soutenance ON utilisateur.ID_Utilisateur = notes_soutenance.ID_Utilisateur
+    LEFT JOIN notes_soutenance ON utilisateur.ID_Utilisateur = notes_soutenance.ID_UtilisateurEvalue
     JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
     WHERE utilisateur.ID_Utilisateur = $id";
 $result = $conn->query($query);
@@ -75,7 +75,7 @@ if ($etudiant['Rapport_NF'] == 'oui') {
         <div class="row mt-3">
             <div class="col-3">
                 <label for="orthographe" class="form-label">Orthographe (point en moins)</label>
-                <input type="text" class="form-control" name="orthographe" value="<?= $etudiant['orthographe'] ?>">
+                <input type="number" class="form-control" min="0" name="orthographe" value="<?= $etudiant['Orthographe_NF'] ?>">
             </div>
             <div class="col-3">
                 <label for="suivi" class="form-label">Note de suivi</label>
