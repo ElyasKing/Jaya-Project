@@ -13,11 +13,12 @@ $query = "SELECT Nom_Utilisateur FROM utilisateur WHERE ID_Utilisateur !=  ".$_S
 $listEtud = $conn->query($query)->fetchAll();
 
 //On récupère la dernière note attribuée
-$query = "SELECT NoteFinale_NS FROM `notes_soutenance` WHERE ID_NS='25'";
+$query = "SELECT NoteFinale_NS FROM `notes_soutenance` WHERE ID_NS='5'";
 $lastNote = $conn->query($query)->fetchColumn();
 
+
 //On récupère la dernière note attribuée
-$query = "SELECT Commentaire_NS FROM `notes_soutenance` WHERE ID_NS='25'";
+$query = "SELECT Commentaire_NS FROM `notes_soutenance` WHERE ID_NS='5'";
 $lastCommentaire= $conn->query($query)->fetchColumn();
 
 // Requête SQL pour récupérer les informations des paramètres
@@ -39,11 +40,7 @@ $conn = Database::disconnect();
         <br>
          <!---ID de la note--->
         <label for="id_note">ID note:</label>
-        <input type="text" id="id_note" name="id_note" value="25" disabled>
-        <br>
-         <!---Dernière note attribuée--->
-        <label for="last_note">Dernière note attribuée:</label>
-        <input type="text" id="last_note" name="last_note" value="<?php echo($lastNote) ?>" disabled>
+        <input type="text" id="id_note" name="id_note" value="5" disabled>
         <br>
         <!---personne attribuée à la session--->
         <label for="nom">Nom :</label>
@@ -59,9 +56,7 @@ $conn = Database::disconnect();
         <br>
         <!---liste des notes affectées à la soutenance--->
         <?php 
-        
-        
-        foreach ($listparam as $param) {
+        foreach ($listparam as $param) { 
             //traitement qui va remplacer les " " par des "_" avant le passet dans tes inputs?>
             <label for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
             <input type="number" id="<?php echo str_replace(" ","_",$param['nom_param']); ?>" name="<?php echo str_replace(" ","_",$param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
@@ -69,9 +64,13 @@ $conn = Database::disconnect();
             <br>
         <?php } ?>
         <br>
+         <!---Note finale--->
+        <label for="note_finale">Note finale :</label>
+        <input type="number" id="note_finale" name="note_finale" min ="0" max="20" value="<?php echo($lastNote) ?>">
+        <br>
         <!---commentaire--->
         <label for="commentaire">Commentaire :</label>
-        <input type="text" id="commentaire" name="commentaire" value = "<?php echo($lastCommentaire) ?>">
+        <input type="text" id="commentaire" name="commentaire" value="<?php echo($lastCommentaire) ?>">
         <br>
         <br>
         <input type="submit" value="Confirmer">
