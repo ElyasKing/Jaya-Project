@@ -1,10 +1,11 @@
 <?php
 include "../application_config/db_class.php";
-include "../application_config/get_connectUser.php";
 include 'header.php';
-include 'navbar.php';
+//include 'navbar.php';
 
 $conn = Database::connect();
+
+$annee = date('Y');
 ?>
 
 
@@ -21,10 +22,10 @@ $conn = Database::connect();
 	$query =
 		'SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, utilisateur.HuitClos_Utilisateur,
 invite.Entreprise_Invite, invite.Ville_Invite, invite.Nom_Invite, invite.Mail_Invite FROM utilisateur 
- JOIN est_apprenti ON utilisateur.ID_Utilisateur = est_apprenti.ID_Utilisateur 
- JOIN invite ON est_apprenti.ID_Invite = invite.ID_Invite 
+ LEFT JOIN est_apprenti ON utilisateur.ID_Utilisateur = est_apprenti.ID_Utilisateur 
+ LEFT JOIN invite ON est_apprenti.ID_Invite = invite.ID_Invite 
  JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
-WHERE habilitations.Etudiant_Habilitations LIKE "oui"
+WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_utilisateur LIKE "%' . $annee . '%"
 
 ';
 	$result = $conn->query($query);

@@ -1,6 +1,5 @@
 <?php
 include "../application_config/db_class.php";
-include "../application_config/get_connectUser.php";
 include 'header.php';
 include 'navbar.php';
 $conn = Database::connect();
@@ -21,6 +20,7 @@ $totalPoint = 0;
 foreach ($nbPoints as $point) {
     $totalPoint = $totalPoint + $point['NbPoint_param'];
 }
+
 
 ?>
 
@@ -45,7 +45,7 @@ foreach ($nbPoints as $point) {
             <textarea type="text" class="form-control" name="nom"><?= $parametre['Nom_param'] ?></textarea>
             <div class="mt-3">
                 <label for="point" class="form-label">Nombre de points</label>
-                <input type="text" class="form-control" name="point" value="<?= $parametre['NbPoint_param'] ?>">
+                <input type="number" class="form-control" name="point" min="0.1" step="0.01" value="<?= $parametre['NbPoint_param'] ?>">
             </div>
             <p class="mt-3">Nombre de points actuels : <?= $totalPoint ?></p>
 
