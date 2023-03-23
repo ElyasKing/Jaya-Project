@@ -9,6 +9,7 @@ $conn = Database::connect();
 
 if (isset($_POST['submit'])) {
     $filtreAnnee = $_POST['annee'];
+
     $query =
         'SELECT DISTINCT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, 
 notes_suivi.Poster_NF, notes_suivi.Remarque_NF, notes_suivi.Rapport_NF, notes_suivi.Appreciation_NF, notes_suivi.noteFinale_NF, notes_suivi.Orthographe_NF FROM utilisateur

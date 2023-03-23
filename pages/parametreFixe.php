@@ -1,6 +1,5 @@
 <?php
 include "../application_config/db_class.php";
-include "../application_config/get_connectUser.php";
 include 'header.php';
 include 'navbar.php';
 $conn = Database::connect();
@@ -44,9 +43,6 @@ if (isset($_GET['status'])) {
             <form action="updateParamFixe.php" method="post">
 
                 <?php
-
-
-
                 foreach ($parametres as $parametre) {
 
                     if ($parametre['Nom_param'] == "Date de début des sessions de soutenance" || $parametre['Nom_param'] == "Date de fin des sessions de soutenances") {
