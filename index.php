@@ -3,7 +3,7 @@
 
 <head>
   <?php
-  include("header.php");
+  include("./pages/header.php");
   ?>
 </head>
 
