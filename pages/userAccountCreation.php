@@ -230,4 +230,3 @@ input:checked + .slider:before {
 .btn-back {
     background-color: #808080;
 }
-
