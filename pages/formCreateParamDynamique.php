@@ -1,8 +1,9 @@
 <?php
+session_start();
 include "../application_config/db_class.php";
-include "../application_config/get_connectUser.php";
-include 'header.php';
-include 'navbar.php';
+//include "../application_config/get_connectUser.php"; //Ce fichier existe pas
+include './header.php';
+include "./navbar.php";
 $conn = Database::connect();
 
 $queryPoints = "SELECT ID_param, NbPoint_param FROM parametres

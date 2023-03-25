@@ -1,5 +1,10 @@
 <?php
-
+session_start();
+include "../application_config/db_class.php";
+include 'header.php';
+include 'navbar.php';
+$conn = Database::connect();
+$annee = date('Y');
 ?>
 
 <div class="container-fluid space">
