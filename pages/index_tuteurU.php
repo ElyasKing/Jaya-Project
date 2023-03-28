@@ -5,7 +5,9 @@ include 'header.php';
 include 'navbar.php';
 $conn = Database::connect();
 $annee = date('Y');
+// ratio
 ?>
+
 
 <div class="container-fluid space">
     <h2 class="center colored">Accueil</h2>
