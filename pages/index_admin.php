@@ -1,7 +1,18 @@
 <?php
 $conn = Database::connect();
 $annee = date('Y');
+
+$sql = "SELECT u1.Nom_Utilisateur AS Nom_Etudiant, u1.Mail_Utilisateur AS Mail_Etudiant, u1.Promo_Utilisateur, u1.HuitClos_Utilisateur, u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
+ u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire, i.Entreprise_Invite, i.Ville_Invite, i.Nom_Invite, i.Mail_Invite FROM Utilisateur u1 
+ LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur 
+ INNER JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur INNER JOIN invite i ON ea.id_invite = i.id_invite;";
+$result = $conn->query($sql);
+$arr_users = [];
+if ($result->rowCount() > 0) {
+    $arr_users = $result->fetchAll();
+}
 ?>
+
 
 <div class="container-fluid space">
     <h2 class="center colored">Accueil</h2>
@@ -12,21 +23,35 @@ $annee = date('Y');
     <table id="example" class="display" style="width:100%">
         <thead>
             <tr class="bg">
-                <th>col 1</th>
-                <th>col 2</th>
-                <th>col 3</th>
-                <th>col 4</th>
-                <th>col 5</th>
+                <th>Etudiant</th>
+                <th>Email Etudiant</th>
+                <th>Promo</th>
+                <th>Entreprise</th>
+                <th>Ville</th>
+                <th>Maitre d'apprentissage</th>
+                <th>Email MA</th>
+                <th>Tuteur universitaire</th>
+                <th>Email TU</th>
+                <th>Huit clos</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>col 1</td>
-                <td>col 2</td>
-                <td>col 3</td>
-                <td>col 4</td>
-                <td>col 5</td>
-            </tr>
+        <?php if(!empty($arr_users)) { ?>
+            <?php foreach($arr_users as $user) { ?>
+                <tr>
+                    <td class="text-center"><?php echo $user['Nom_Etudiant']; ?></td>
+                    <td class="text-center"><?php echo $user['Mail_Etudiant']; ?></td>
+                    <td class="text-center"><?php echo $user['Promo_Utilisateur']; ?></td>
+                    <td class="text-center"><?php echo $user['Entreprise_Invite']; ?></td>
+                    <td class="text-center"><?php echo $user['Ville_Invite']; ?></td>
+                    <td class="text-center"><?php echo $user['Nom_Invite']; ?></td>
+                    <td class="text-center"><?php echo $user['Mail_Invite']; ?></td>
+                    <td class="text-center"><?php echo $user['Nom_Tuteur_Universitaire']; ?></td>
+                    <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
+                    <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
+                </tr>
+            <?php } ?>
+        <?php } ?>
         </tbody>
     </table>
     </div>
