@@ -1,5 +1,4 @@
 <?php
-include "../application_config/db_class.php";
 
 session_start();
 
