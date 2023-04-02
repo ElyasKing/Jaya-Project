@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "../application_config/db_class.php";
 $conn = Database::connect();
 if (isset($_POST)) {
@@ -52,5 +51,5 @@ if (isset($_POST)) {
 
 
 
-    header('Location: suiviEtudiants.php');
+    header('Location: index.php');
 }
