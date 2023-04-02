@@ -21,11 +21,11 @@ $conn = Database::connect();
 
         $id = $_GET['id'];
         $query = "SELECT H.Id_Utilisateur, U.Nom_Utilisateur, '****' AS MDP_Utilisateur, H.Admin_Habilitations, H.ResponsableUE_Habilitations, H.Scolarite_Habilitations, 
-H.TuteurUniversitaire_Habilitations, H.Etudiant_Habilitations 
-FROM habilitations H 
-JOIN utilisateur U 
-ON U.Id_Utilisateur = H.Id_Utilisateur
-WHERE H.ID_Utilisateur = $id";
+        H.TuteurUniversitaire_Habilitations, H.Etudiant_Habilitations 
+        FROM habilitations H 
+        JOIN utilisateur U 
+        ON U.Id_Utilisateur = H.Id_Utilisateur
+        WHERE H.ID_Utilisateur = $id";
 
  $result = $conn->query($query);
  $user = $result->fetch();
@@ -43,6 +43,8 @@ $etudiantAutorisation = $user['Etudiant_Habilitations'] == 'oui';
     <h1>Modifier un compte</h1>
 
     <form action="updateHabilitations.php" method="post">
+    
+      <input type="hidden" class="form-control" name="id" value="<?= $id ?>">
 
       <div class="mb-3">
         <label for="nomUtilisateur" class="form-label">Utilisateur : </label>
@@ -95,7 +97,7 @@ $etudiantAutorisation = $user['Etudiant_Habilitations'] == 'oui';
 </div>
 
 
-      <button class="btn btn-info" type="submit">Modifier</button>
+       <button type="submit" class="btn btn-info">Modifier</button>
 
       <a href="index_admin.php" class="btn btn-primary">Retour</a>
 
