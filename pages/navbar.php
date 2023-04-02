@@ -12,7 +12,7 @@
           <a class="nav-link active" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Comptes</a>
+          <a class="nav-link active" href="habilitations.php">Comptes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Soutenances</a>
