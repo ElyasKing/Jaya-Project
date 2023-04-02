@@ -112,6 +112,7 @@ $userId = $_SESSION['user'];
 				?>
 			</tbody>
 		</table>
+		<button id="generate-accounts-btn" class="btn btn-primary">Générer les comptes étudiants et tuteurs universitaires</button>
 	</div>
 	<script src="../css/MDB/js/datatables.min.js"></script>
 	<script src="../css/MDB/js/app.js"></script>
