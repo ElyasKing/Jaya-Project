@@ -52,8 +52,8 @@ $etudiantAutorisation = $user['Etudiant_Habilitations'] == 'oui';
     </div>
 
       <div class="mb-3">
-        <label for="mdpUtilisateur" class="form-label">Mot de passe : </label>
-        <input type="email" class="form-control" name="mdpUtilisateur" value="<?= $user['MDP_Utilisateur'] ?>">
+        <label for="mdp" class="form-label">Mot de passe : </label>
+        <input type="password" class="form-control" name="mdp">
       </div>
 
     <div class="mb-3">
@@ -99,7 +99,7 @@ $etudiantAutorisation = $user['Etudiant_Habilitations'] == 'oui';
 
        <button type="submit" class="btn btn-info">Modifier</button>
 
-      <a href="index_admin.php" class="btn btn-primary">Retour</a>
+      <a href="index.php" class="btn btn-primary">Retour</a>
 
     </form>
 

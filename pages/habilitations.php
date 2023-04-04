@@ -6,6 +6,10 @@ include 'navbar.php';
 $conn = Database::connect();
 $annee = date('Y');
 
+if (isset($_GET['success'])) {
+    echo '<script>alert("Utilisateur modifié avec succès !");</script>';
+}
+
 
 $sql = "SELECT H.Id_Utilisateur, U.Nom_Utilisateur, '****' AS MDP_Utilisateur, H.Admin_Habilitations, H.ResponsableUE_Habilitations, H.Scolarite_Habilitations, 
 H.TuteurUniversitaire_Habilitations, H.Etudiant_Habilitations 
