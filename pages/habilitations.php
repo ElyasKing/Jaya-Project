@@ -91,7 +91,7 @@ if ($result->rowCount() > 0) {
  $('.btn-delete').click(function () {
       var id = $(this).data('id');
       if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-        window.location.href = 'deleteHabilitations.php?id=' + id;
+        window.location.href = 'delete_user_habilitation.php?id=' + id;
       }
     });
 </script>
