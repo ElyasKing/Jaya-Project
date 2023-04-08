@@ -14,9 +14,6 @@ $conn = Database::connect();
 // récupération de l'année en cours
 $annee = date('Y');
 
-// récupération de l'id du tuteur
-$userId = $_SESSION['user'];
-
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +34,7 @@ $userId = $_SESSION['user'];
 	LEFT JOIN invite ON est_apprenti.ID_Invite = invite.ID_Invite 
 	JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
 	JOIN etudiant_tuteur ON utilisateur.ID_Utilisateur = etudiant_tuteur.Id_etudiant
-	WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_utilisateur LIKE "%' . $annee . '%" AND etudiant_tuteur.ID_Tuteur = '.$userId["id_Utilisateur"];
+	WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_utilisateur LIKE "%' . $annee . '%" AND etudiant_tuteur.ID_Tuteur = '.$_SESSION["user_id"];
 	
 	$result = $conn->query($query);
 	$etudiants = $result->fetchAll();
@@ -64,56 +61,74 @@ $userId = $_SESSION['user'];
 				foreach ($etudiants as $etudiant) {
 					$userId = $etudiant['ID_Utilisateur'];
 					$queryTuteur = "SELECT utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur FROM utilisateur 
-			JOIN etudiant_tuteur ON utilisateur.ID_Utilisateur = etudiant_tuteur.ID_Tuteur
-			WHERE etudiant_tuteur.Id_etudiant  LIKE  $userId ";
+                    JOIN etudiant_tuteur ON utilisateur.ID_Utilisateur = etudiant_tuteur.ID_Tuteur
+                    WHERE etudiant_tuteur.Id_etudiant  LIKE  $userId ";
 					$resultat = $conn->query($queryTuteur);
 					$tuteur = $resultat->fetch();
 
 					$queryMA = "SELECT invite.Nom_Invite, invite.Mail_Invite FROM invite 
-			 JOIN est_apprenti ON invite.ID_Invite = est_apprenti.ID_Invite
-			WHERE est_apprenti.Id_Utilisateur  LIKE  $userId ";
+                    JOIN est_apprenti ON invite.ID_Invite = est_apprenti.ID_Invite
+                    WHERE est_apprenti.Id_Utilisateur  LIKE  $userId ";
 					$resultatMA = $conn->query($queryMA);
-					$mas = $resultatMA->fetchAll();
+					$mas = $resultatMA->fetchAll();	
 
-					if ($tuteur == NULL) {
-						$tuteur = ["nom_Utilisateur" => "", "Mail_Utilisateur" => ""];
-					}
-				?>
-					<tr>
-						<td><?php echo $etudiant['nom_Utilisateur']; ?></td>
-						<td><?php echo $etudiant['Mail_Utilisateur']; ?></td>
-						<td><?php echo $etudiant['Promo_Utilisateur']; ?></td>
-						<td><?php echo $etudiant['Entreprise_Invite']; ?></td>
-						<td><?php echo $etudiant['Ville_Invite']; ?></td>
-						<td>
-							<?php
-							foreach ($mas as $ma) {
-								echo $ma['Nom_Invite'];
-							}
-							?>
-						</td>
-						<td>
-							<?php
-							foreach ($mas as $ma) {
-								echo $ma['Mail_Invite'];
-							}
-							?>
-						</td>
-						<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
-						<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
-						<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
-						<td>
-							<a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur'] ?>"><i class="bi bi-pencil-fill"></i></a>
-						</td>
+        if ($tuteur == NULL) {
+          $tuteur = ["nom_Utilisateur" => "", "Mail_Utilisateur" => ""];
+        }
+      ?>
+        <tr>
+          <td><?php echo $etudiant['nom_Utilisateur']; ?></td>
+          <td><?php echo $etudiant['Mail_Utilisateur']; ?></td>
+          <td><?php echo $etudiant['Promo_Utilisateur']; ?></td>
+          <td><?php echo $etudiant['Entreprise_Invite']; ?></td>
+          <td><?php echo $etudiant['Ville_Invite']; ?></td>
+          <td>
+            <?php
+            foreach ($mas as $ma) {
+              echo $ma['Nom_Invite'];
+            }
+            ?>
+          </td>
+          <td>
+            <?php
+            foreach ($mas as $ma) {
+              echo $ma['Mail_Invite'];
+            }
+            ?>
+          </td>
+          <td><?php echo $tuteur['nom_Utilisateur']; ?></td>
+          <td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
+          <td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
+          <td>
+            <a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur'] ?>"><i class="bi bi-pencil-fill"></i></a>
+          </td>
+        </tr>
+      <?php
+      }
+	  ?>
+	  </tbody>
+  </table>
+</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">Générer les comptes étudiants et tuteurs universitaires</button>
 
-					</tr>
-				<?php
-				}
-				?>
-			</tbody>
-		</table>
-		<button id="generate-accounts-btn" class="btn btn-primary">Générer les comptes étudiants et tuteurs universitaires</button>
-	</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Les comptes étudiant(s) et tuteur(s) universitaire(s) ont été générés.
+      </div>
+      <div class="modal-footer">
+	  <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+</div>
+
+</script>
+
 	<script src="../css/MDB/js/datatables.min.js"></script>
 	<script src="../css/MDB/js/app.js"></script>
-</body>
+	
