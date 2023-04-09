@@ -1,10 +1,20 @@
-<link rel="stylesheet" type="text/less" href="./style/generate_qr.scss">
+<?php
+session_start();
+include "../application_config/db_class.php";
+include 'header.php';
+include 'navbar.php';
+$conn = Database::connect();
+$annee = date('Y');
+?>
+
+
+<link rel="stylesheet" type="text/less" href="../css/generate_qr.scss">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.1.1/less.min.js"></script>
 
 <?php
 
 // Résoudre le chemin absolu du fichier qrlib.php
-$qr_lib_path = realpath(__DIR__ . '/../lib/phpqrcode/qrlib.php');
+$qr_lib_path = '../lib/phpqrcode/qrlib.php';
 
 // Inclure la bibliothèque PHP QR Code
 require_once $qr_lib_path;

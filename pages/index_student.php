@@ -1,5 +1,6 @@
 <?php
-
+$conn = Database::connect();
+$annee = date('Y');
 ?>
 
 <div class="container-fluid space">

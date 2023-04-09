@@ -1,37 +1,56 @@
 <?php
+include("../application_config/db_class.php");
+session_start();
 
-include 'header.php';
-$connectedUser = "Wiki Jaya";
-$userProfile = ".";
-include 'navbar.php';
-
-
-
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  if(!empty($_POST['changeProfile'])){
+    $_SESSION['active_profile'] = $_POST['changeProfile'];
+  }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Index des pages</title>
-  <style>
-		body {
-			background-color: #333;
-			color: #fff;
-		}
-	</style>
+  <?php
+  include("header.php");
+
+  ?>
 </head>
+
 <body>
-	<h1 style="">Liste des pages disponibles</h1>
-	<ul>
-		<?php
-		$dir = ".";
-		$files = scandir($dir);
-		foreach ($files as $file) {
-			if (pathinfo($file, PATHINFO_EXTENSION) == "php") {
-				echo "<li><a href=\"$file\">$file</a></li>";
-			}
-		}
-		?>
-	</ul>
+  <div class="content">
+    <div class="bar">
+      <span class="sphere"></span>
+    </div>
+    <div id="content">
+      <?php
+      include("navbar.php");
+      switch($_SESSION['active_profile']){
+        case "ADMINISTRATEUR":  // Si profil detecté dans get_connectUser = administrateur
+          include("index_admin.php");
+          break;
+        case "RESPONSABLE UE":
+          include("index_respUE.php"); // Si profil detecté dans get_connectUser = administrateur
+          break;
+        case "SCOLARITE":
+          include("index_scolarite.php"); // Si profil detecté dans get_connectUser = administrateur
+          break;
+        case "TUTEUR UNIVERSITAIRE":
+          include("index_tuteurU.php"); // Si profil detecté dans get_connectUser = administrateur
+          break;
+        case "ETUDIANT":
+          include("index_student.php"); // Si profil detecté dans get_connectUser = administrateur
+          break;
+        default:
+          echo "Vous n'&ecirc;tes pas habilit&eacute; &agrave; acc&eacute;der &agrave; cette application.";
+          exit;
+      }
+
+      ?>
+    </div>
+  </div>
 </body>
+
 </html>
