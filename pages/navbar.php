@@ -67,7 +67,7 @@
           <a class="nav-link active" href="#">Comptes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Planning</a>
+          <a class="nav-link active" href="planning_scolarite.php">Planning</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Invit&eacute;s</a>
