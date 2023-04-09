@@ -126,7 +126,7 @@ $etudiantAutorisation = $user['Etudiant_Habilitations'] == 'oui';
 
        <button type="submit" class="btn btn-info">Modifier</button>
 
-      <a href="index.php" class="btn btn-primary">Retour</a>
+      <a href="habilitations.php" class="btn btn-primary">Retour</a>
 
     </form>
 

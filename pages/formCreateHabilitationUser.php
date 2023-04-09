@@ -63,8 +63,8 @@ $conn = Database::connect();
   </div>
 
   <div class="mb-3">
-    <label for="mdp" class="form-label">Mot de passe : </label>
-    <input type="password" class="form-control" name="mdp" id="mdp">
+    <label for="mail" class="form-label">Email : </label>
+    <input type="text" class="form-control" name="mail" id="mail">
   </div>
 
    <div class="switch d-flex flex-wrap">
@@ -115,11 +115,11 @@ $conn = Database::connect();
 
   <script>
   const user = document.getElementById('user');
-  const mdp = document.getElementById('mdp');
+  const mail = document.getElementById('mail');
   const enregistrerBtn = document.getElementById('enregistrerBtn');
 
   function toggleEnregistrerBtn() {
-    if (user.value && mdp.value) {
+    if (user.value && mail.value) {
       enregistrerBtn.disabled = false;
     } else {
       enregistrerBtn.disabled = true;
@@ -127,5 +127,5 @@ $conn = Database::connect();
   }
 
   user.addEventListener('input', toggleEnregistrerBtn);
-  mdp.addEventListener('input', toggleEnregistrerBtn);
+  mail.addEventListener('input', toggleEnregistrerBtn);
 </script>
