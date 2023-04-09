@@ -15,6 +15,36 @@ $conn = Database::connect();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modification d'un étudiant</title>
 
+  <style>
+
+    .container {
+      margin-top : 5rem;
+    }
+    
+    .switch {
+  max-width: calc(100% + 1rem);
+}
+
+.switch > div {
+  margin-right: 1rem;
+}
+
+@media (max-width: 991px) {
+  .switch {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .switch > div {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    flex-basis: calc(33.33% - 1rem);
+    max-width: calc(33.33% - 1rem);
+  }
+}
+
+  </style>
+
 </head>
 
 <body>
@@ -37,40 +67,42 @@ $conn = Database::connect();
     <input type="password" class="form-control" name="mdp" id="mdp">
   </div>
 
-  <div class="mb-3">
+   <div class="switch d-flex flex-wrap">
+  <div class="mb-3 flex-grow-1">
     <label for="admin" class="form-label">Administrateur</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" name="admin" id="admin">
     </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3 flex-grow-1">
     <label for="responsableUE" class="form-label">Responsable d'UE</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" name="responsableUE" id="responsableUE">
     </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3 flex-grow-1">
     <label for="scolarite" class="form-label">Scolarité</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" name="scolarite" id="scolarite">
     </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3 flex-grow-1">
     <label for="tuteurUniversitaire" class="form-label">Tuteur universitaire</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" name="tuteurUniversitaire" id="tuteurUniversitaire" >
     </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3 flex-grow-1">
     <label for="etudiant" class="form-label">Étudiant</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" name="etudiant" id="etudiant" >
     </div>
   </div>
+</div>
 
   <button type="submit" class="btn btn-info" id="enregistrerBtn" disabled>Enregistrer</button>
 
