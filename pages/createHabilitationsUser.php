@@ -2,7 +2,7 @@
 include "../application_config/db_class.php";
 $conn = Database::connect();
 
-if (isset($_POST['user']) && isset($_POST['mdp'])) {
+
   $admin = isset($_POST['admin']) ? 'oui' : 'non';
   $respue = isset($_POST['responsableUE']) ? 'oui' : 'non';
   $scolarite = isset($_POST['scolarite']) ? 'oui' : 'non';
@@ -10,6 +10,7 @@ if (isset($_POST['user']) && isset($_POST['mdp'])) {
   $etud = isset($_POST['etudiant']) ? 'oui' : 'non';
   $mail= $_POST['mail'];
   $user = $_POST['user'];
+
   
   // Génération d'un mot de passe aléatoire
   $mdp = generatePassword();
@@ -25,7 +26,7 @@ if (isset($_POST['user']) && isset($_POST['mdp'])) {
 
   header('Location: habilitations.php?success_create=1');
   Exit();
-}
+
 
 // Fonction de génération de mot de passe aléatoire
 function generatePassword() {

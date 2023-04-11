@@ -51,7 +51,8 @@ WHERE utilisateur.ID_Utilisateur = $id";
           $tuteurMail = $tuteur['Mail_Utilisateur'];
           $tuteurId = $tuteur['ID_Utilisateur'];
         }
-
+        var_dump($result);
+        var_dump($etudiant);
         ?>
 
   <div class="container bg-light p-3">
