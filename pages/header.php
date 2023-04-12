@@ -21,6 +21,7 @@ echo '<title>JAYA</title>
 <link rel="stylesheet" href="https://cdn.dataTables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery-ui.css" />
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
