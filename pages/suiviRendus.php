@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
 notes_suivi.Poster_NF, notes_suivi.Remarque_NF, notes_suivi.Rapport_NF, notes_suivi.Appreciation_NF, notes_suivi.noteFinale_NF, notes_suivi.Orthographe_NF FROM utilisateur
 LEFT JOIN notes_suivi ON utilisateur.ID_Utilisateur = notes_suivi.ID_Utilisateur 
 LEFT JOIN notes_soutenance ON utilisateur.ID_Utilisateur = notes_soutenance.ID_UtilisateurEvalue
-JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
+LEFT JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
 WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_Utilisateur LIKE "' . $filtreAnnee . '"';
     $result = $conn->query($query);
     $etudiants = $result->fetchAll();
@@ -26,7 +26,7 @@ WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_Util
     notes_suivi.Poster_NF, notes_suivi.Remarque_NF, notes_suivi.Rapport_NF, notes_suivi.Appreciation_NF, notes_suivi.noteFinale_NF, notes_suivi.Orthographe_NF FROM utilisateur
     LEFT JOIN notes_suivi ON utilisateur.ID_Utilisateur = notes_suivi.ID_Utilisateur 
     LEFT JOIN notes_soutenance ON utilisateur.ID_Utilisateur = notes_soutenance.ID_UtilisateurEvalue
-    JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
+    LEFT JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
     WHERE habilitations.Etudiant_Habilitations LIKE "oui"';
     $result = $conn->query($query);
     $etudiants = $result->fetchAll();
@@ -34,7 +34,7 @@ WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_Util
 
 
 $queryAnnee = 'SELECT DISTINCT Annee_Utilisateur FROM utilisateur
-JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
+left JOIN habilitations ON utilisateur.ID_Utilisateur = habilitations.ID_Utilisateur 
 WHERE habilitations.Etudiant_Habilitations LIKE "oui"
 ';
 $resultat = $conn->query($queryAnnee);
