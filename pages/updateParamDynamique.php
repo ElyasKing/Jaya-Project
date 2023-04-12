@@ -10,5 +10,5 @@ if (isset($_POST)) {
     $query = 'UPDATE parametres SET Nom_param = "' . $nom . '", NbPoint_param = "' . $point . '" WHERE ID_param = "' . $id . '"';
     $result = $conn->query($query);
 
-    header('Location: /pages/parametreDynamique.php');
+    header('Location:parametreDynamique.php');
 }

@@ -14,5 +14,5 @@ if (isset($_POST)) {
         }
     }
 
-    header('Location: /pages/parametreFixe.php?status=success');
+    header('Location: parametreFixe.php?status=success');
 }
