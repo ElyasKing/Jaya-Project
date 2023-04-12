@@ -6,4 +6,4 @@ $id = $_GET['id'];
 $query = "DELETE FROM parametres WHERE ID_param = $id";
 $result = $conn->query($query);
 
-header('Location: /pages/parametreDynamique.php');
+header('Location: parametreDynamique.php');

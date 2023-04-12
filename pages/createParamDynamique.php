@@ -15,6 +15,6 @@ if (isset($_POST)) {
         $query = 'INSERT INTO parametres (Nom_param, NbPoint_param) VALUES ("' . $nom . '","' . $point . '")';
         $result = $conn->query($query);
 
-        header('Location: /pages/parametreDynamique.php?status=success');
+        header('Location: parametreDynamique.php?status=success');
     }
 }
