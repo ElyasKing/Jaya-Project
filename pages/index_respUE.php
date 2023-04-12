@@ -74,7 +74,6 @@ if ($result->rowCount() > 0) {
                 <th>Email TU</th>
                 <th>Huit clos</th>
                 <th style="display:none;">Roles</th>
-                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -92,7 +91,6 @@ if ($result->rowCount() > 0) {
                     <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
                     <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
                     <td class="text-center" style="display:none;"><?php echo $user['Roles']; ?>
-                    <td><a href="formUpdateEtudiant.php?id=<?php echo $user['ID_Etudiant'] ?>"><i class="bi bi-pencil-fill"></i></a></td>
                 </tr>
             <?php } ?>
         <?php } ?>
