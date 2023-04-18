@@ -1,14 +1,13 @@
 <?php
 include("../application_config/db_class.php");
 include("header.php");
-
-
+session_start();
 
 if (isset($_SESSION['flag']) && $_SESSION['flag'] == 1) {
 	$login_error = $_SESSION['flag'];
 
 	if ($login_error == 1) {
-		echo "<script>  alert(\"erreur\"); </script>";
+		echo "<script>  alert(\"Identifiant ou mot de passe incorrect !\"); </script>";
 	}
 	$_SESSION['flag'] = 0;
 }

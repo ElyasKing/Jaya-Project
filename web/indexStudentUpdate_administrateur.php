@@ -1,5 +1,6 @@
 <?php
 include("../application_config/db_class.php");
+include("../fonctions/functions.php");
 session_start();
 ?>
 
@@ -34,7 +35,13 @@ session_start();
             // recuperer le tuteur universitaire d'un étudiant
             $query = getStudentUniversityTutorById($id);
             $result = $conn->query($query);
-            $tuteur_universitaire = $resul->fetch();
+            $tuteur_universitaire = $result->fetch();
+
+            if (empty($tuteur_entreprise)){
+               $nom_Utilisateur = "";
+               $Mail_Utilisateur="";
+               $ID_Utilisateur=NULL;
+            }
 
             $conn = Database::disconnect();
             ?>
@@ -80,11 +87,11 @@ session_start();
                         ?>
                         <div class="col-md-6 mb-3">
                             <label for="nomTuteur" class="form-label">Nom du tuteur</label>
-                            <input type="text" class="form-control" name="nomTuteur" value="<?= $tuteurNom ?>">
+                            <input type="text" class="form-control" name="nomTuteur" value="<?= $nom_Utilisateur ?>" >
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="emailTuteur" class="form-label">Email du tuteur</label>
-                            <input type="email" class="form-control" name="emailTuteur" value="<?= $tuteurMail ?>">
+                            <input type="email" class="form-control" name="emailTuteur" value="<?= $Mail_Utilisateur ?>" >
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="huitClos" class="form-label">Huit-Clos</label>
@@ -95,7 +102,7 @@ session_start();
                         </div>
                     </div>
                     <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
-                    <input type="hidden" class="form-control" name="idTuteur" value="<?= $tuteurId ?>">
+                    <input type="hidden" class="form-control" name="idTuteur" value="<?= $ID_Utilisateur ?>" >
                 </form>
             </div>
         </div>

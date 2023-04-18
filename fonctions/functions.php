@@ -67,8 +67,37 @@
             utilisateur.Mail_Utilisateur 
         FROM utilisateur 
         INNER JOIN etudiant_tuteur ON utilisateur.ID_Utilisateur = etudiant_tuteur.ID_Tuteur
-        WHERE etudiant_tuteur.Id_etudiant = 6;";
+        WHERE etudiant_tuteur.Id_etudiant = $id;";
 
         return $sql;
     }
-?>
+
+    // recuperer les informations de compte d'un utilisateur
+    function getAccountInformationsById($id){
+        $sql = "SELECT 
+            H.Id_Utilisateur,
+            U.Nom_Utilisateur, 
+            '****' AS MDP_Utilisateur, 
+            H.Admin_Habilitations, 
+            H.ResponsableUE_Habilitations, 
+            H.Scolarite_Habilitations, 
+            H.TuteurUniversitaire_Habilitations, 
+            H.Etudiant_Habilitations 
+        FROM habilitations H 
+        JOIN utilisateur U ON U.Id_Utilisateur = H.Id_Utilisateur
+        WHERE H.ID_Utilisateur = $id;";
+
+        return $sql;
+    }
+
+    // Fonction de génération de mot de passe aléatoire
+    function generatePassword() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $password = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $password[] = $alphabet[$n];
+        }
+        return implode($password);
+    }
