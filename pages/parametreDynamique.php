@@ -1,8 +1,8 @@
 <?php
+session_start();
 include "../application_config/db_class.php";
 include 'header.php';
 include 'navbar.php';
-
 $conn = Database::connect();
 
 $query = "SELECT ID_param, Nom_param, NbPoint_param FROM parametres

@@ -21,10 +21,10 @@
           <a class="nav-link active" href="#">Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Suivi recap</a>
+          <a class="nav-link active" href="suiviEtudiants.php">Suivi recap</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Paramètres</a>
+          <a class="nav-link active" href="parametreDynamique.php">Paramètres</a>
         </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
