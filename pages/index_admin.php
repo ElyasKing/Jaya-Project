@@ -13,28 +13,15 @@ $sql = "SELECT
     i.Entreprise_Invite,
     i.Ville_Invite,
     i.Nom_Invite,
-    i.Mail_Invite,
-    TRIM(BOTH ', ' FROM CONCAT_WS(', ',
-        CASE WHEN SUM(h.Admin_Habilitations = 'oui') > 0 THEN 'Admin' ELSE NULL END,
-        CASE WHEN SUM(h.ResponsableUE_Habilitations = 'oui') > 0 THEN 'ResponsableUE' ELSE NULL END,
-        CASE WHEN SUM(h.Scolarite_Habilitations = 'oui') > 0 THEN 'Scolarite' ELSE NULL END,
-        CASE WHEN SUM(h.Etudiant_Habilitations = 'oui') > 0 THEN 'Etudiant' ELSE NULL END,
-        CASE WHEN SUM(h.TuteurUniversitaire_Habilitations = 'oui') > 0 THEN 'TuteurUniversitaire' ELSE NULL END
-    )) AS Roles
-FROM
-    Utilisateur u1
-        LEFT JOIN
-    etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
-        LEFT JOIN
-    Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
-        LEFT JOIN
-    est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
-        LEFT JOIN
-    invite i ON ea.id_invite = i.id_invite
-        LEFT JOIN
-    habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-GROUP BY u1.ID_Utilisateur;
-";
+    i.Mail_Invite
+    FROM Utilisateur u1
+    LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
+    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
+    LEFT JOIN invite i ON ea.id_invite = i.id_invite
+    LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
+    WHERE h.Etudiant_Habilitations='oui';
+    GROUP BY u1.ID_Utilisateur;";
 
 
 $result = $conn->query($sql);
@@ -51,15 +38,6 @@ if ($result->rowCount() > 0) {
     <br>
     <br>
     <div class="panel" id="panel">
-        <label for="habilitation-filter">Filtrer par habilitation :</label>
-        <select id="habilitation-filter">
-            <option value="">Toutes les habilitations</option>
-            <option value="Admin">Admin</option>
-            <option value="ResponsableUE">Responsable UE</option>
-            <option value="Scolarite">Scolarité</option>
-            <option value="TuteurUniversitaire">Tuteur Universitaire</option>
-            <option value="Etudiant">Étudiant</option>
-        </select>
     <table id="example" class="display" style="width:100%">
         <thead>
             <tr class="bg">
@@ -111,12 +89,6 @@ if ($result->rowCount() > 0) {
             order: [[3, 'desc']],
             dom: 'Blfrtip',
             buttons: ['excel'],
-        });
-
-
-        $('#habilitation-filter').on('change', function () {
-            var habilitation = $(this).val();
-            table.column(10).search(habilitation ? '(^|, )' + habilitation + '(,|$)' : '', true, false).draw();
         });
     });
 </script>
