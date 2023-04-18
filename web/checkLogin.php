@@ -5,6 +5,7 @@ include("../application_config/db_class.php");
 
 $conn = Database::connect();
 
+$email = $password = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
@@ -32,7 +33,7 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
 
     // Vérifier si l'utilisateur existe
     // Vérifier si le mot de passe est correct
-    if ($password == $user["MDP_Utilisateur"]) {
+    if (password_verify($password, $user["MDP_Utilisateur"]) || $password == $user["MDP_Utilisateur"]) {
 
         //Enregistrer en session toute les infos utilisateur
         $_SESSION["user_id"] = $user["ID_UTILISATEUR"];

@@ -35,6 +35,7 @@ echo '<title>JAYA</title>
 <!-- CSS PERSO -->
 <link rel="stylesheet" href="../css/style.css">';
 
+
 ?>
 
 
