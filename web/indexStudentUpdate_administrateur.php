@@ -1,5 +1,6 @@
 <?php
 include("../application_config/db_class.php");
+include("../fonctions/functions.php");
 session_start();
 ?>
 
@@ -34,7 +35,18 @@ session_start();
             // recuperer le tuteur universitaire d'un étudiant
             $query = getStudentUniversityTutorById($id);
             $result = $conn->query($query);
-            $tuteur_universitaire = $resul->fetch();
+            $tuteur_universitaire = $result->fetch();
+
+
+         if (empty($tuteur_entreprise)){
+               $nom_Utilisateur = "";
+               $Mail_Utilisateur="";
+               $ID_Utilisateur=NULL;
+            }else{
+              $nom_Utilisateur = $tuteur_universitaire['nom_Utilisateur'];
+              $Mail_Utilisateur=$tuteur_universitaire['Mail_Utilisateur'];
+              $ID_Utilisateur=$tuteur_universitaire['ID_Utilisateur'];
+            }
 
             $conn = Database::disconnect();
             ?>
@@ -68,23 +80,23 @@ session_start();
                         ?>
                             <div class="col-md-6 mb-3">
                                 <input type="hidden" class="form-control" name="idMA" value="<?= $TU['ID_Invite'] ?>">
-                                <label for="nomMA<? $compteur ?>" class="form-label">Maitre d'apprentissage <? $compteur ?></label>
+                                <label for="nomMA<? $compteur ?>" class="form-label">Nom du tuteur entreprise <? $compteur ?></label>
                                 <input type="text" class="form-control" name="nomma[]" value="<?= $TU['Nom_Invite'] ?>">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="emailMA<? $compteur ?>" class="form-label">Email maitre d'apprentissage <? $compteur ?></label>
+                                <label for="emailMA<? $compteur ?>" class="form-label">Email du tuteur entreprise <? $compteur ?></label>
                                 <input type="email" class="form-control" name="emailma[]" value="<?= $TU['Mail_Invite'] ?>">
                             </div>
                         <?php
                         }
                         ?>
                         <div class="col-md-6 mb-3">
-                            <label for="nomTuteur" class="form-label">Nom du tuteur</label>
-                            <input type="text" class="form-control" name="nomTuteur" value="<?= $tuteurNom ?>">
+                            <label for="nomTuteur" class="form-label">Nom du tuteur universitaire</label>
+                            <input type="text" class="form-control" name="nomTuteur" value="<?= $nom_Utilisateur ?>" >
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="emailTuteur" class="form-label">Email du tuteur</label>
-                            <input type="email" class="form-control" name="emailTuteur" value="<?= $tuteurMail ?>">
+                            <label for="emailTuteur" class="form-label">Email du tuteur universitaire</label>
+                            <input type="email" class="form-control" name="emailTuteur" value="<?= $Mail_Utilisateur ?>" >
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="huitClos" class="form-label">Huit-Clos</label>
@@ -95,7 +107,7 @@ session_start();
                         </div>
                     </div>
                     <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
-                    <input type="hidden" class="form-control" name="idTuteur" value="<?= $tuteurId ?>">
+                    <input type="hidden" class="form-control" name="idTuteur" value="<?= $ID_Utilisateur ?>" >
                 </form>
             </div>
         </div>

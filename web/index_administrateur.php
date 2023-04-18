@@ -43,15 +43,15 @@ if ($result->rowCount() > 0) {
                     <td class="text-center"><?php echo $user['Nom_Etudiant']; ?></td>
                     <td class="text-center"><?php echo $user['Mail_Etudiant']; ?></td>
                     <td class="text-center"><?php echo $user['Promo_Utilisateur']; ?></td>
-                    <td class="text-center"><?php echo $user['Entreprise_Invite']; ?></td>
-                    <td class="text-center"><?php echo $user['Ville_Invite']; ?></td>
-                    <td class="text-center"><?php echo $user['Nom_Invite']; ?></td>
-                    <td class="text-center"><?php echo $user['Mail_Invite']; ?></td>
+                    <td class="text-center"><?php echo lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
+                    <td class="text-center"><?php echo lineFeedWithSeparator($user['Ville_Invite']); ?></td>
+                    <td class="text-center"><?php echo lineFeedWithSeparator($user['Nom_Invite']); ?></td>
+                    <td class="text-center"><?php echo lineFeedWithSeparator($user['Mail_Invite']); ?></td>
                     <td class="text-center"><?php echo $user['Nom_Tuteur_Universitaire']; ?></td>
                     <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
                     <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
                     <td class="text-center" style="display:none;"><?php echo $user['Roles']; ?>
-                    <td><a href="formUpdateEtudiantAdmin.php?id=<?php echo $user['ID_Etudiant'] ?>"><i class="bi bi-pencil-fill"></i></a></td>
+                    <td><a href="indexStudentUpdate_administrateur.php?id=<?php echo $user['ID_Etudiant'] ?>"><i class="bi bi-pencil-fill"></i></a></td>
                 </tr>
             <?php } ?>
         <?php } ?>
