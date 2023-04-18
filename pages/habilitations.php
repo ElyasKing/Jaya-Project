@@ -29,78 +29,95 @@ if ($result->rowCount() > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
-
-
 <body>
-
 <div class="container-fluid space">
     <h2 class="center colored">Comptes</h2>
     <hr>
     <br>
     <br>
     <div class="panel" id="panel">
-    <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr class="bg">
-                <th>Utilisateur</th>
-                <th>Mot de passe</th>
-                <th>Administrateur</th>
-                <th>Responsable d'UE</th>
-                <th>Scolarité</th>
-                <th>Tuteur universitaire</th>
-                <th>Etudiant</th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php if(!empty($arr_users)) { ?>
-            <?php foreach($arr_users as $user) { ?>
-                <tr>
-                    <td class="text-center"><?php echo $user['Nom_Utilisateur']; ?></td>
-                    <td class="text-center"><?php echo $user['MDP_Utilisateur']; ?></td>
-                    <td class="text-center"><?php echo $user['Admin_Habilitations']; ?></td>
-                    <td class="text-center"><?php echo $user['ResponsableUE_Habilitations']; ?></td>
-                    <td class="text-center"><?php echo $user['Scolarite_Habilitations']; ?></td>
-                    <td class="text-center"><?php echo $user['TuteurUniversitaire_Habilitations']; ?></td>
-                    <td class="text-center"><?php echo $user['Etudiant_Habilitations']; ?></td>
-                    <td>
-                    <a href="formUpdateHabilitations.php?id=<?php echo $user['Id_Utilisateur'] ?>">
-                        <i class="bi bi-pencil-fill"></i>
-                    </a>
-                    <button class="btn-delete" data-id="<?php echo $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?php echo $user['Nom_Utilisateur'] ?>">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
-                    </td>
+        <label for="habilitation-filter">Filtrer par habilitation :</label>
+        <select id="habilitation-filter">
+            <option value="">Toutes les habilitations</option>
+            <option value="Admin">Admin</option>
+            <option value="ResponsableUE">Responsable UE</option>
+            <option value="Scolarite">Scolarité</option>
+            <option value="TuteurUniversitaire">Tuteur Universitaire</option>
+            <option value="Etudiant">Étudiant</option>
+        </select>
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr class="bg">
+                    <th>Utilisateur</th>
+                    <th>Mot de passe</th>
+                    <th>Administrateur</th>
+                    <th>Responsable d'UE</th>
+                    <th>Scolarité</th>
+                    <th>Tuteur universitaire</th>
+                    <th>Etudiant</th>
+                    <th> </th>
                 </tr>
-            <?php } ?>
-        <?php } ?>
-        </tbody>
-    </table>
-    <a href="formCreateHabilitationUser.php" class="btn btn-primary">Créer un compte</a>
-    </div>
-</div>
+            </thead>
+            <tbody>
+                <?php if(!empty($arr_users)) { ?>
+                    <?php foreach($arr_users as $user) { ?>
+                        <tr class="user-row">
+                            <td class="text-center"><?php echo $user['Nom_Utilisateur']; ?></td>
+                            <td class="text-center"><?php echo $user['MDP_Utilisateur']; ?></td>
+                            <td class="text-center"><?php echo $user['Admin_Habilitations']; ?></td>
+                            <td class="text-center"><?php echo $user['ResponsableUE_Habilitations']; ?></td>
+                            <td class="text-center"><?php echo $user['Scolarite_Habilitations']; ?></td>
+                            <td class="text-center"><?php echo $user['TuteurUniversitaire_Habilitations']; ?></td>
+                            <td class="text-center"><?php echo $user['Etudiant_Habilitations']; ?></td>
+                            <td>
+                                <a href="formUpdateHabilitations.php?id=<?php echo $user['Id_Utilisateur'] ?>">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <button class="btn-delete" data-id="<?php echo $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?php echo $user['Nom_Utilisateur'] ?>">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                            <?php } ?>
+                                </tbody>
+                            </table>
+                            <a href="formCreateHabilitationUser.php" class="btn btn-primary">Créer un compte</a>
+                        </div>
+                    </div>
 
 <script>
-   $(document).ready(function () {
-    $('#example').DataTable({
-        stateSave: true,
-        language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-        },
-        order: [[3, 'desc']],
-        dom: 'Blfrtip',
-        buttons: ['excel'],
+    $(document).ready(function () {
+        $('#example').DataTable({
+            stateSave: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+            },
+            order: [[3, 'desc']],
+            dom: 'Blfrtip',
+            buttons: ['excel'],
+        });
 
-    });
+        $('.btn-delete').click(function () {
+            var id = $(this).data('id');
+            var user = $(this).data('nomutilisateur');
+            if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
+                window.location.href = 'delete_user_habilitation.php?id=' + id;
+            }
+        });
 
-    $('.btn-delete').click(function () {
-        var id = $(this).data('id');
-        var user = $(this).data('nomutilisateur');
-        if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
-            window.location.href = 'delete_user_habilitation.php?id=' + id;
-        }
+        $('#habilitation-filter').on('change', function() {
+            var selectedValue = $(this).val();
+            if(selectedValue !== '') {
+                $('.user-row').hide();
+                $('.user-row td:nth-child(' + (['Admin', 'ResponsableUE', 'Scolarite', 'TuteurUniversitaire', 'Etudiant'].indexOf(selectedValue) + 3) + ')').filter(function() {
+                    return $(this).text() === 'oui';
+                }).parent().show();
+            } else {
+                $('.user-row').show();
+            }
+        });
     });
-});
 </script>
 
 </body>
