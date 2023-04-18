@@ -21,6 +21,7 @@ session_start();
         </div>
         <div id="content">
             <?php
+            include("navbar.php");
             $id = $_GET['id'];
 
             $query = getStudentInformationById($id);
