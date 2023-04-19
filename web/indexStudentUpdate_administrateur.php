@@ -115,7 +115,7 @@ session_start();
                                 ?>
                                     <div class="tuteur-entreprise">
                                         <div class="col-md-6 mb-3">
-                                            <label for="nomTE<?= $compteur ?>" class="form-label">Nom du tuteur entreprise <?= $compteur ?>:</label>
+                                            <label for="nomTE<?= $compteur ?>" class="form-label">Nom du tuteur entreprise :</label>
                                             <select class="form-control" name="nomte[]" data-index="<?= $compteur ?>" required>
                                                 <option value=""></option>
                                                 <?php foreach ($liste_invite as $invite) { ?>
@@ -126,7 +126,7 @@ session_start();
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="emailTE<?= $compteur ?>" class="form-label">Email du tuteur entreprise <?= $compteur ?>:</label>
+                                            <label for="emailTE<?= $compteur ?>" class="form-label">Email du tuteur entreprise :</label>
                                             <input type="email" class="form-control" name="emailte[]" id="emailTE<?= $compteur ?>" value="<?= $TE['Mail_Invite'] ?>" readonly>
                                         </div>
                                     </div>
@@ -138,6 +138,7 @@ session_start();
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="button" class="btn btn-primary add-tuteur-entreprise-button">Ajouter un tuteur entreprise</button>
+                            <button class="btn btn-danger" type="button" id="delete-all-button">Supprimer</button>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nomTuteur" class="form-label">Nom du tuteur universitaire</label>
@@ -272,5 +273,16 @@ session_start();
 
         // Ajout de la nouvelle div à la liste des tuteurs entreprise
         tuteursEntrepriseContainer.appendChild(newDiv);
+    });
+    //---------------------------------------
+
+    //Delete button 
+    const deleteButton = document.querySelector('#delete-all-button');
+    deleteButton.addEventListener('click', () => {
+        // Vérification s'il y a plus d'un couple tuteur-entreprise avant de supprimer un couple
+        const nbTuteursEntreprise = document.querySelectorAll('.tuteur-entreprise').length;
+        if (nbTuteursEntreprise > 1) {
+            document.querySelector('.tuteurs-entreprise-container').lastElementChild.remove();
+        }
     });
 </script>
