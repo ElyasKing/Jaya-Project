@@ -37,7 +37,6 @@ session_start();
             $query = getStudentUniversityTutorById($id);
             $result = $conn->query($query);
             $tuteur_universitaire = $result->fetch();
-            var_dump($tuteur_entreprise);
 
             //récupérer la liste de tous les tuteurs universitaires 
             $query = "SELECT H.Id_Utilisateur, U.Nom_Utilisateur, U.Mail_Utilisateur FROM habilitations H JOIN utilisateur U ON U.Id_Utilisateur = H.Id_Utilisateur Where H.TuteurUniversitaire_Habilitations='oui' order by U.Nom_Utilisateur asc;";
