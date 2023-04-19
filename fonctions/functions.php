@@ -106,4 +106,28 @@
         }
         return implode($password);
     }
+
+    // Parametres : recuperer les parametres en fonction du type
+    function getSettings($settingType) {
+        if($settingType == "fixe"){
+            $sql = "SELECT 
+                ID_param, 
+                Nom_param,
+                Description_param, 
+                NbPoint_param 
+            FROM parametres
+            WHERE NbPoint_param IS NULL";
+        }elseif($settingType == "dynamique"){
+            $sql = "SELECT 
+                ID_param, 
+                Nom_param,
+                Description_param, 
+                NbPoint_param 
+            FROM parametres
+            WHERE NbPoint_param IS NOT NULL";
+        }
+        
+        return $sql;
+
+    }
 ?>

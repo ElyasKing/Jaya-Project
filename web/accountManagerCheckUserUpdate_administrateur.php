@@ -2,7 +2,7 @@
 include("../application_config/db_class.php");
 session_start();
 
-$conn = Database::connect();
+$db = Database::connect();
 
 $administrateur = $responsableUE = $scolarite = $tuteurUniversitaire = $etudiant = $id = $mdp = "";
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($mdp <> "") {
         $query = 'UPDATE utilisateur SET MDP_Utilisateur="' . $mdp_hash . '" WHERE ID_Utilisateur = "' . $id . '"';
-        $result = $conn->query($query);
+        $result = $db->query($query);
     }
 
     $query = 'UPDATE habilitations SET 
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Etudiant_Habilitations= "' . $etudiant . '" 
     WHERE ID_Utilisateur = "' . $id . '"';
     
-    $result = $conn->query($query);
+    $result = $db->query($query);
 
     $_SESSION['success'] = 1;
 

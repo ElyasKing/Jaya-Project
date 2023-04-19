@@ -1,6 +1,6 @@
 <?php
 
-$conn = Database::connect();
+$db = Database::connect();
 $annee = date('Y');
 
 ?>
