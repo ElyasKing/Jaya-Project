@@ -21,16 +21,16 @@
           <a class="nav-link active" href="#">Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="suiviEtudiants.php">Suivi recap</a>
+          <a class="nav-link active" href="#">Suivi recap</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="parametreDynamique.php">Paramètres</a>
+          <a class="nav-link active" href="applicationSettings.php">Paramètres</a>
         </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='#'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -41,7 +41,7 @@
           <a class="nav-link active" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Comptes</a>
+          <a class="nav-link active" href="accountManager_users.php">Compte</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Planning</a>
@@ -53,7 +53,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='#'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -64,10 +64,10 @@
           <a class="nav-link active" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Comptes</a>
+          <a class="nav-link active" href="accountManager_users.php">Compte</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="planning_scolarite.php">Planning</a>
+          <a class="nav-link active" href="schedule_scolarite.php">Planning</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Invit&eacute;s</a>
@@ -76,7 +76,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='#'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -87,7 +87,7 @@
           <a class="nav-link active" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Comptes</a>
+          <a class="nav-link active" href="accountManager_users.php">Compte</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Soutenances</a>
@@ -102,7 +102,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='#'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -113,7 +113,7 @@
           <a class="nav-link active" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Comptes</a>
+          <a class="nav-link active" href="accountManager_users.php">Compte</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#">Planning</a>
@@ -125,7 +125,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='#'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>

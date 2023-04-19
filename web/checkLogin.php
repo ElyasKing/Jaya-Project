@@ -3,7 +3,7 @@ session_start();
 
 include("../application_config/db_class.php");
 
-$conn = Database::connect();
+$db = Database::connect();
 
 $email = $password = 0;
 
@@ -27,9 +27,9 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
                 FROM utilisateur A 
                 LEFT JOIN habilitations B ON A.ID_Utilisateur = B.ID_Utilisateur 
                 WHERE A.Mail_Utilisateur = '" . $email . "'";
-    $user = $conn->query($query)->fetch();
+    $user = $db->query($query)->fetch();
 
-    $conn = Database::disconnect();
+    $db = Database::disconnect();
 
     // Vérifier si l'utilisateur existe
     // Vérifier si le mot de passe est correct

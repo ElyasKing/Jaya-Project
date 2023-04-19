@@ -10,7 +10,7 @@ session_start();
 <head>
     <?php
     include("header.php");
-    $conn = Database::connect();
+    $db = Database::connect();
     ?>
 </head>
 
@@ -25,27 +25,27 @@ session_start();
             $id = $_GET['id'];
 
             $query = getStudentInformationById($id);
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $etudiant = $result->fetch();
 
             // recuperer les tuteurs entreprises d'un étudiant
             $query = getStudentProfessionalTutorById($id);
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $tuteur_entreprise = $result->fetchAll();
 
             // recuperer le tuteur universitaire d'un étudiant
             $query = getStudentUniversityTutorById($id);
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $tuteur_universitaire = $result->fetch();
 
             //récupérer la liste de tous les tuteurs universitaires 
             $query = "SELECT H.Id_Utilisateur, U.Nom_Utilisateur, U.Mail_Utilisateur FROM habilitations H JOIN utilisateur U ON U.Id_Utilisateur = H.Id_Utilisateur Where H.TuteurUniversitaire_Habilitations='oui';";
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $liste_tuteur = $result->fetchAll();
 
             //récupérer la liste de tous les invités 
             $query = "SELECT ID_Invite, Nom_Invite, Mail_Invite FROM invite;";
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $liste_invite = $result->fetchAll();
 
 
@@ -59,7 +59,7 @@ session_start();
                 $ID_Utilisateur = $tuteur_universitaire['ID_Utilisateur'];
             }
 
-            $conn = Database::disconnect();
+            $db = Database::disconnect();
             ?>
 
             <div class="container bg-light p-3">

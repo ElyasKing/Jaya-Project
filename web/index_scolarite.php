@@ -1,11 +1,11 @@
 <?php
-$conn = Database::connect();
+$db = Database::connect();
 $annee = date('Y');
 
 $sql = getStudentInformationForIndexes();
 
 
-$result = $conn->query($sql);
+$result = $db->query($sql);
 $arr_users = [];
 if ($result->rowCount() > 0) {
     $arr_users = $result->fetchAll();

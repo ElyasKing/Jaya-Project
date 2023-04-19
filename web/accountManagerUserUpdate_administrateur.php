@@ -10,7 +10,7 @@ session_start();
 <head>
     <?php
     include("header.php");
-    $conn = Database::connect();
+    $db = Database::connect();
     ?>
 </head>
 
@@ -25,7 +25,7 @@ session_start();
 
             $id = $_GET['id'];
             $query = getAccountInformationsById($id);
-            $result = $conn->query($query);
+            $result = $db->query($query);
             $user = $result->fetch();
 
             $est_administrateur = $user['Admin_Habilitations'] == 'oui';
@@ -34,7 +34,7 @@ session_start();
             $est_tuteurUniversitaire = $user['TuteurUniversitaire_Habilitations'] == 'oui';
             $est_etudiant = $user['Etudiant_Habilitations'] == 'oui';
 
-            $conn = Database::disconnect();
+            $db = Database::disconnect();
             ?>
 
             <div class="container bg-light p-3">

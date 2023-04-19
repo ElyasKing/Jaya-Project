@@ -59,6 +59,10 @@ h2{
     color: #23314e;
 }
 
+.btn-custom {
+    width: 250px !important;
+}
+
 hr{
     clear: both;
     opacity: 1;

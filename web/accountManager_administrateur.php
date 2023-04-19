@@ -29,7 +29,7 @@ $_SESSION['success'] = 0;
 <head>
     <?php
     include("header.php");
-    $conn = Database::connect();
+    $db = Database::connect();
     ?>
 </head>
 
@@ -54,7 +54,7 @@ $_SESSION['success'] = 0;
                 FROM habilitations H 
                 JOIN utilisateur U ON U.Id_Utilisateur = H.Id_Utilisateur;";
 
-            $result = $conn->query($sql);
+            $result = $db->query($sql);
 
             $arr_users = [];
             if ($result->rowCount() > 0) {
