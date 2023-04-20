@@ -37,6 +37,23 @@ session_start();
             $db = Database::disconnect();
             ?>
 
+            <!-- <div class="container">
+                            <br>
+                            <br>
+                            <h4 class="text-center">Modifier un compte</h4>
+                            <br>
+                            <br>
+                            <form action="accountManagerCheckUserUpdate_administrateur.php" method="post">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                                        <div class="card shadow-2-strong css-login">
+                                            <div class="card-body p-5">
+                                                <input type="hidden" class="form-control" name="id" value="<?= $id ?>">
+                                                <div class='row'>
+                                                    <div class="col">
+                                                    <label for="nomUtilisateur" class="form-label">Utilisateur : </label>
+                                                    <p class="form-control"><?= $user['Nom_Utilisateur'] ?></p> -->
+
             <div class="container bg-light p-3">
                 <h1>Modifier un compte</h1>
                 <form id="myForm" action="accountManagerCheckUserUpdate_administrateur.php" method="post" onsubmit="return checkForm(this);">

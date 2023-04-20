@@ -1,6 +1,5 @@
 <?php
 $db = Database::connect();
-$annee = date('Y');
 
 $sql = getStudentInformation_Etudiant($_SESSION["user_id"]);
 
@@ -59,17 +58,17 @@ $noteOral = getStutdentGradeOral($_SESSION["user_id"]);
                     <?php if (!empty($arr_users)) { ?>
                         <?php foreach ($arr_users as $user) { ?>
                             <tr>
-                                <td class="text-center"><?php echo $user['Nom_Etudiant']; ?></td>
-                                <td class="text-center"><?php echo $user['Mail_Etudiant']; ?></td>
-                                <td class="text-center"><?php echo $user['Promo_Utilisateur']; ?></td>
-                                <td class="text-center"><?php echo lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
-                                <td class="text-center"><?php echo lineFeedWithSeparator($user['Ville_Invite']); ?></td>
-                                <td class="text-center"><?php echo lineFeedWithSeparator($user['Nom_Invite']); ?></td>
-                                <td class="text-center"><?php echo lineFeedWithSeparator($user['Mail_Invite']); ?></td>
-                                <td class="text-center"><?php echo $user['Nom_Tuteur_Universitaire']; ?></td>
-                                <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
-                                <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
-                                <td class="text-center" style="display:none;"><?php echo $user['Roles']; ?>
+                                <td class="text-center"><?= $user['Nom_Etudiant']; ?></td>
+                                <td class="text-center"><?= $user['Mail_Etudiant']; ?></td>
+                                <td class="text-center"><?= $user['Promo_Utilisateur']; ?></td>
+                                <td class="text-center"><?= lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
+                                <td class="text-center"><?= lineFeedWithSeparator($user['Ville_Invite']); ?></td>
+                                <td class="text-center"><?= lineFeedWithSeparator($user['Nom_Invite']); ?></td>
+                                <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
+                                <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
+                                <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
+                                <td class="text-center"><?= $user['HuitClos_Utilisateur']; ?></td>
+                                <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                             </tr>
                         <?php } ?>
                     <?php } ?>
@@ -94,11 +93,11 @@ $noteOral = getStutdentGradeOral($_SESSION["user_id"]);
                     <?php if (!empty($arr_evaluation)) { ?>
                         <?php foreach ($arr_evaluation as $note) { ?>
                             <tr>
-                                <td class="text-center"><?php echo $note['Poster_NF']; ?></td>
-                                <td class="text-center"><?php echo $note['Rapport_NF']; ?></td>
-                                <td class="text-center"><?php echo $note['Note_Tuteur']; ?></td>
-                                <td class="text-center"><?php echo $noteOral ?></td>
-                                <td class="text-center"><?php echo $note['Note_Finale']; ?></td>
+                                <td class="text-center"><?= $note['Poster_NF']; ?></td>
+                                <td class="text-center"><?= $note['Rapport_NF']; ?></td>
+                                <td class="text-center"><?= $note['Note_Tuteur']; ?></td>
+                                <td class="text-center"><?= $noteOral ?></td>
+                                <td class="text-center"><?= $note['Note_Finale']; ?></td>
                             </tr>
                         <?php } ?>
                     <?php } ?>

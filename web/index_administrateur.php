@@ -1,9 +1,7 @@
 <?php
 $db = Database::connect();
-$annee = date('Y');
 
 $sql = getStudentInformationForIndexes();
-
 
 $result = $db->query($sql);
 $arr_users = [];
@@ -44,7 +42,7 @@ if ($result->rowCount() > 0) {
                                 empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
                                 empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuitClos_Utilisateur'])
                             ) {
-                                echo "style='background-color: rgba(255, 255, 0, 0.199);'";
+                                echo 'class="tr-bgColor"';
                             } ?>>
                             <td class="text-center"><?= $user['Nom_Etudiant']; ?></td>
                             <td class="text-center"><?= $user['Mail_Etudiant']; ?></td>
@@ -57,13 +55,17 @@ if ($result->rowCount() > 0) {
                             <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
                             <td class="text-center"><?= $user['HuitClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
-                            <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><i class="bi bi-pencil-fill"></i></a></td>
+                            <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>
             </tbody>
         </table>
     </div>
+</div>
+<br>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="button" id="btn-importer-admin" class="btn me-md-3 bg btn-custom">Importer</button>
 </div>
 
 <script>
