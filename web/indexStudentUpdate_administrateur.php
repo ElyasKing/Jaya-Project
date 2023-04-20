@@ -197,7 +197,6 @@ session_start();
 </body>
 
 </html>
-
 <script>
     // Récupération des éléments HTML
     const selectTuteur = document.querySelector('select[name="nomTuteur"]');

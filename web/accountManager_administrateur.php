@@ -2,6 +2,7 @@
 include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +88,14 @@ session_start();
                                             <a href="accountManagerUserUpdate_administrateur.php?id=<?= $user['Id_Utilisateur'] ?>">
                                                 <button type="button" class="btn bg bi bi-pencil-fill"></button>
                                             </a>
-                                            <button type="button" class="btn red bi bi-trash-fill" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
-                                            </button>
+                                            <?php if ($user['Nom_Utilisateur'] != $_SESSION["user_name"]) { ?>
+                                                <button class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                                </button>
+                                            <?php }else{ ?>
+                                               <button disabled class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                               </button> 
+                                               <?php
+                                            } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

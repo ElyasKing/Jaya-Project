@@ -52,4 +52,5 @@ if (isset($_POST)) {
     }
 }
 
+$_SESSION['success'] = 1;
 header('Location: index.php');

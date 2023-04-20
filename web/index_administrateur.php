@@ -67,7 +67,36 @@ if ($result->rowCount() > 0) {
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button type="button" id="btn-importer-admin" class="btn me-md-3 bg btn-custom">Importer</button>
 </div>
+<script src="../js/toastr.min.js"></script>
+<script>
+	toastr.options = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-center",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "7000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+</script>
+<?php
+if (isset($_SESSION['success']) && $_SESSION['success'] == 1) {
+	$success = $_SESSION['success'];
 
+	if ($success == 1) {
+		echo "<script>toastr.success(\"Utilisateur modifié avec succès !\");</script>";
+	}
+	$_SESSION['success'] = 0;
+}
+?>
 <script>
     $(document).ready(function() {
         var table = $('#example').DataTable({
