@@ -23,13 +23,14 @@ session_start();
     $statement = $db->query($query);
     $dynamicsSettings = $statement->fetchAll();
 
+
     $sumOfpoints = 0;
     foreach ($dynamicsSettings as $points) {
         $sumOfpoints += $points['NbPoint_param'];
     }
 
     $differenceMax = 20 - $sumOfpoints;
-    $inputMax = $dynamicSetting['NbPoint_param'] + $differenceMax;
+    //$inputMax = $dynamicsSettings['NbPoint_param'] + $differenceMax;
     ?>
     <div class="container">
         <br>
@@ -57,7 +58,7 @@ session_start();
                             <div class='row'>
                                 <div class="col">
                                     <label for="point" class="form-label">Nombre de points</label>
-                                    <input required type="number" class="form-control" name="newPoints" min="0.1" step="0.01" max="<?= $inputMax ?>">
+                                    <input required type="number" class="form-control" name="newPoints" min="0.1" step="0.01" max="<?= $differenceMax ?>">
                                 </div>
                             </div>
                             <br>
