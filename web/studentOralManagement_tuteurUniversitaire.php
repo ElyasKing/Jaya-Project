@@ -62,10 +62,10 @@ session_start();
                                         <td class="text-center"><?= $user['NoteFinale_NS']; ?></td>
                                         <td class="text-center"><?= $user['Commentaire_NS']; ?></td>
                                         <td>
-                                            <a href="accountManagerUserUpdate_administrateur.php?id=<?= $user['ID_NS'] ?>">
+                                            <a href="studentOralFormModify_tuteurUniversitaire.php?id=<?= $user['ID_NS'] ?>">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <button class="btn-delete" data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['ID_NS'] ?>">
+                                            <button class="btn-delete" data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </td>
@@ -132,19 +132,7 @@ session_start();
                         var id = $(this).data('id');
                         var user = $(this).data('nomutilisateur');
                         if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
-                            window.location.href = 'accountManagerCheckUserDeletion_administrateur.php?id=' + id;
-                        }
-                    });
-
-                    $('#habilitation-filter').on('change', function() {
-                        var selectedValue = $(this).val();
-                        if (selectedValue !== '') {
-                            $('.user-row').hide();
-                            $('.user-row td:nth-child(' + (['Admin', 'ResponsableUE', 'Scolarite', 'TuteurUniversitaire', 'Etudiant'].indexOf(selectedValue) + 3) + ')').filter(function() {
-                                return $(this).text() === 'oui';
-                            }).parent().show();
-                        } else {
-                            $('.user-row').show();
+                            window.location.href = 'studentOralManagementDeletion_tuteurUniversitaire.php?id=' + id;
                         }
                     });
                 });
