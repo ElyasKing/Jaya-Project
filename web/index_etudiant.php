@@ -2,6 +2,8 @@
 $db = Database::connect();
 $annee = date('Y');
 
+
+//Premier tableau : informations liées à l'étudiant
 $sql = getStudentInformation_Etudiant($_SESSION["user_id"]);
 
 
@@ -11,7 +13,7 @@ if ($result->rowCount() > 0) {
     $arr_users = $result->fetchAll();
 }
 
-//var_dump($arr_users);
+//Deuxième tableau : informations liées à la notation
 
 $sql = getStudentEvaluation_Etudiant($_SESSION["user_id"]);
 
@@ -21,16 +23,51 @@ if ($result->rowCount() > 0) {
     $arr_evaluation = $result->fetchAll();
 }
 
-//var_dump($arr_evaluation);
-
 $noteOral = getStutdentGradeOral($_SESSION["user_id"]);
 
 
+//Troisième tableau : Information liées au planning
+
+$sql = getStudentSchedule_Etudiant($_SESSION["user_id"]);
+
+$result = $db->query($sql);
+$arr_schedule = [];
+if ($result->rowCount() > 0) {
+    $arr_schedule = $result->fetchAll();
+
+
+    // on récupère la durée d'une soutenance pour obtenir le début et la fin
+    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3'";
+    $result = $db->query($sql);
+    $duree = $result->fetch();
+
+    // on extrait les heures et les minutes de la durée
+    preg_match('/(\d+):(\d+):(\d+)/', $duree['Description_param'], $matches);
+    $heures = intval($matches[1]);
+    $minutes = intval($matches[2]);
+
+    // on crée un nouvel objet DateInterval avec les heures et les minutes extraites
+    $duree = new DateInterval('PT' . $heures . 'H' . $minutes . 'M');
+
+    $date = $arr_schedule[0]['DateSession_Planning'];
+    $heure_debut = $arr_schedule[0]['HeureDebutSession_Planning'];
+
+
+    // on calcule l'heure de fin en ajoutant la durée à l'heure de début
+    $heure_fin = new DateTime($heure_debut);
+    $heure_fin = $heure_fin->add($duree);
+    $heure_fin = $heure_fin->format('H:i:s');
+
+
+
+    $dateTime = new DateTime($date);
+    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+    $date_fr = strftime('%d %B %Y', $dateTime->getTimestamp());
+}
 ?>
 
 
-
-
+<html>
 <div class="container-fluid space">
     <h2 class="center colored">Accueil</h2>
     <hr>
@@ -105,9 +142,20 @@ $noteOral = getStutdentGradeOral($_SESSION["user_id"]);
                 </tbody>
             </table>
         </div>
+        <br>
+        <h4>Informations soutenance</h4>
+        <br>
+        <div class="center">
+            <?php if ($arr_schedule == []) { ?>
+                <p>Pas d'heure attribuée</P>
+            <?php }
+            if ($arr_schedule <> []) { ?>
+                <p>Votre soutenance pour l'UE Projet Professionnel aura lieu le <?php echo $date_fr ?> de <?php echo $heure_debut ?> à <?php echo $heure_fin ?></p>
+            <?php } ?>
+        </div>
     </div>
-</div>
 
+</html>
 <script>
     $(document).ready(function() {
         var table1 = $('#table1').DataTable({

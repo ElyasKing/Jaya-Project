@@ -104,7 +104,7 @@ function
 getStutdentGradeOral($User_ID)
 {
     //On va récupérer toutes les notes liées à l'étudiant 
-    $sql = "SELECT `ID_NS`,`NoteFinale_NS`,`ID_UtilisateurEvaluateur`,`ID_InviteEvaluateur` FROM `notes_soutenance` WHERE `ID_UtilisateurEvalue`='3';";
+    $sql = "SELECT `ID_NS`,`NoteFinale_NS`,`ID_UtilisateurEvaluateur`,`ID_InviteEvaluateur` FROM `notes_soutenance` WHERE `ID_UtilisateurEvalue`='" . $User_ID . "';";
 
     $db = Database::connect();
 
@@ -114,19 +114,19 @@ getStutdentGradeOral($User_ID)
         $arr_note = $result->fetchAll();
     }
     // ID : 7 = coeff d'un professionnel, ID : 8 = coeff d'un enseignant (cf DB)
-    $sql = "SELECT `NbPoint_param` FROM `parametres` WHERE `ID_param`='7' OR `ID_param`='8';";
+    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='7' OR `ID_param`='8';";
     $result = $db->query($sql);
-    if ($result->rowCount() > 0) {
-        $rows = $result->fetchAll();
-        $coeff_pro = $rows[0]['NbPoint_param'];
-        $coeff_enseignant = $rows[1]['NbPoint_param'];
-    }
+
+    $rows = $result->fetchAll();
+    $coeff_pro = $rows[0]['Description_param'];
+    $coeff_enseignant = $rows[1]['Description_param'];
+
 
     $noteFinale = 0;
     $division = 0;
     if (!empty($arr_note)) {
         foreach ($arr_note as $notes) {
-          
+
             //si l'évaluateur est un enseignant
             if ($notes['ID_UtilisateurEvaluateur'] != NULL) {
                 $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_enseignant;
@@ -155,10 +155,23 @@ getStutdentGradeOral($User_ID)
             }
         }
         //A la fin ne pas oublier de remettre la note sur 20 
-        $noteFinale=$noteFinale/$division;
+        $noteFinale = $noteFinale / $division;
 
         return $noteFinale;
     } else return "DEF";
+}
+
+// requete SQL pour obtenir les informations liées aiu planning de l'étudiant
+
+function getStudentSchedule_Etudiant($User_ID)
+{
+    $sql="SELECT p.ID_Planning, p.DateSession_Planning, p.HeureDebutSession_Planning 
+    FROM planning p
+    INNER JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
+    WHERE u.ID_Utilisateur = '".$User_ID."'
+    AND p.ValidationScolarite_Planning = 'oui';";
+
+    return $sql;
 }
 
 // requete SQL pour recuperer les informations des étudiants en fonction d'un étudiant
