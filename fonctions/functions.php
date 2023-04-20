@@ -25,6 +25,62 @@
         return $sql;
     }
 
+// requete SQL pour les index 
+function
+getStudentInformation_TuteurUniversitaire($User_ID)
+{
+    $sql = "SELECT 
+    u1.ID_Utilisateur AS ID_Etudiant,
+    u1.Nom_Utilisateur AS Nom_Etudiant,
+    u1.Mail_Utilisateur AS Mail_Etudiant,
+    u1.Promo_Utilisateur,
+    u1.HuitClos_Utilisateur,
+    GROUP_CONCAT(DISTINCT i.Entreprise_Invite SEPARATOR ';') AS Entreprise_Invite,
+    GROUP_CONCAT(DISTINCT i.Ville_Invite SEPARATOR ';') AS Ville_Invite,
+    GROUP_CONCAT(DISTINCT i.Nom_Invite SEPARATOR ';') AS Nom_Invite,
+    GROUP_CONCAT(DISTINCT i.Mail_Invite SEPARATOR ';') AS Mail_Invite,
+    u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
+    u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire
+    FROM Utilisateur u1
+    LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
+    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
+    LEFT JOIN invite i ON ea.id_invite = i.id_invite
+    LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
+    WHERE h.Etudiant_Habilitations='oui' and u2.ID_Utilisateur='".$User_ID."'
+    GROUP BY u1.ID_Utilisateur;";
+
+    return $sql;
+}
+
+// requete SQL pour les index 
+function
+getStudentInformation_Etudiant($User_ID)
+{
+    $sql = "SELECT 
+    u1.ID_Utilisateur AS ID_Etudiant,
+    u1.Nom_Utilisateur AS Nom_Etudiant,
+    u1.Mail_Utilisateur AS Mail_Etudiant,
+    u1.Promo_Utilisateur,
+    u1.HuitClos_Utilisateur,
+    GROUP_CONCAT(DISTINCT i.Entreprise_Invite SEPARATOR ';') AS Entreprise_Invite,
+    GROUP_CONCAT(DISTINCT i.Ville_Invite SEPARATOR ';') AS Ville_Invite,
+    GROUP_CONCAT(DISTINCT i.Nom_Invite SEPARATOR ';') AS Nom_Invite,
+    GROUP_CONCAT(DISTINCT i.Mail_Invite SEPARATOR ';') AS Mail_Invite,
+    u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
+    u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire
+    FROM Utilisateur u1
+    LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
+    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
+    LEFT JOIN invite i ON ea.id_invite = i.id_invite
+    LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
+    WHERE h.Etudiant_Habilitations='oui' and u1.ID_Utilisateur='" . $User_ID . "'
+    GROUP BY u1.ID_Utilisateur;";
+
+    return $sql;
+}
+
     // requete SQL pour recuperer les informations des étudiants en fonction d'un étudiant
     function getStudentInformationById($id){
         $sql = "SELECT 
