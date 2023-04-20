@@ -39,15 +39,15 @@ session_start();
 
             <div class="container bg-light p-3">
                 <h1>Modifier un compte</h1>
-                <form action="accountManagerCheckUserUpdate_administrateur.php" method="post">
+                <form id="myForm" action="accountManagerCheckUserUpdate_administrateur.php" method="post" onsubmit="return checkForm(this);">
                     <input type="hidden" class="form-control" name="id" value="<?= $id ?>">
                     <div class="mb-3">
                         <label for="nomUtilisateur" class="form-label">Utilisateur : </label>
                         <p class="form-control-plaintext"><?= $user['Nom_Utilisateur'] ?></p>
                     </div>
                     <div class="mb-3">
-                        <label for="mdp" class="form-label">Mot de passe : </label>
-                        <input type="password" class="form-control" name="mdp">
+                        <label for="pw1" class="form-label">Mot de passe : </label>
+                        <input id="field_pwd1" title="Un mot de passe fort doit contenir : 8 caractères minimum, des minuscules, des majuscules, des chiffres et des caractères spéciaux." required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw1">
                     </div>
                     <div class="switch d-flex flex-wrap">
                         <div class="mb-3 flex-grow-1">
@@ -90,3 +90,48 @@ session_start();
 </body>
 
 </html>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function(e) {
+
+        // JavaScript form validation
+
+        var checkPassword = function(str) {
+            var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$/;
+            return re.test(str);
+        };
+
+        var checkForm = function(e) {
+            if (this.pwd1.value != "") {
+                if (!checkPassword(this.pwd1.value)) {
+                    alert("Le mot de passe que vous avez saisi n'est pas valide !");
+                    this.pwd1.focus();
+                    e.preventDefault();
+                    return;
+                }
+            }
+            alert("Le mot de passe est valide !");
+        };
+
+        var myForm = document.getElementById("myForm");
+        myForm.addEventListener("submit", checkForm, true);
+
+        // HTML5 form validation
+
+        var supports_input_validity = function() {
+            var i = document.createElement("input");
+            return "setCustomValidity" in i;
+        }
+
+        if (supports_input_validity()) {
+            var pwd1Input = document.getElementById("field_pwd1");
+            pwd1Input.setCustomValidity(pwd1Input.title);
+
+            // input key handlers
+            pwd1Input.addEventListener("keyup", function(e) {
+                this.setCustomValidity(this.validity.patternMismatch ? pwd1Input.title : "");
+            }, false);
+        }
+
+    }, false);
+</script>

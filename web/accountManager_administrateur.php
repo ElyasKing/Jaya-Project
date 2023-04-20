@@ -2,25 +2,6 @@
 include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
-
-$success = $_SESSION['success'];
-switch ($success) {
-    case 1:
-        echo '<script>alert("Utilisateur modifié avec succès !");</script>';
-        break;
-    case 2:
-        echo '<script>alert("Utilisateur ajouté avec succès !");</script>';
-        break;
-    case 3:
-        echo '<script>alert("Utilisateur supprimé avec succès !");</script>';
-        break;
-    case 22:
-        echo '<script>alert("Cette adresse mail est déjà associée à un compte utilisateur.");</script>';
-        break;
-    default:
-        // rien
-}
-$_SESSION['success'] = 0;
 ?>
 
 <!DOCTYPE html>
@@ -68,14 +49,16 @@ $_SESSION['success'] = 0;
                 <br>
                 <br>
                 <div class="panel" id="panel">
-                    <select id='habilitation-filter' class='form-select' style='width: 25% !important; margin: -0.25% 0% 0% 21% !important; position: absolute !important; z-index: 1 !important;'>
-                        <option value="">Toutes les habilitations</option>
-                        <option value="Admin">Administrateur</option>
-                        <option value="ResponsableUE">Responsable d'UE</option>
-                        <option value="Scolarite">Scolarité</option>
-                        <option value="TuteurUniversitaire">Tuteur universitaire</option>
-                        <option value="Etudiant">Étudiant</option>
-                    </select>
+                    <div class="col-6 col-md-4 mx-auto">
+                        <select id='habilitation-filter' class='form-select' >
+                            <option value="">Toutes les habilitations</option>
+                            <option value="Admin">Administrateur</option>
+                            <option value="ResponsableUE">Responsable d'UE</option>
+                            <option value="Scolarite">Scolarité</option>
+                            <option value="TuteurUniversitaire">Tuteur universitaire</option>
+                            <option value="Etudiant">Étudiant</option>
+                        </select>
+                    </div>
                     <table id="example" class="display" style="width:100%">
                         <thead>
                             <tr class="bg">
@@ -116,7 +99,46 @@ $_SESSION['success'] = 0;
                     <a href="accountManagerUserCreation_administrateur.php" class="btn btn-primary">Créer un compte</a>
                 </div>
             </div>
-
+            <script src="../js/toastr.min.js"></script>
+            <script>
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            </script>
+            <?php
+            $success = $_SESSION['success'];
+            switch ($success) {
+                case 1:
+                    echo '<script>toastr.success("Utilisateur modifié avec succès !");</script>';
+                    break;
+                case 2:
+                    echo '<script>toastr.success("Utilisateur ajouté avec succès !");</script>';
+                    break;
+                case 3:
+                    echo '<script>toastr.success("Utilisateur supprimé avec succès !");</script>';
+                    break;
+                case 22:
+                    echo '<script>toastr.error("Cette adresse mail est déjà associée à un compte utilisateur.");</script>';
+                    break;
+                default:
+                    // rien
+            }
+            $_SESSION['success'] = 0;
+            ?>
             <script>
                 $(document).ready(function() {
                     $('#example').DataTable({

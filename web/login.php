@@ -25,6 +25,7 @@ if (isset($_SESSION['flag']) && $_SESSION['flag'] == 1) {
       <a class="navbar-brand" href="index.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 </nav>
+
 <head>
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="./styles.css" />

@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tuteurUniversitaire = isset($_POST['tuteurUniversitaire']) ? 'oui' : 'non';
     $etudiant = isset($_POST['etudiant']) ? 'oui' : 'non';
 
-    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+    $mdp = isset($_POST['pw1']) ? $_POST['pw1'] : '';
 
     $mdp_hash = password_hash($mdp, PASSWORD_BCRYPT);
 

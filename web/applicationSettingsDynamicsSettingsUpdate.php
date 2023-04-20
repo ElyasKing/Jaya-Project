@@ -46,7 +46,7 @@ session_start();
         <br>
         <h4 class="text-center">Modifier un critère d'évaluation</h4>
         <form action="applicationSettingsCheckDynamicsSettingsUpdate.php" method="post">
-        <div class="mb-3 mt-3">
+            <div class="mb-3 mt-3">
                 <p class="text-center" style="color: red;"><span class="glyphicon glyphicon-plus"></span>Si la somme des points venait à dépasser 20, la modification ne serait pas prise en compte.</p>
             </div>
             <div class="mb-3 mt-3">
