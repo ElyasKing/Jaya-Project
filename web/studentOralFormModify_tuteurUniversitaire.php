@@ -6,15 +6,25 @@ session_start();
 $db = Database::connect();
 
 
-// Requête SQL pour récupérer les informations de tous les étudiants sauf celui connecté
-$query = "SELECT U.Nom_Utilisateur FROM utilisateur U JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur WHERE H.Etudiant_Habilitations ='oui'";
+// Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
+$query = getStudentForOral($_SESSION['user_id']);
 $listEtud = $db->query($query)->fetchAll();
 
-// Requête SQL pour récupérer les informations des paramètres
+// Requête SQL pour récupérer les informations des paramètres qui sont des notes
 $query = "SELECT nom_param, nbpoint_param from parametres where nbpoint_param is not null";
 $listparam = $db->query($query)->fetchAll();
 
 $conn = Database::disconnect();
+
+$ID = $_GET['id'];
+
+//On récupère la dernière note attribuée
+$query = "SELECT NoteFinale_NS,Commentaire_NS,ID_UtilisateurEvalue FROM `notes_soutenance` WHERE ID_NS='" . $ID . "'";
+$lastNote = $db->query($query)->fetch();
+
+//On récupère le nom de l'étudiant
+$query = "SELECT Nom_Utilisateur FROM utilisateur WHERE ID_Utilisateur ='" . $lastNote['ID_UtilisateurEvalue'] . "'";
+$nomEtudiant = $db->query($query)->fetchColumn();
 
 ?>
 
@@ -47,7 +57,7 @@ $conn = Database::disconnect();
             <br><br>
             <h4 class="text-center">Noter un étudiant</h4>
             <br><br>
-            <form id="note_etud_oral" method="post" action="StudentOralCheck_tuteurUniversitaire.php">
+            <form id="note_etud_oral" method="post" action="StudentOralCheckModify_tuteurUniversitaire.php">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-10">
                         <div class="card shadow-2-strong css-login">
@@ -59,16 +69,11 @@ $conn = Database::disconnect();
                                     </div>
                                 </div>
                                 <br>
-                                <!---liste déroulante des étudiants--->
+                                <!---Nom de l'étudiant--->
                                 <div class="row">
                                     <div class="col">
-                                        <label for="nom_etud" class="form-label">Nom de l'étudiant :</label>
-
-                                        <select name="liste-noms" class="form-control">
-                                            <?php foreach ($listEtud as $row) { ?>
-                                                <option value="<?php echo $row['Nom_Utilisateur']; ?>"><?php echo $row['Nom_Utilisateur']; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <p class="form-label">Etudiant : <?php echo $nomEtudiant ?></p>
+                                        <input type="hidden" class="form-control" name="id_NS" value="<?= $ID ?>">
                                     </div>
                                 </div>
                                 <br>
@@ -77,7 +82,7 @@ $conn = Database::disconnect();
                                     <?php foreach ($listparam as $param) { ?>
                                         <div class="col">
                                             <label class="form-label" for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
-                                            <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" value="<?php echo $param['nbpoint_param']; ?>">
+                                            <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" step="0.1"  value="<?php echo $param['nbpoint_param']; ?>">
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -85,7 +90,7 @@ $conn = Database::disconnect();
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label" for="note_finale">Note finale :</label>
-                                        <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" value="">
+                                        <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" step="0.1" value="<?php echo $lastNote['NoteFinale_NS'] ?>">
                                     </div>
                                 </div>
                                 <br>
@@ -93,12 +98,13 @@ $conn = Database::disconnect();
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label" for="commentaire">Commentaire :</label>
-                                        <input class="form-control" type="text" id="commentaire" name="commentaire">
+                                        <input class="form-control" type="text" id="commentaire" name="commentaire" value="<?php echo $lastNote['Commentaire_NS'] ?>">
                                     </div>
                                 </div>
                                 <br>
                                 <div class="text-center">
                                     <button class="btn me-md-3 bg" type="submit">Confirmer</button>
+                                    <a type="button" href="studentOralManagement_tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>
                                 </div>
                             </div>
                         </div>

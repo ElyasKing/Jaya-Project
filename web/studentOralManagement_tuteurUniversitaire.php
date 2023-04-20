@@ -28,8 +28,8 @@ session_start();
             NS.NoteFinale_NS,
             NS.Commentaire_NS 
             FROM notes_soutenance NS 
-            JOIN Utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
-            WHERE NS.ID_UtilisateurEvaluateur = '". $_SESSION["user_id"]."';";
+            LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
+            WHERE NS.ID_UtilisateurEvaluateur = '" . $_SESSION["user_id"] . "';";
 
             $result = $db->query($sql);
 
@@ -74,7 +74,7 @@ session_start();
                             <?php } ?>
                         </tbody>
                     </table>
-                    <a href="studentOralForm_tuteurUniversitaire.php" class="btn btn-primary">Nouvelle soutenance</a>
+                    <a href="studentOralFormNew_tuteurUniversitaire.php" class="btn btn-primary">Nouvelle soutenance</a>
                 </div>
             </div>
             <script src="../js/toastr.min.js"></script>
@@ -122,7 +122,7 @@ session_start();
                             url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
                         },
                         order: [
-                            [3, 'desc']
+                            [0, 'asc']
                         ],
                         dom: 'Blfrtip',
                         buttons: ['excel'],
@@ -132,7 +132,7 @@ session_start();
                         var id = $(this).data('id');
                         var user = $(this).data('nomutilisateur');
                         if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
-                            window.location.href = 'studentOralManagementDeletion_tuteurUniversitaire.php?id=' + id;
+                            window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
                         }
                     });
                 });

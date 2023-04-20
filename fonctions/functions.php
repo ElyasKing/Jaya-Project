@@ -165,10 +165,10 @@ getStutdentGradeOral($User_ID)
 
 function getStudentSchedule_Etudiant($User_ID)
 {
-    $sql="SELECT p.ID_Planning, p.DateSession_Planning, p.HeureDebutSession_Planning 
+    $sql = "SELECT p.ID_Planning, p.DateSession_Planning, p.HeureDebutSession_Planning 
     FROM planning p
     INNER JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
-    WHERE u.ID_Utilisateur = '".$User_ID."'
+    WHERE u.ID_Utilisateur = '" . $User_ID . "'
     AND p.ValidationScolarite_Planning = 'oui';";
 
     return $sql;
@@ -284,4 +284,18 @@ function getSettings($settingType)
     }
 
     return $sql;
+}
+
+// Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
+
+function getStudentForOral($User_ID)
+{
+$query = "SELECT U.Nom_Utilisateur 
+FROM utilisateur U 
+LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur 
+WHERE H.Etudiant_Habilitations = 'oui' AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
+                                                                    FROM notes_soutenance 
+                                                                    WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "');";
+
+return $query;
 }
