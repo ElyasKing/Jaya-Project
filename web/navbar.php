@@ -89,7 +89,7 @@
         <a class="nav-link active" href="accountManager_users.php">Compte</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Soutenances</a>
+        <a class="nav-link active" href="studentOralManagement_tuteurUniversitaire.php">Soutenances</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="#">Planning</a>
