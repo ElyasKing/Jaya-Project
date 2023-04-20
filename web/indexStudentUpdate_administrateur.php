@@ -61,117 +61,142 @@ session_start();
 
             $db = Database::disconnect();
             ?>
-
-            <div class="container bg-light p-3">
-                <h1>Modifier les informations d'un étudiant</h1>
+            <div class="container">
+                <br>
+                <br>
+                <h4 class="text-center">Modifier les informations d'un étudiant</h4>
+                <br>
+                <br>
                 <form action="indexCheckStudentUpdate_administrateur.php" method="post">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="nomEtudiant" class="form-label">Nom :</label>
-                            <input type="text" class="form-control" name="nomEtudiant" value="<?= $etudiant['nom_Utilisateur'] ?>" readonly>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="emailEtudiant" class="form-label">Email :</label>
-                            <input type="email" class="form-control" name="emailEtudiant" value="<?= $etudiant['Mail_Utilisateur'] ?>" readonly>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="promo" class="form-label">Promo :</label>
-                            <input type="text" class="form-control" name="promo" value="<?= $etudiant['Promo_Utilisateur'] ?>">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="entreprise" class="form-label">Entreprise :</label>
-                            <input type="text" class="form-control" name="entreprise" value="<?= $etudiant['Entreprise_Invite'] ?>">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="ville" class="form-label">Ville de l'entreprise :</label>
-                            <input type="text" class="form-control" name="ville" value="<?= $etudiant['Ville_Invite'] ?>">
-                        </div>
-
-                        <div class="tuteurs-entreprise-container">
-                            <?php
-                            $compteur = 1;
-                            if (empty($tuteur_entreprise)) {
-                            ?>
-                                <div class="tuteur-entreprise">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="nomTE" class="form-label">Nom du tuteur entreprise :</label>
-                                        <select class="form-control" name="nomte[]" required>
-                                            <option value=""></option>
-                                            <?php foreach ($liste_invite as $invite) { ?>
-                                                <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" <?= (!$tuteur_entreprise && !$invite['Nom_Invite']) ? 'selected' : '' ?>>
-                                                    <?= $invite['Nom_Invite'] ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                            <div class="card shadow-2-strong css-login">
+                                <div class="card-body p-5">
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="nomEtudiant" class="form-label">Nom :</label>
+                                            <input type="text" class="form-control" name="nomEtudiant" value="<?= $etudiant['nom_Utilisateur'] ?>" readonly>
+                                        </div>
+                                        <div class="col">
+                                            <label for="emailEtudiant" class="form-label">Email :</label>
+                                            <input type="email" class="form-control" name="emailEtudiant" value="<?= $etudiant['Mail_Utilisateur'] ?>" readonly>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="emailTE" class="form-label">Email du tuteur entreprise :</label>
-                                        <input type="email" class="form-control" name="emailte[]" readonly>
-                                    </div>
-                                </div>
-                                <?php
-                            } else {
-                                foreach ($tuteur_entreprise as $TE) {
-                                ?>
-                                    <div class="tuteur-entreprise">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="nomTE<?= $compteur ?>" class="form-label">Nom du tuteur entreprise :</label>
-                                            <select class="form-control" name="nomte[]" data-index="<?= $compteur ?>" required>
+                                    <br>
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="nomTuteur" class="form-label">Nom du tuteur universitaire</label>
+                                            <select class="form-control" name="nomTuteur" id="nomTuteur" required>
                                                 <option value=""></option>
-                                                <?php foreach ($liste_invite as $invite) { ?>
-                                                    <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" <?= ($invite['Nom_Invite'] == $TE['Nom_Invite']) ? 'selected' : '' ?>>
-                                                        <?= $invite['Nom_Invite'] ?>
+                                                <?php foreach ($liste_tuteur as $tuteur) { ?>
+                                                    <option value="<?= $tuteur['Nom_Utilisateur'] ?>" data-email="<?= $tuteur['Mail_Utilisateur'] ?>" <?php if ($tuteur_universitaire && $tuteur['Nom_Utilisateur'] == $tuteur_universitaire['nom_Utilisateur']) echo 'selected'; ?>>
+                                                        <?= $tuteur['Nom_Utilisateur'] ?>
                                                     </option>
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="emailTE<?= $compteur ?>" class="form-label">Email du tuteur entreprise :</label>
-                                            <input type="email" class="form-control" name="emailte[]" id="emailTE<?= $compteur ?>" value="<?= $TE['Mail_Invite'] ?>" readonly>
+                                        <div class="col">
+                                            <label for="emailTuteur" class="form-label">Email du tuteur universitaire</label>
+                                            <input type="email" class="form-control" name="emailTuteur" id="emailTuteur" value="<?= $Mail_Utilisateur ?>" readonly>
                                         </div>
                                     </div>
-                            <?php
-                                    $compteur++;
-                                }
-                            }
-                            ?>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <button type="button" class="btn btn-primary add-tuteur-entreprise-button">Ajouter un tuteur entreprise</button>
-                            <button class="btn btn-danger" type="button" id="delete-all-button">Supprimer</button>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="nomTuteur" class="form-label">Nom du tuteur universitaire</label>
-                            <select class="form-control" name="nomTuteur" id="nomTuteur" required>
-                                <option value=""></option>
-                                <?php foreach ($liste_tuteur as $tuteur) { ?>
-                                    <option value="<?= $tuteur['Nom_Utilisateur'] ?>" data-email="<?= $tuteur['Mail_Utilisateur'] ?>" <?php if ($tuteur_universitaire && $tuteur['Nom_Utilisateur'] == $tuteur_universitaire['nom_Utilisateur']) echo 'selected'; ?>>
-                                        <?= $tuteur['Nom_Utilisateur'] ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="emailTuteur" class="form-label">Email du tuteur universitaire</label>
-                            <input type="email" class="form-control" name="emailTuteur" id="emailTuteur" value="<?= $Mail_Utilisateur ?>" readonly>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="huitClos" class="form-label">Huit-Clos</label>
-                            <input type="checkbox" class="form-check-input" name="huitClos" value="<?= $etudiant['HuitClos_Utilisateur'] ?>" <?= ($etudiant['HuitClos_Utilisateur'] == 'oui') ? 'checked' : '' ?>>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <button class="btn btn-info" type="submit">Modifier</button>
+                                    <br>
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="promo" class="form-label">Promo :</label>
+                                            <input type="text" class="form-control" name="promo" value="<?= $etudiant['Promo_Utilisateur'] ?>">
+                                        </div>
+                                        <div class="col">
+                                            <label for="entreprise" class="form-label">Entreprise :</label>
+                                            <input type="text" class="form-control" name="entreprise" value="<?= $etudiant['Entreprise_Invite'] ?>">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="ville" class="form-label">Ville de l'entreprise :</label>
+                                            <input type="text" class="form-control" name="ville" value="<?= $etudiant['Ville_Invite'] ?>">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class='tuteurs-entreprise-container'>
+                                        <?php
+                                        $compteur = 1;
+                                        if (empty($tuteur_entreprise)) {
+                                        ?>
+                                            <div class="row tuteur-entreprise">
+                                                <div class="col">
+                                                    <label for="nomTE" class="form-label">Nom du tuteur entreprise :</label>
+                                                    <select class="form-control" name="nomte[]" required>
+                                                        <option value=""></option>
+                                                        <?php foreach ($liste_invite as $invite) { ?>
+                                                            <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" <?= (!$tuteur_entreprise && !$invite['Nom_Invite']) ? 'selected' : '' ?>>
+                                                                <?= $invite['Nom_Invite'] ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="emailTE" class="form-label">Email du tuteur entreprise :</label>
+                                                    <input type="email" class="form-control" name="emailte[]" readonly>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        } else {
+                                            foreach ($tuteur_entreprise as $TE) {
+                                            ?>
+                                                <div class="row tuteur-entreprise">
+                                                    <div class="col">
+                                                        <label for="nomTE<?= $compteur ?>" class="form-label">Nom du tuteur entreprise :</label>
+                                                        <select class="form-control" name="nomte[]" data-index="<?= $compteur ?>" required>
+                                                            <option value=""></option>
+                                                            <?php foreach ($liste_invite as $invite) { ?>
+                                                                <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" <?= ($invite['Nom_Invite'] == $TE['Nom_Invite']) ? 'selected' : '' ?>>
+                                                                    <?= $invite['Nom_Invite'] ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label for="emailTE<?= $compteur ?>" class="form-label">Email du tuteur entreprise :</label>
+                                                        <input type="email" class="form-control" name="emailte[]" id="emailTE<?= $compteur ?>" value="<?= $TE['Mail_Invite'] ?>" readonly>
+                                                    </div>
+                                                </div>
+                                        <?php
+                                                $compteur++;
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <br>
+                                    <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary add-tuteur-entreprise-button">Ajouter un tuteur entreprise</button>
+                                            <button class="btn btn-danger" type="button" id="delete-all-button">Supprimer</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="huitClos" class="form-label">Huit-Clos</label>
+                                            <input type="checkbox" class="form-check-input" name="huitClos" value="<?= $etudiant['HuitClos_Utilisateur'] ?>" <?= ($etudiant['HuitClos_Utilisateur'] == 'oui') ? 'checked' : '' ?>>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn me-md-3 bg" type="submit">Modifier</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
-                </form>
             </div>
+            </form>
         </div>
     </div>
 </body>
 
 </html>
-
 <script>
     // Récupération des éléments HTML
     const selectTuteur = document.querySelector('select[name="nomTuteur"]');
@@ -225,14 +250,21 @@ session_start();
     addButton.addEventListener('click', () => {
         // Création des éléments HTML pour la nouvelle div
         const newDiv = document.createElement('div');
-        newDiv.classList.add('tuteur-entreprise');
+        newDiv.classList.add('row', 'tuteur-entreprise');
+
+        const newDiv2 = document.createElement('div');
+        newDiv2.classList.add('col');
 
         const nomLabel = document.createElement('label');
         nomLabel.textContent = 'Nom du tuteur entreprise :';
+        nomLabel.classList.add('form-label');
         const nomSelect = document.createElement('select');
         nomSelect.classList.add('form-control');
         nomSelect.name = 'nomte[]';
         nomSelect.required = true;
+
+        const newDiv3 = document.createElement('div');
+        newDiv3.classList.add('col');
 
         const emailLabel = document.createElement('label');
         emailLabel.textContent = 'Email du tuteur entreprise :';
@@ -255,21 +287,39 @@ session_start();
         nomSelect.appendChild(defaultOption);
 
         // Ajout des options pour chaque tuteur entreprise dans la liste
-        <?php foreach ($liste_invite as $invite) { ?>
+        <?php
+        foreach ($liste_invite as $invite) { ?>
+            var searchText = '<?= $invite['Mail_Invite'] ?>';
+            var elements = document.getElementsByTagName("*");
+            var matchingElements = [];
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].textContent.includes(searchText)) {
+                    matchingElements.push(elements[i]);
+                }
+            }
+        <?php if (!empty($matchingElements)) {
+                continue;
+            }
+        ?>
             const option<?= $compteur ?> = document.createElement('option');
             option<?= $compteur ?>.value = '<?= $invite['Nom_Invite'] ?>';
             option<?= $compteur ?>.text = '<?= $invite['Nom_Invite'] ?>';
             option<?= $compteur ?>.setAttribute('data-email-te', '<?= $invite['Mail_Invite'] ?>');
             option<?= $compteur ?>.setAttribute('data-id-te', '<?= $invite['ID_Invite'] ?>');
             nomSelect.appendChild(option<?= $compteur ?>);
-        <?php $compteur++;
-        } ?>
+        <?php
+            $compteur++;
+        }
+        ?>
+
 
         // Ajout des éléments HTML à la nouvelle div
-        newDiv.appendChild(nomLabel);
-        newDiv.appendChild(nomSelect);
-        newDiv.appendChild(emailLabel);
-        newDiv.appendChild(emailInput);
+        newDiv.appendChild(newDiv2);
+        newDiv.appendChild(newDiv3);
+        newDiv2.appendChild(nomLabel);
+        newDiv2.appendChild(nomSelect);
+        newDiv3.appendChild(emailLabel);
+        newDiv3.appendChild(emailInput);
 
         // Ajout de la nouvelle div à la liste des tuteurs entreprise
         tuteursEntrepriseContainer.appendChild(newDiv);

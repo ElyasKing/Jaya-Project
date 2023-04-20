@@ -1,10 +1,9 @@
 <?php
 include "../application_config/db_class.php";
+session_start();
 $conn = Database::connect();
 
 if (isset($_POST)) {
-
-    var_dump($_POST);
 
     $idEtudiant = $_POST['id'];
     $promo = $_POST['promo'];
@@ -43,7 +42,6 @@ if (isset($_POST)) {
     $query = "SELECT COUNT(ID_etudiant)  FROM `etudiant_tuteur` WHERE ID_etudiant='" . $idEtudiant . "'";
     $result = $conn->query($query)->fetch();
     $occurence = $result['COUNT(ID_etudiant)'];
-    echo $occurence;
 
     if ($occurence > 0) {
         $query = "UPDATE `etudiant_tuteur` SET `ID_tuteur`='" . $idTuteurUniversitaire . "' WHERE ID_Etudiant='" . $idEtudiant . "'";
@@ -54,4 +52,5 @@ if (isset($_POST)) {
     }
 }
 
+$_SESSION['success'] = 1;
 header('Location: index.php');

@@ -2,23 +2,6 @@
 include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
-
-$success = $_SESSION['success'];
-switch ($success) {
-    case 1:
-        echo '<script>
-        setTimeout(function() {
-            alert("Vous avez changé votre mot de passe. Vous allez être redirigé vers le portail de connexion.");
-            window.location.href = "logout.php";
-        }, 0);</script>';
-        break;
-    case 11:
-        echo '<script>alert("Veillez à ce que les deux mots de passe saisis soient identiques !");</script>';
-        break;
-    default:
-        // rien
-}
-$_SESSION['success'] = 0;
 ?>
 
 <!DOCTYPE html>
@@ -54,30 +37,79 @@ $_SESSION['success'] = 0;
                     ?>
 
                     <form id="myForm" action="accountManagerCheckUserUpdate_users.php" method="post" onsubmit="return checkForm(this);">
-                        <div class="mb-3 mt-3">
-                            <input type="hidden" class="form-control" name="id" value="<?= $user["ID_Utilisateur"] ?>">
-                            <p class="form-label">Utilisateur : <?= $user["Nom_Utilisateur"] ?></p>
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="pw1" class="form-label">Nouveau mot de passe :</label>
-                            <input id="field_pwd1" title="Un mot de passe fort doit contenir : 8 caractères minimum, des minuscules, des majuscules, des chiffres et des caractères spéciaux." required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw1">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="pw2" class="form-label">Confirmer le nouveau mot de passe :</label>
-                            <input id="field_pwd2" title="Entrez le même mot de passe que ci-dessus" required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw2">
-                        </div>
-                        <br>
-                        <div class="text-center">
-                            <button class="btn me-md-3 bg" type="submit">Modifier</button>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                                <div class="card shadow-2-strong css-login">
+                                    <div class="card-body p-5">
+                                        <div class='row'>
+                                            <div class="col">
+                                                <input type="hidden" class="form-control" name="id" value="<?= $user["ID_Utilisateur"] ?>">
+                                                <p class="form-label">Utilisateur : <?= $user["Nom_Utilisateur"] ?></p>
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class="col">
+                                                <label for="pw1" class="form-label">Nouveau mot de passe :</label>
+                                                <input id="field_pwd1" title="Un mot de passe fort doit contenir : 8 caractères minimum, des minuscules, des majuscules, des chiffres et des caractères spéciaux." required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw1">
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class="col">
+                                                <label for="pw2" class="form-label">Confirmer le nouveau mot de passe :</label>
+                                                <input id="field_pwd2" title="Entrez le même mot de passe que ci-dessus" required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw2">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="text-center">
+                                            <button class="btn me-md-3 bg" type="submit">Modifier</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
 
+<script src="../js/toastr.min.js"></script>
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>
+<?php
+$success = $_SESSION['success'];
+switch ($success) {
+    case 1:
+        echo '<script>toastr.success("Vous avez changé votre mot de passe.");</script>';
+        break;
+    case 11:
+        echo '<script>toastr.error("Veillez à ce que les deux mots de passe saisis soient identiques !");</script>';
+        break;
+    default:
+        // rien
+}
+$_SESSION['success'] = 0;
+?>
 <script>
     window.addEventListener("DOMContentLoaded", function(e) {
 

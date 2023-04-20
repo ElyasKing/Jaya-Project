@@ -59,22 +59,22 @@ h2 {
     color: white;
 }
 
-.bg:hover {
+.bg:hover{
     background-color: #23314e68;
     color: #23314e;
 }
 
-.red {
+.red{
     background-color: #8B0000 !important;
     color: white !important;
 }
 
-.red:hover {
+.red:hover{
     background-color: #8b000048 !important;
-    color: #8B0000 !important;
+    color: #8B0000!important;
 }
 
-.colored {
+.colored{
     color: #23314e;
 }
 
@@ -99,33 +99,31 @@ hr {
     margin: auto;
 }
 
-.tr-bgColor {
+.tr-bgColor{
     background-color: rgba(0, 191, 255, 0.115) !important;
 }
 
-.noDecoration,
-a:link,
-a:visited {
+.noDecoration, a:link, a:visited {
     text-decoration: none;
 }
 
-.linkFormat {
+.linkFormat{
     color: #004499 !important;
-}
-
+  }
+  
 .linkFormat:hover {
-    color: #23314e !important;
-}
+    color: #23314e!important;
+  }
 
 /* PAGINATION DATATABLE */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
     color: white !important;
     border: 1px solid transparent !important;
     background: #23314e !important;
     border-radius: 0.375rem !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
     color: #23314e !important;
     background-color: #23314e68 !important;
     background: #23314e68 !important;
@@ -141,31 +139,34 @@ a:visited {
 
 .buttons-excel:hover {
     color: #23314e !important;
-    background: #23314e68 !important;
+    background: #23314e68!important;
 }
 
-.pagination>.active>a,
-.pagination>.active>a:focus,
-.pagination>.active>a:hover,
-.pagination>.active>span,
-.pagination>.active>span:focus,
-.pagination>.active>span:hover {
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover{
     z-index: 3;
     color: #fff;
     cursor: default;
     background-color: #23314e;
-    border-color: #23314e;
+    border-color: #23314e;   
 }
 
-.pagination>li>a,
-.pagination>li>span {
+.linkFormat {
+    color: #004499 !important;
+}
+
+.linkFormat:hover {
     color: #23314e !important;
 }
 
 
 /* LOGIN */
-.css-login {
-    border-radius: 1rem !important;
-    background: hsl(0, 0%, 96%) !important;
+.css-login{
+    border-radius: 1rem !important; 
+    background: hsl(0,0%,96%) !important; 
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
 }

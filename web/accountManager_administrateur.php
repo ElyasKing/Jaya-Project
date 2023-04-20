@@ -2,6 +2,7 @@
 include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@ session_start();
                 <br>
                 <div class="panel" id="panel">
                     <div class="col-6 col-md-4 mx-auto">
-                        <select id='habilitation-filter' class='form-select' >
+                        <select id='habilitation-filter' class='form-select'>
                             <option value="">Toutes les habilitations</option>
                             <option value="Admin">Administrateur</option>
                             <option value="ResponsableUE">Responsable d'UE</option>
@@ -85,18 +86,27 @@ session_start();
                                         <td class="text-center"><?= $user['Etudiant_Habilitations']; ?></td>
                                         <td>
                                             <a href="accountManagerUserUpdate_administrateur.php?id=<?= $user['Id_Utilisateur'] ?>">
-                                                <i class="bi bi-pencil-fill"></i>
+                                                <button type="button" class="btn bg bi bi-pencil-fill"></button>
                                             </a>
-                                            <button class="btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
+                                            <?php if ($user['Nom_Utilisateur'] != $_SESSION["user_name"]) { ?>
+                                                <button class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                                </button>
+                                            <?php }else{ ?>
+                                               <button disabled class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                               </button> 
+                                               <?php
+                                            } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
                         </tbody>
                     </table>
-                    <a href="accountManagerUserCreation_administrateur.php" class="btn btn-primary">Créer un compte</a>
+                    <br>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a type="button" href="accountManagerUserCreation_administrateur.php" class="btn me-md-3 btn-custom bg">Créer un compte</a>
+                    </div>
+                    
                 </div>
             </div>
             <script src="../js/toastr.min.js"></script>
