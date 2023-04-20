@@ -39,7 +39,13 @@ if ($result->rowCount() > 0) {
             <tbody>
                 <?php if (!empty($arr_users)) { ?>
                     <?php foreach ($arr_users as $user) { ?>
-                        <tr>
+                        <tr <?php if (
+                                empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
+                                empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
+                                empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuitClos_Utilisateur'])
+                            ) {
+                                echo "style='background-color: rgba(255, 255, 0, 0.199);'";
+                            } ?>>
                             <td class="text-center"><?php echo $user['Nom_Etudiant']; ?></td>
                             <td class="text-center"><?php echo $user['Mail_Etudiant']; ?></td>
                             <td class="text-center"><?php echo $user['Promo_Utilisateur']; ?></td>
@@ -67,11 +73,10 @@ if ($result->rowCount() > 0) {
                 url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
             },
             order: [
-                [3, 'desc']
+                [0, 'asc']
             ],
             dom: 'Blfrtip',
             buttons: ['excel'],
         });
-
     });
 </script>
