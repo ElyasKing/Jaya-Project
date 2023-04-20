@@ -33,7 +33,10 @@ echo '<title>JAYA</title>
 <link rel="stylesheet" href="">
 
 <!-- CSS PERSO -->
-<link rel="stylesheet" href="../css/style.css">';
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/toastr.min.css">';
+
+
 
 
 ?>

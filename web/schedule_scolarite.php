@@ -72,14 +72,17 @@ session_start();
                 ?>
 
                 <div class="panel" id="panel">
+                    <div class="col-6 col-md-4 mx-auto">
                     <?php
-                    echo "<select id='planningSelector' class='form-select' style='width: 25% !important; margin: -0.25% 0% 0% 21% !important; position: absolute !important; z-index: 1 !important;'>";
-                    while($row = $statement->fetch()){
-                        echo "<option value='".$row['ID_Planning']."' >".$row['Nom_Planning']."</option>";
-                        $tmp = $row['ID_Planning'];
-                    }
-                    echo "</select>";
-
+                        echo "<select id='planningSelector' class='form-select' >";
+                        while($row = $statement->fetch()){
+                            echo "<option value='".$row['ID_Planning']."' >".$row['Nom_Planning']."</option>";
+                            $tmp = $row['ID_Planning'];
+                        }
+                        echo "</select>";
+                    ?>
+                    </div>
+                    <?php
                     $query = "SELECT * FROM
                     (SELECT ID_Planning, Nom_Planning FROM planning ) as lastID
                      ORDER BY ID_Planning DESC LIMIT 1;";
