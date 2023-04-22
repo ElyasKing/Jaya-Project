@@ -39,7 +39,7 @@ if (isset($_POST)) {
 
 
     $query = 'UPDATE utilisateur SET Nom_Utilisateur = "' . $nomEtudiant . '", Mail_Utilisateur = "' . $emailEtudiant . '", 
-    Promo_Utilisateur = "' . $promo . '", HuitClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $id . '"';
+    Promo_Utilisateur = "' . $promo . '", HuisClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $id . '"';
     $result = $conn->query($query);
 
     if ($_POST['idTuteur'] != null) {

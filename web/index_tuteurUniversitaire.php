@@ -31,7 +31,7 @@ if ($result->rowCount() > 0) {
                     <th>Email MA</th>
                     <th>Tuteur universitaire</th>
                     <th>Email TU</th>
-                    <th>Huit clos</th>
+                    <th>Huis clos</th>
                     <th style="display:none;">Roles</th>
                 </tr>
             </thead>
@@ -41,7 +41,7 @@ if ($result->rowCount() > 0) {
                         <tr <?php if (
                                 empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
                                 empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
-                                empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuitClos_Utilisateur'])
+                                empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuisClos_Utilisateur'])
                             ) {
                                 echo 'class="tr-bgColor"';
                             } ?>>
@@ -54,7 +54,7 @@ if ($result->rowCount() > 0) {
                             <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
                             <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
                             <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
-                            <td class="text-center"><?= $user['HuitClos_Utilisateur']; ?></td>
+                            <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                         </tr>
                     <?php } ?>

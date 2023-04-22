@@ -95,6 +95,8 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
         header("Location: login.php");
     }
 }else{
-    // Aucune saisie. Ne rien faire.
+    // Authentification échouée, mot de passe incorrect
+    $_SESSION['success'] = 1;
+    header("Location: login.php");
 }
 ?>

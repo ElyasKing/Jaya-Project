@@ -43,7 +43,7 @@
                 i.Entreprise_Invite, 
                 i.Ville_Invite,
                 u1.Promo_Utilisateur, 
-                u1.HuitClos_Utilisateur 
+                u1.HuisClos_Utilisateur 
             FROM Utilisateur u1 
             LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant 
             INNER JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur 
@@ -67,14 +67,14 @@
 
     //tris des étudiants pour les classer dans les tableaux adéquats
     for($i=0; $i < count($studentsList); $i++){
-        if($studentsList[$i]["HuitClos_Utilisateur"] == "oui"){ // huis clos ?
+        if($studentsList[$i]["HuisClos_Utilisateur"] == "oui"){ // huis clos ?
             if($studentsList[$i]["Promo_Utilisateur"] == "M1_MIAGE"){ // M1 ?
                 $studentsList_M1_huisClos[] = $studentsList[$i]; // alors go tableau M1 huis clos.
             }
             elseif($studentsList[$i]["Promo_Utilisateur"] == "M2_MIAGE"){ // M2 ?
                 $studentsList_M2_huisClos[] = $studentsList[$i]; // alors go tableau M2 huis clos.
             }
-        }elseif($studentsList[$i]["HuitClos_Utilisateur"] == "non"){ // non huis clos ?
+        }elseif($studentsList[$i]["HuisClos_Utilisateur"] == "non"){ // non huis clos ?
             if($studentsList[$i]["Promo_Utilisateur"] == "M1_MIAGE"){ // M1 ?
                 $studentsList_M1_nonHuisClos[] = $studentsList[$i]; // alors go tableau M1 non huis clos.
             }

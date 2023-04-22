@@ -11,7 +11,7 @@ if ($result->rowCount() > 0) {
 ?>
 
 
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -21,15 +21,15 @@ if ($result->rowCount() > 0) {
             <thead>
                 <tr class="bg">
                     <th>Etudiant</th>
-                    <th>Email Etudiant</th>
+                    <th>Email étudiant</th>
                     <th>Promo</th>
                     <th>Entreprise</th>
                     <th>Ville</th>
-                    <th>Maitre d'apprentissage</th>
-                    <th>Email MA</th>
+                    <th>Tuteur entreprise</th>
+                    <th>Email tuteur entreprise</th>
                     <th>Tuteur universitaire</th>
-                    <th>Email TU</th>
-                    <th>Huit clos</th>
+                    <th>Email tuteur universitaire</th>
+                    <th>Huis clos</th>
                     <th style="display:none;">Roles</th>
                     <th> </th>
                 </tr>
@@ -40,7 +40,7 @@ if ($result->rowCount() > 0) {
                         <tr <?php if (
                                 empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
                                 empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
-                                empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuitClos_Utilisateur'])
+                                empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuisClos_Utilisateur'])
                             ) {
                                 echo 'class="tr-bgColor"';
                             } ?>>
@@ -53,7 +53,7 @@ if ($result->rowCount() > 0) {
                             <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
                             <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
                             <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
-                            <td class="text-center"><?= $user['HuitClos_Utilisateur']; ?></td>
+                            <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                             <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
                         </tr>
@@ -104,6 +104,7 @@ if (isset($_SESSION['success']) && $_SESSION['success'] == 1) {
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
             },
+            "autoWidth": false,
             order: [
                 [0, 'asc']
             ],

@@ -12,7 +12,7 @@ if (isset($_POST)) {
     $huitclos = isset($_POST['huitClos']) ? "oui" : "non";
 
     // Mise à jour des informations liées à l'étudiant
-    $query = 'UPDATE utilisateur SET Promo_Utilisateur = "' . $promo . '", HuitClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $idEtudiant . '"';
+    $query = 'UPDATE utilisateur SET Promo_Utilisateur = "' . $promo . '", HuisClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $idEtudiant . '"';
     $result = $conn->query($query);
 
     // Mise à jour des informations liées au tuteur entreprise

@@ -180,7 +180,7 @@ session_start();
                                     <div class="row">
                                         <div class="col">
                                             <label for="huitClos" class="form-label">Huit-Clos</label>
-                                            <input type="checkbox" class="form-check-input" name="huitClos" value="<?= $etudiant['HuitClos_Utilisateur'] ?>" <?= ($etudiant['HuitClos_Utilisateur'] == 'oui') ? 'checked' : '' ?>>
+                                            <input type="checkbox" class="form-check-input" name="huitClos" value="<?= $etudiant['HuisClos_Utilisateur'] ?>" <?= ($etudiant['HuisClos_Utilisateur'] == 'oui') ? 'checked' : '' ?>>
                                         </div>
                                     </div>
                                     <div class="text-center">

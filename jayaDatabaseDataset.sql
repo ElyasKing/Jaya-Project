@@ -1,22 +1,22 @@
 -- Table utilisateur
-INSERT INTO `utilisateur` (`Nom_Utilisateur`, `Mail_Utilisateur`, `MDP_Utilisateur`, `Promo_Utilisateur`, `Annee_Utilisateur`, `HuitClos_Utilisateur`, `ID_Planning`) VALUES
-('Florian Borgne', 'florian.borgne@etud.u-picardie.fr', 'mdp', 'M2_MIAGE', '2022-2023', 'non', NULL),
-('Elias Chahraiar', 'elias.chahraiar@etud.u-picardie.fr', 'mdp', 'M2_MIAGE', '2022-2023', 'non', NULL),
-('Selaïman Vanlanduyt', 'selaiman.vanlanduyt@etud.u-picardie.fr', 'mdp', 'M2_MIAGE', '2022-2023', 'non', NULL),
-('Joanna Reiss', 'joanna.reiss@etud.u-picardie.fr', 'mdp', 'M2_MIAGE', '2022-2023', 'oui', NULL),
-('Jéremy Ruhlmann', 'jeremy.ruhlmann@etud.u-picardie.fr', 'mdp', 'M2_MIAGE', '2022-2023', 'oui', NULL),
-('Anthony Oveermer', 'anthony.oveermer@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2022-2023', 'non', NULL),
-('Nino Belic', 'nino.belic@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2022_2023', 'non', NULL),
-('Florian Berroy', 'florian.berroy@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2022-2023', 'oui', NULL),
-('Quentin Bondoux', 'quentin.bondoux@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2021-2022', 'non', NULL),
-('Thibaud Dufour', 'thibaud.dufour@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2021-2022', 'oui', NULL),
+INSERT INTO `utilisateur` (`Nom_Utilisateur`, `Mail_Utilisateur`, `MDP_Utilisateur`, `Promo_Utilisateur`, `Annee_Utilisateur`, `HuisClos_Utilisateur`, `ID_Planning`) VALUES
+('Florian Borgne', 'florian.borgne@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'non', NULL),
+('Elias Chahraiar', 'elias.chahraiar@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'non', NULL),
+('Selaïman Vanlanduyt', 'selaiman.vanlanduyt@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'non', NULL),
+('Joanna Reiss', 'joanna.reiss@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'oui', NULL),
+('Jéremy Ruhlmann', 'jeremy.ruhlmann@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'oui', NULL),
+('Anthony Oveermer', 'anthony.oveermer@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'non', NULL),
+('Nino Belic', 'nino.belic@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022_2023', 'non', NULL),
+('Florian Berroy', 'florian.berroy@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'oui', NULL),
+('Quentin Bondoux', 'quentin.bondoux@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2021-2022', 'non', NULL),
+('Thibaud Dufour', 'thibaud.dufour@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2021-2022', 'oui', NULL),
 ('Stéphanie Dertin', 'stephanie.dertin@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
 ('Catherine Barry', 'catherine.barry@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
 ('Anne Lapujade', 'anne.lapujade@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
 ('Jean-Luc Guérin', 'jean-luc.guerin@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
 ('Dominique Groux', 'dominique.groux@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
 ('Florence Leve', 'florence.leve@u-picardie.fr', 'mdp', NULL, NULL, NULL, NULL),
-('Julien Leveneur', 'julien.leveneur@etud.u-picardie.fr', 'mdp', 'M1_MIAGE', '2022-2023', 'non', NULL);
+('Julien Leveneur', 'julien.leveneur@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'non', NULL);
 
 -- Table etudiant_tuteur
 INSERT INTO `etudiant_tuteur` (`ID_etudiant`, `ID_tuteur`) VALUES 

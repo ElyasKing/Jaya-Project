@@ -87,7 +87,7 @@ if ($result->rowCount() > 0) {
                         <th>Email MA</th>
                         <th>Tuteur universitaire</th>
                         <th>Email TU</th>
-                        <th>Huit clos</th>
+                        <th>Huis clos</th>
                         <th style="display:none;">Roles</th>
                     </tr>
                 </thead>
@@ -104,7 +104,7 @@ if ($result->rowCount() > 0) {
                                 <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
                                 <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
                                 <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
-                                <td class="text-center"><?= $user['HuitClos_Utilisateur']; ?></td>
+                                <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                                 <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                             </tr>
                         <?php } ?>

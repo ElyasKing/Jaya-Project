@@ -7,7 +7,7 @@ $sql = "SELECT
     u1.Nom_Utilisateur AS Nom_Etudiant,
     u1.Mail_Utilisateur AS Mail_Etudiant,
     u1.Promo_Utilisateur,
-    u1.HuitClos_Utilisateur,
+    u1.HuisClos_Utilisateur,
     u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
     u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire,
     i.Entreprise_Invite,
@@ -50,7 +50,7 @@ if ($result->rowCount() > 0) {
                 <th>Email MA</th>
                 <th>Tuteur universitaire</th>
                 <th>Email TU</th>
-                <th>Huit clos</th>
+                <th>Huis clos</th>
                 <th style="display:none;">Roles</th>
             </tr>
         </thead>
@@ -67,7 +67,7 @@ if ($result->rowCount() > 0) {
                     <td class="text-center"><?php echo $user['Mail_Invite']; ?></td>
                     <td class="text-center"><?php echo $user['Nom_Tuteur_Universitaire']; ?></td>
                     <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
-                    <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
+                    <td class="text-center"><?php echo $user['HuisClos_Utilisateur']; ?></td>
                     <td class="text-center" style="display:none;"><?php echo $user['Roles']; ?>
                 </tr>
             <?php } ?>

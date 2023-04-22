@@ -19,7 +19,7 @@ $annee = date('Y');
 
 	<?php
 	$query =
-		'SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, utilisateur.HuitClos_Utilisateur,
+		'SELECT utilisateur.ID_Utilisateur, utilisateur.nom_Utilisateur, utilisateur.Mail_Utilisateur, utilisateur.Promo_Utilisateur, utilisateur.HuisClos_Utilisateur,
 invite.Entreprise_Invite, invite.Ville_Invite, invite.Nom_Invite, invite.Mail_Invite FROM utilisateur 
  LEFT JOIN est_apprenti ON utilisateur.ID_Utilisateur = est_apprenti.ID_Utilisateur 
  LEFT JOIN invite ON est_apprenti.ID_Invite = invite.ID_Invite 
@@ -44,7 +44,7 @@ WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_util
 				<th>Email MA</th>
 				<th>Tuteur</th>
 				<th>Email Tuteur</th>
-				<th>Huit clos</th>
+				<th>Huis clos</th>
 				<th></th>
 			</thead>
 			<tbody>
@@ -89,7 +89,7 @@ WHERE habilitations.Etudiant_Habilitations LIKE "oui" AND utilisateur.Annee_util
 						</td>
 						<td><?php echo $tuteur['nom_Utilisateur']; ?></td>
 						<td><?php echo $tuteur['Mail_Utilisateur']; ?></td>
-						<td><?php echo $etudiant['HuitClos_Utilisateur']; ?></td>
+						<td><?php echo $etudiant['HuisClos_Utilisateur']; ?></td>
 						<td>
 							<a href="formUpdateEtudiant.php?id=<?php echo $etudiant['ID_Utilisateur'] ?>"><i class="bi bi-pencil-fill"></i></a>
 						</td>
