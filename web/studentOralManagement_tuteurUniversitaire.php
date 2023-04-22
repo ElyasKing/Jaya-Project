@@ -63,10 +63,9 @@ session_start();
                                         <td class="text-center"><?= $user['Commentaire_NS']; ?></td>
                                         <td>
                                             <a href="studentOralFormModify_tuteurUniversitaire.php?id=<?= $user['ID_NS'] ?>">
-                                                <i class="bi bi-pencil-fill"></i>
+                                                <button type='button' class='btn bg bi bi-pencil-fill'></button>
                                             </a>
-                                            <button class="btn-delete" data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
-                                                <i class="bi bi-trash-fill"></i>
+                                            <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
                                             </button>
                                         </td>
                                     </tr>
@@ -131,7 +130,7 @@ session_start();
                     $('.btn-delete').click(function() {
                         var id = $(this).data('id');
                         var user = $(this).data('nomutilisateur');
-                        if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
+                        if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
                             window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
                         }
                     });

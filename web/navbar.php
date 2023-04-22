@@ -14,7 +14,7 @@
             <a class="nav-link active" href="accountManager_administrateur.php">Comptes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Soutenances</a>
+            <a class="nav-link active" href="studentOralManagement_administrateur.php">Soutenances</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">Planning</a>
