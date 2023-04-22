@@ -119,7 +119,7 @@ session_start();
                                         <td class='text-center'>". $user['HuisClos_Utilisateur'] ."</td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href='#id=". $user['ID_Etudiant'] ."'><i class='bi bi-pencil-fill'></i></a></td>
+                                        <td><a href='#?id=". $user["ID_Etudiant"] ."&planning=". $user["ID_Planning"] ."'><i class='bi bi-pencil-fill'></i></a></td>
                                         </tr>";
                                     }else{
                                         echo "<tr>
@@ -131,7 +131,7 @@ session_start();
                                         <td class='text-center'>". $user['HuisClos_Utilisateur'] ."</td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href='#id=". $user['ID_Etudiant'] ."'><i class='bi bi-pencil-fill'></i></a></td>
+                                        <td><a href='#?id=". $user["ID_Etudiant"] ."&planning=". $user["ID_Planning"] ."'><i class='bi bi-pencil-fill'></i></a></td>
                                         </tr>";
                                     }
                                 } 

@@ -65,7 +65,7 @@ session_start();
                                 if ($numberOfCols < 2) {
                                     if (
                                         $fixedSetting['Nom_param'] == "Date de début des sessions de soutenance"
-                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenances"
+                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenance"
                                     ) {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
@@ -92,7 +92,7 @@ session_start();
                                     $numberOfCols = 1;
                                     if (
                                         $fixedSetting['Nom_param'] == "Date de début des sessions de soutenance"
-                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenances"
+                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenance"
                                     ) {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
