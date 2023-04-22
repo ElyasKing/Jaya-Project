@@ -350,15 +350,15 @@ COMMIT;
 INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VALUES
 ('Date de début des sessions de soutenance', '', NULL),
 ('Date de fin des sessions de soutenance', '', NULL),
-('Durée d\'une session de soutenance', '', NULL),
-('Nombre d\'étudiants par session de soutenance', '', NULL),
-('Nombre minimum de note(s) \"professionel\"', '', NULL),
-('Nombre minimum de note(s) \"enseignant\"', '', NULL),
-('Coefficient - note \"professionel\"', '', NULL),
-('Coefficient - note \"enseignant\"', '', NULL),
-('Coefficient - note d\'orale', '', NULL),
-('Coefficient - note de suivi', '', NULL),
-('Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance', '', NULL);
+('Durée d\'une session de soutenance', '02:00', NULL),
+('Nombre d\'étudiants par session de soutenance', '13', NULL),
+('Nombre minimum de note(s) \"professionel\"', '1', NULL),
+('Nombre minimum de note(s) \"enseignant\"', '2', NULL),
+('Coefficient - note \"professionel\"', '1', NULL),
+('Coefficient - note \"enseignant\"', '2', NULL),
+('Coefficient - note d\'orale', '2', NULL),
+('Coefficient - note de suivi', '1', NULL),
+('Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance', '00:00', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

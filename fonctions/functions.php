@@ -118,7 +118,7 @@ getStutdentGradeOral($User_ID)
     $result = $db->query($sql);
 
     $rows = $result->fetchAll();
-    if($rows[0]['Description_param'] <> "" || $rows[1]['Description_param']<>""){
+    if ($rows[0]['Description_param'] <> "" || $rows[1]['Description_param'] <> "") {
         $coeff_pro = $rows[0]['Description_param'];
         $coeff_enseignant = $rows[1]['Description_param'];
 
@@ -159,7 +159,7 @@ getStutdentGradeOral($User_ID)
             $noteFinale = $noteFinale / $division;
 
             return $noteFinale;
-        }else return "";
+        } else return "";
     } else return "DEF";
 }
 
@@ -289,15 +289,23 @@ function getSettings($settingType)
 }
 
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-
 function getStudentForOral($User_ID)
 {
-$query = "SELECT U.Nom_Utilisateur 
-FROM utilisateur U 
-LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur 
-WHERE H.Etudiant_Habilitations = 'oui' AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
-                                                                    FROM notes_soutenance 
-                                                                    WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "');";
+    $query = "SELECT U.Nom_Utilisateur 
+        FROM utilisateur U 
+        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur 
+        WHERE H.Etudiant_Habilitations = 'oui' AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
+        FROM notes_soutenance 
+        WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "');";
 
-return $query;
+    return $query;
 }
+
+// Racourcir les chaines de caractères trop longues dans les datatables
+function shortString($string, $maxLength) {
+    if (strlen($string) > $maxLength) {
+        $string = substr($string, 0, $maxLength) . '...';
+    }
+    return $string;
+}
+

@@ -104,6 +104,7 @@ $conn = Database::disconnect();
                             </div>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>

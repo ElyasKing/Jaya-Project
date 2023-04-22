@@ -17,12 +17,12 @@
 
     /* Pour creer les plannings.
     *Si "Nombre d'étudiants par session de soutenance" = 1 et que 4 étudiants:
-    *--> 1 étudiant M2_MIAGE, 2022-2023, non huis-clos;
-    *--> 1 étudiant M1_MIAGE, 2022-2023, non huis-clos;
-    *--> 1 étudiant M2_MIAGE, 2022-2023, huis-clos;
-    *--> 1 étudiant M1_MIAGE, 2022-2023, huis-clos;
-    *--> 1 étudiant M2_MIAGE, 2021-2022, non huis-clos; (pas pris en compte car année précédente)
-    *--> 1 étudiant M1_MIAGE, 2021-2022, non huis-clos; (pas pris en compte car année précédente)
+    *--> 1 étudiant M2 MIAGE, 2022-2023, non huis-clos;
+    *--> 1 étudiant M1 MIAGE, 2022-2023, non huis-clos;
+    *--> 1 étudiant M2 MIAGE, 2022-2023, huis-clos;
+    *--> 1 étudiant M1 MIAGE, 2022-2023, huis-clos;
+    *--> 1 étudiant M2 MIAGE, 2021-2022, non huis-clos; (pas pris en compte car année précédente)
+    *--> 1 étudiant M1 MIAGE, 2021-2022, non huis-clos; (pas pris en compte car année précédente)
     */
 
     //quelle est l'année en cours ?
@@ -68,17 +68,17 @@
     //tris des étudiants pour les classer dans les tableaux adéquats
     for($i=0; $i < count($studentsList); $i++){
         if($studentsList[$i]["HuisClos_Utilisateur"] == "oui"){ // huis clos ?
-            if($studentsList[$i]["Promo_Utilisateur"] == "M1_MIAGE"){ // M1 ?
+            if($studentsList[$i]["Promo_Utilisateur"] == "M1 MIAGE"){ // M1 ?
                 $studentsList_M1_huisClos[] = $studentsList[$i]; // alors go tableau M1 huis clos.
             }
-            elseif($studentsList[$i]["Promo_Utilisateur"] == "M2_MIAGE"){ // M2 ?
+            elseif($studentsList[$i]["Promo_Utilisateur"] == "M2 MIAGE"){ // M2 ?
                 $studentsList_M2_huisClos[] = $studentsList[$i]; // alors go tableau M2 huis clos.
             }
         }elseif($studentsList[$i]["HuisClos_Utilisateur"] == "non"){ // non huis clos ?
-            if($studentsList[$i]["Promo_Utilisateur"] == "M1_MIAGE"){ // M1 ?
+            if($studentsList[$i]["Promo_Utilisateur"] == "M1 MIAGE"){ // M1 ?
                 $studentsList_M1_nonHuisClos[] = $studentsList[$i]; // alors go tableau M1 non huis clos.
             }
-            elseif($studentsList[$i]["Promo_Utilisateur"] == "M2_MIAGE"){ // M2 ?
+            elseif($studentsList[$i]["Promo_Utilisateur"] == "M2 MIAGE"){ // M2 ?
                 $studentsList_M2_nonHuisClos[] = $studentsList[$i]; // alors go tableau M2 non huis clos.
             }
         }
@@ -183,7 +183,7 @@
 
     //M1 non huis clos.
     if(count($studentsList_M1_nonHuisClos) > 0){
-        $nbPlanningExpected = ceil(count($studentsList_M1_nonHuisClos)/$nbStudentIntoSession); //nb de planning M1 non huis clos attendus.
+        $nbPlanningExpected = ceil(count($studentsList_M1_nonHuisClos)/(int)$nbStudentIntoSession); //nb de planning M1 non huis clos attendus.
         $cptStudentIntoPlanning = 0; // cpt nombre d'étud par session
         $currentPlanningIndex = 1;
 
@@ -196,7 +196,7 @@
 
         // si le dernier index est défini, redémarrer currentPlanningIndex à la valeur suivante
         if($lastPlanningIndex != NULL) {
-            $currentPlanningIndex = $lastPlanningIndex + 1;
+            $currentPlanningIndex = (int)$lastPlanningIndex + 1;
         }
 
         for($i=0; $i < $nbPlanningExpected; $i++){ //TQ on a pas atteint le nb de planning attendus

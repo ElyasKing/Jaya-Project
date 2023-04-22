@@ -11,7 +11,7 @@ if ($result->rowCount() > 0) {
 ?>
 
 
-<div class="container-fluid">
+<div class="container-fluid space">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -26,17 +26,17 @@ if ($result->rowCount() > 0) {
                     <th>Entreprise</th>
                     <th>Ville</th>
                     <th>Tuteur entreprise</th>
-                    <th>Email tuteur entreprise</th>
+                    <th>Email(s) tuteur(s) entreprise</th>
                     <th>Tuteur universitaire</th>
                     <th>Email tuteur universitaire</th>
                     <th>Huis clos</th>
                     <th style="display:none;">Roles</th>
-                    <th> </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (!empty($arr_users)) { ?>
-                    <?php foreach ($arr_users as $user) { ?>
+                    <?php foreach ($arr_users as $user) {?>
                         <tr <?php if (
                                 empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
                                 empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
@@ -45,14 +45,14 @@ if ($result->rowCount() > 0) {
                                 echo 'class="tr-bgColor"';
                             } ?>>
                             <td class="text-center"><?= $user['Nom_Etudiant']; ?></td>
-                            <td class="text-center"><?= $user['Mail_Etudiant']; ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Etudiant']; ?>"><?= shortString($user['Mail_Etudiant'],10); ?></abbr></td>
                             <td class="text-center"><?= $user['Promo_Utilisateur']; ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Ville_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Nom_Invite']); ?></td>
-                            <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Invite']; ?>"><?= shortString(lineFeedWithSeparator($user['Mail_Invite']),10); ?></abbr></td>
                             <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
-                            <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Tuteur_Universitaire']; ?>"><?= shortString($user['Mail_Tuteur_Universitaire'],10); ?></abbr></td>
                             <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                             <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
@@ -104,7 +104,6 @@ if (isset($_SESSION['success']) && $_SESSION['success'] == 1) {
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
             },
-            "autoWidth": false,
             order: [
                 [0, 'asc']
             ],

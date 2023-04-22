@@ -109,6 +109,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                             </div>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>

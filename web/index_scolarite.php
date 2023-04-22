@@ -22,14 +22,14 @@ if ($result->rowCount() > 0) {
             <thead>
                 <tr class="bg">
                     <th>Etudiant</th>
-                    <th>Email Etudiant</th>
+                    <th>Email étudiant</th>
                     <th>Promo</th>
                     <th>Entreprise</th>
                     <th>Ville</th>
-                    <th>Maitre d'apprentissage</th>
-                    <th>Email MA</th>
+                    <th>Tuteur entreprise</th>
+                    <th>Email(s) tuteur(s) entreprise</th>
                     <th>Tuteur universitaire</th>
-                    <th>Email TU</th>
+                    <th>Email tuteur universitaire</th>
                     <th>Huis clos</th>
                     <th style="display:none;">Roles</th>
                 </tr>
@@ -45,14 +45,14 @@ if ($result->rowCount() > 0) {
                                 echo 'class="tr-bgColor"';
                             } ?>>
                             <td class="text-center"><?= $user['Nom_Etudiant']; ?></td>
-                            <td class="text-center"><?= $user['Mail_Etudiant']; ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Etudiant']; ?>"><?= shortString($user['Mail_Etudiant'], 10); ?></abbr></td>
                             <td class="text-center"><?= $user['Promo_Utilisateur']; ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Ville_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Nom_Invite']); ?></td>
-                            <td class="text-center"><?= lineFeedWithSeparator($user['Mail_Invite']); ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Invite']; ?>"><?= shortString(lineFeedWithSeparator($user['Mail_Invite']), 10); ?></abbr></td>
                             <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
-                            <td class="text-center"><?= $user['Mail_Tuteur_Universitaire']; ?></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Tuteur_Universitaire']; ?>"><?= shortString($user['Mail_Tuteur_Universitaire'], 10); ?></abbr></td>
                             <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                         </tr>

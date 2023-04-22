@@ -6,7 +6,7 @@ INSERT INTO `utilisateur` (`Nom_Utilisateur`, `Mail_Utilisateur`, `MDP_Utilisate
 ('Joanna Reiss', 'joanna.reiss@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'oui', NULL),
 ('Jéremy Ruhlmann', 'jeremy.ruhlmann@etud.u-picardie.fr', 'mdp', 'M2 MIAGE', '2022-2023', 'oui', NULL),
 ('Anthony Oveermer', 'anthony.oveermer@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'non', NULL),
-('Nino Belic', 'nino.belic@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022_2023', 'non', NULL),
+('Nino Belic', 'nino.belic@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'non', NULL),
 ('Florian Berroy', 'florian.berroy@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2022-2023', 'oui', NULL),
 ('Quentin Bondoux', 'quentin.bondoux@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2021-2022', 'non', NULL),
 ('Thibaud Dufour', 'thibaud.dufour@etud.u-picardie.fr', 'mdp', 'M1 MIAGE', '2021-2022', 'oui', NULL),

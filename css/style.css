@@ -115,6 +115,11 @@ hr {
     color: #23314e!important;
   }
 
+  abbr[title]{
+      border-bottom: none !important;
+      cursor: inherit !important;
+      text-decoration: none !important;
+  }
 /* PAGINATION DATATABLE */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
     color: white !important;

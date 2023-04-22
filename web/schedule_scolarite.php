@@ -95,7 +95,7 @@ session_start();
                     <table id="planning" class="display" style="width:100%">
                         <thead>
                             <tr class="bg">
-                                <th hidden></th>
+                                <th hidden ></th>
                                 <th>Etudiant</th>
                                 <th>Entreprise</th>
                                 <th>Ville</th>
