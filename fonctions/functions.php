@@ -118,46 +118,48 @@ getStutdentGradeOral($User_ID)
     $result = $db->query($sql);
 
     $rows = $result->fetchAll();
-    $coeff_pro = $rows[0]['Description_param'];
-    $coeff_enseignant = $rows[1]['Description_param'];
+    if($rows[0]['Description_param'] <> "" || $rows[1]['Description_param']<>""){
+        $coeff_pro = $rows[0]['Description_param'];
+        $coeff_enseignant = $rows[1]['Description_param'];
 
 
-    $noteFinale = 0;
-    $division = 0;
-    if (!empty($arr_note)) {
-        foreach ($arr_note as $notes) {
+        $noteFinale = 0;
+        $division = 0;
+        if (!empty($arr_note)) {
+            foreach ($arr_note as $notes) {
 
-            //si l'évaluateur est un enseignant
-            if ($notes['ID_UtilisateurEvaluateur'] != NULL) {
-                $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_enseignant;
-                $division = $division + $coeff_enseignant;
-            }
-            //Cette fois c'est un invite qui évalue
-            if ($notes['ID_InviteEvaluateur'] != NULL) {
-                //On vérifie donc si l'invité est un pro ou un enseignant en premier temps
-                $sql = "SELECT `EstEnseignant_Invite`,`EstProfessionel_Invite` FROM `invite` WHERE `ID_Invite`='" . $notes['ID_InviteEvaluateur'] . "';";
-                $result = $db->query($sql);
-                if ($result->rowCount() > 0) {
-                    $row = $result->fetch();
-                    $estEnseignant = $row['EstEnseignant_Invite'];
-                    $estPro = $row['EstProfessionel_Invite'];
-                }
-                //Si l'invite est enseignant alors on applique la condition de calcul enseignant
-                if ($estEnseignant == "oui") {
+                //si l'évaluateur est un enseignant
+                if ($notes['ID_UtilisateurEvaluateur'] != NULL) {
                     $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_enseignant;
                     $division = $division + $coeff_enseignant;
                 }
-                //Dans le cas contraire on prend en compte les règles de calculs pro
-                if ($estPro == "oui") {
-                    $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_pro;
-                    $division = $division + $coeff_pro;
+                //Cette fois c'est un invite qui évalue
+                if ($notes['ID_InviteEvaluateur'] != NULL) {
+                    //On vérifie donc si l'invité est un pro ou un enseignant en premier temps
+                    $sql = "SELECT `EstEnseignant_Invite`,`EstProfessionel_Invite` FROM `invite` WHERE `ID_Invite`='" . $notes['ID_InviteEvaluateur'] . "';";
+                    $result = $db->query($sql);
+                    if ($result->rowCount() > 0) {
+                        $row = $result->fetch();
+                        $estEnseignant = $row['EstEnseignant_Invite'];
+                        $estPro = $row['EstProfessionel_Invite'];
+                    }
+                    //Si l'invite est enseignant alors on applique la condition de calcul enseignant
+                    if ($estEnseignant == "oui") {
+                        $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_enseignant;
+                        $division = $division + $coeff_enseignant;
+                    }
+                    //Dans le cas contraire on prend en compte les règles de calculs pro
+                    if ($estPro == "oui") {
+                        $noteFinale = $noteFinale + $notes['NoteFinale_NS'] * $coeff_pro;
+                        $division = $division + $coeff_pro;
+                    }
                 }
             }
-        }
-        //A la fin ne pas oublier de remettre la note sur 20 
-        $noteFinale = $noteFinale / $division;
+            //A la fin ne pas oublier de remettre la note sur 20 
+            $noteFinale = $noteFinale / $division;
 
-        return $noteFinale;
+            return $noteFinale;
+        }else return "";
     } else return "DEF";
 }
 
