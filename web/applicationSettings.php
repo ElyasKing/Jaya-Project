@@ -72,7 +72,8 @@ session_start();
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
                                                 <input type="date" class="form-control" name="description[]" value="' . $fixedSetting["Description_param"] . '">
                                             </div>';
-                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance") {
+                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance" 
+                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance") {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
@@ -98,7 +99,8 @@ session_start();
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
                                                 <input type="date" class="form-control" name="description[]" value="' . $fixedSetting["Description_param"] . '">
                                             </div>';
-                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance") {
+                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance"
+                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance") {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>

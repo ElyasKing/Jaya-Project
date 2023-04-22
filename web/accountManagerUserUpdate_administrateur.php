@@ -57,7 +57,7 @@ session_start();
                                     <div class='row'>
                                         <div class="col">
                                             <label for="pw1" class="form-label">Mot de passe : </label>
-                                            <input id="field_pwd1" title="Un mot de passe fort doit contenir : 8 caractères minimum, des minuscules, des majuscules, des chiffres et des caractères spéciaux." required type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw1">
+                                            <input id="field_pwd1" title="Un mot de passe fort doit contenir : 8 caractères minimum, des minuscules, des majuscules, des chiffres et des caractères spéciaux." type="password" class="form-control" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$" name="pw1">
                                         </div>
                                     </div>
                                     <br>
@@ -119,18 +119,6 @@ session_start();
         var checkPassword = function(str) {
             var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d\s]).{8,}$/;
             return re.test(str);
-        };
-
-        var checkForm = function(e) {
-            if (this.pwd1.value != "") {
-                if (!checkPassword(this.pwd1.value)) {
-                    alert("Le mot de passe que vous avez saisi n'est pas valide !");
-                    this.pwd1.focus();
-                    e.preventDefault();
-                    return;
-                }
-            }
-            alert("Le mot de passe est valide !");
         };
 
         var myForm = document.getElementById("myForm");
