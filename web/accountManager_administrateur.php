@@ -96,7 +96,7 @@ if(!isConnectedUser()){
                                             <?php if ($user['Nom_Utilisateur'] != $_SESSION["user_name"]) { ?>
                                                 <button class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
                                                 </button>
-                                            <?php }else{ ?>
+                                            <?php }else { ?>
                                                <button disabled class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
                                                </button> 
                                                <?php
