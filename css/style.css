@@ -103,6 +103,18 @@ hr {
     background-color: rgba(0, 191, 255, 0.115) !important;
 }
 
+.tr-bgColorGreen{
+    background-color: aquamarine;
+}
+
+.tr-bgColorYellow {
+    background-color:khaki;
+}
+
+.tr-bgColorRed {
+    background-color:red;
+}
+
 .noDecoration, a:link, a:visited {
     text-decoration: none;
 }

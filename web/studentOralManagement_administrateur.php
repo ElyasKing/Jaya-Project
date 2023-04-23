@@ -29,7 +29,18 @@ if (!isConnectedUser()) {
 
             $db = Database::connect();
 
-            //Requete pour l'index 1 
+            // ID : 5 = nombre minimum de note professionnel, ID : 6 = nombre minimum de note enseignant (cf DB)
+            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='5' OR `ID_param`='6';";
+            $result = $db->query($sql);
+
+            $rows = $result->fetchAll();
+            $note_pro = $rows[0]['Description_param'];
+            $note_enseignant = $rows[1]['Description_param'];
+
+            /*
+            Requete pour l'index 1 
+            */
+
             $sql = "SELECT NS.ID_NS, 
                     U.Nom_Utilisateur, 
                     IFNULL(I.Nom_Invite, U2.Nom_Utilisateur) AS Nom_Evaluateur, 
@@ -47,7 +58,10 @@ if (!isConnectedUser()) {
                 $arr_users1 = $result->fetchAll();
             }
 
-            //Requete pour l'index 2
+            /*
+            Requete pour l'index 2
+            */
+
             $sql = "SELECT NS.ID_UtilisateurEvalue, U.Nom_Utilisateur, 
                     COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN NS.ID_InviteEvaluateur END) AS Nb_Professionnels, 
                     COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' THEN NS.ID_InviteEvaluateur 
@@ -69,7 +83,36 @@ if (!isConnectedUser()) {
             }
 
 
+
+            /*
+            Requete pour l'index 3
+            */
+
+            $sql = "SELECT NS.ID_UtilisateurEvalue, 
+                    U.Nom_Utilisateur, 
+                    U.SoutenanceSupp_Utilisateur,
+                    COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN NS.ID_InviteEvaluateur END) AS Nb_Professionnels, 
+                    COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' THEN NS.ID_InviteEvaluateur 
+                        WHEN NS.ID_UtilisateurEvaluateur  IS NOT NULL THEN NS.ID_UtilisateurEvaluateur 
+                        ELSE NULL END) AS Nb_Enseignants 
+                    FROM notes_soutenance NS 
+                    LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur 
+                    LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur
+                    GROUP BY NS.ID_UtilisateurEvalue, U.Nom_Utilisateur
+                    HAVING Nb_Professionnels <$note_pro OR Nb_Enseignants  < $note_enseignant;";
+            //Where clause à rajouter plus tard
+
+            $result = $db->query($sql);
+
+            $arr_users3 = [];
+            if ($result->rowCount() > 0) {
+                $arr_users3 = $result->fetchAll();
+            }
+
+
+            //Début du main
             ?>
+
 
 
 
@@ -133,7 +176,11 @@ if (!isConnectedUser()) {
                                 <tbody>
                                     <?php if (!empty($arr_users2)) { ?>
                                         <?php foreach ($arr_users2 as $user2) { ?>
-                                            <tr class="user-row">
+                                            <tr <?php if (
+                                                    $user2['Nb_Professionnels'] < $note_pro || $user2['Nb_Enseignants'] < $note_enseignant
+                                                ) {
+                                                    echo 'class="tr-bgColorYellow"';
+                                                } else echo 'class="tr-bgColorGreen"' ?>>
                                                 <td class="text-center"><?= $user2['Nom_Utilisateur']; ?></td>
                                                 <td class="text-center"><?= $user2['Nb_Professionnels']; ?></td>
                                                 <td class="text-center"><?= $user2['Nb_Enseignants']; ?></td>
@@ -150,20 +197,29 @@ if (!isConnectedUser()) {
                             <table id="tableD3" class="display" style="width:100%">
                                 <thead>
                                     <tr class="bg">
-                                        <th>SP</th>
-                                        <th>SP</th>
-                                        <th>SP</th>
-                                        <th>SP</th>
+                                        <th>Etudiant</th>
+                                        <th>Nombre de note professionnels</th>
+                                        <th>Nombre de notes enseignants</th>
+                                        <th>Note calculée</th>
+                                        <th> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($arr_users2)) { ?>
-                                        <?php foreach ($arr_users2 as $user2) { ?>
-                                            <tr class="user-row">
-                                                <td class="text-center">SP</td>
-                                                <td class="text-center">SP</td>
-                                                <td class="text-center">SP</td>
-                                                <td class="text-center">SP</td>
+                                    <?php if (!empty($arr_users3)) { ?>
+                                        <?php foreach ($arr_users3 as $user3) { ?>
+                                            <tr <?php if (
+                                                    $user3['Nb_Professionnels'] < $note_pro || $user3['Nb_Enseignants'] < $note_enseignant
+                                                ) {
+                                                    echo 'class="tr-bgColorRed"';
+                                                } else echo 'class="tr-bgColorGreen"' ?>>
+                                                <td class="text-center"><?= $user3['Nom_Utilisateur']; ?></td>
+                                                <td class="text-center"><?= $user3['Nb_Professionnels']; ?></td>
+                                                <td class="text-center"><?= $user3['Nb_Enseignants']; ?></td>
+                                                <td class="text-center"><?= getStutdentGradeOral($user3["ID_UtilisateurEvalue"]);; ?></td>
+                                                <td>
+                                                    <button type='button' class='btn bg bi bi-pencil-fill btn-addSession' data-id="<?= $user3['ID_UtilisateurEvalue'] ?>" data-session="<?= $user3['SoutenanceSupp_Utilisateur'] ?>">
+                                                    </button>
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                     <?php } ?>
@@ -206,6 +262,12 @@ switch ($success) {
         break;
     case 2:
         echo '<script>toastr.success("Note supprimée avec succès !");</script>';
+        break;
+    case 3:
+        echo '<script>toastr.success("Session supplémentaire ajoutée avec succès !");</script>';
+        break;
+    case 4:
+        echo '<script>toastr.success("Session supplémentaire supprimée avec succès !");</script>';
         break;
     default:
         // rien
@@ -359,82 +421,6 @@ $_SESSION['success'] = 0;
             }
         });
 
-        // let btnSD = document.querySelector('#btnSD');
-        // let btnND = document.querySelector('#btnND');
-        // let btnSP = document.querySelector('#btnSP');
-        // let btnND = document.querySelector('#btnND');
-        // let divND = document.querySelector('#divND');
-        // let divSP = document.querySelector('#divSP');
-        // let hidden = true;
-
-        // // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
-        // if (sessionStorage.getItem('selectedButton') === 'btnND') {
-        //     hidden = false;
-        //     divND.removeAttribute('hidden');
-        //     btnND.className.add('active');
-        //     divSP.setAttribute('hidden', '');
-        //     btnSP.className = "btn me-md-3 bg btn-custom";
-        //     btnND.setAttribute('hidden', '');
-        //     btnSD.className = "btn me-md-3 bg btn-custom";
-        // } else if (sessionStorage.getItem('selectedButton') === 'btnSP') {
-        //     hidden = false;
-        //     divSP.removeAttribute('hidden');
-        //     btnSP.className.add('active');
-        //     divND.setAttribute('hidden', '');
-        //     btnND.className = "btn me-md-3 bg btn-custom";
-        //     btnND.setAttribute('hidden', '');
-        //     btnSD.className = "btn me-md-3 bg btn-custom";
-        // } else {
-        //     btnND.removeAttribute('hidden');
-        //     btnSD.className.add('active');
-        //     divSP.setAttribute('hidden', '');
-        //     btnSP.className = "btn me-md-3 bg btn-custom";
-        //     divND.setAttribute('hidden', '');
-        //     btnND.className = "btn me-md-3 bg btn-custom";
-        // }
-
-        // btnSD.addEventListener('click', () => {
-        //     if (!hidden) {
-        //         btnND.removeAttribute('hidden');
-        //         btnSD.className.add('active');
-        //         divND.setAttribute('hidden', '');
-        //         divSP.setAttribute('hidden', '');
-        //         btnND.className.remove('active');
-        //         btnSP.className.remove('active');
-        //         hidden = true;
-        //         // Sauvegarde le choix du bouton en session
-        //         sessionStorage.setItem('selectedButton', 'btnSD');
-        //     }
-        // });
-
-        // btnND.addEventListener('click', () => {
-        //     if (hidden) {
-        //         divND.removeAttribute('hidden');
-        //         btnND.className.add('active');
-        //         divSP.setAttribute('hidden', '');
-        //         btnND.setAttribute('hidden', '');
-        //         btnSD.className.remove('active');
-        //         btnSP.className.remove('active');
-        //         hidden = false;
-        //         // Sauvegarde le choix du bouton en session
-        //         sessionStorage.setItem('selectedButton', 'btnND');
-        //     }
-        // });
-        /*
-        btnSP.addEventListener('click', () => {
-            if (hidden) {
-                divSP.removeAttribute('hidden');
-                btnSP.className.add('active');
-                divND.setAttribute('hidden', '');
-                btnND.setAttribute('hidden', '');
-                btnND.className.remove('active');
-                btnSD.className.remove('active');
-                hidden = false;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnSP');
-            }
-        });*/
-
 
 
         $('.btn-delete').click(function() {
@@ -442,6 +428,20 @@ $_SESSION['success'] = 0;
             var user = $(this).data('nomutilisateur');
             if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
                 window.location.href = 'studentOralDeletion_administrateur.php?id=' + id;
+            }
+        });
+
+        $('.btn-addSession').click(function() {
+            var id = $(this).data('id');
+            var session = $(this).data('session');
+            if (session == "") {
+                if (confirm('Souhaitez vous vraiment réouvrir une session supplémentaire pour cette étudiant ?')) {
+                    window.location.href = 'studentOralAddSession_administrateur.php?id=' + id;
+                }
+            } else {
+                if (confirm('Souhaitez vous vraiment fermer la session supplémentaire ouverte pour cette étudiant ?')) {
+                    window.location.href = 'studentOralDeletionSession_administrateur.php?id=' + id;
+                }
             }
         });
     });
