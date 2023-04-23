@@ -1,5 +1,11 @@
 <?php
+include("../fonctions/functions.php");
 session_start();
+
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
 ?>
 
 <!DOCTYPE html>

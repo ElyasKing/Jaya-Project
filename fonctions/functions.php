@@ -1,4 +1,17 @@
 <?php
+// function verifier qu'une connexion est active.
+function isConnectedUser (){
+    if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"]) && isset($_SESSION["user_mail"]) 
+    && isset($_SESSION["user_is_admin"]) && isset($_SESSION["user_is_respUE"]) && isset($_SESSION["user_is_scola"]) 
+    && isset($_SESSION["user_is_tuteurU"]) && isset($_SESSION["user_is_student"])){
+        $connected = true;
+    }else{
+        $connected = false;
+    }
+
+    return $connected;
+}
+
 // requete SQL pour les index 
 function getStudentInformationForIndexes()
 {

@@ -3,6 +3,11 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (!empty($_POST['changeProfile'])) {
     $_SESSION['active_profile'] = $_POST['changeProfile'];

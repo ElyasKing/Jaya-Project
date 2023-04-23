@@ -1,4 +1,9 @@
 <?php
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
 $db = Database::connect();
 
 
