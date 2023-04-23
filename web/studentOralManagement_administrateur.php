@@ -3,7 +3,7 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -86,71 +86,91 @@ if(!isConnectedUser()){
                     </div>
                     <br>
                     <div id="divSD">
-                        <div class="container-fluid space">
-                            <div class="panel" id="panel">
-                                <table id="tableD1" class="display" style="width:100%">
-                                    <thead>
-                                        <tr class="bg">
-                                            <th>Evaluateur</th>
-                                            <th>Etudiant</th>
-                                            <th>Note saisie</th>
-                                            <th>Appréciation</th>
-                                            <th> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if (!empty($arr_users1)) { ?>
-                                            <?php foreach ($arr_users1 as $user1) { ?>
-                                                <tr class="user-row">
-                                                    <td class="text-center"><?= $user1['Nom_Evaluateur']; ?></td>
-                                                    <td class="text-center"><?= $user1['Nom_Utilisateur']; ?></td>
-                                                    <td class="text-center"><?= $user1['NoteFinale_NS']; ?></td>
-                                                    <td class="text-center"><?= $user1['Commentaire_NS']; ?></td>
-                                                    <td>
-                                                        <a href="studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user['Nom_Evaluateur']) ?>">
-                                                            <button type='button' class='btn bg bi bi-pencil-fill'></button>
-                                                        </a>
-                                                        <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user1['ID_NS'] ?>" data-nomutilisateur="<?= $user1['Nom_Utilisateur'] ?>">
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
+                        <div class="panel" id="panel">
+                            <table id="tableD1" class="display" style="width:100%">
+                                <thead>
+                                    <tr class="bg">
+                                        <th>Evaluateur</th>
+                                        <th>Etudiant</th>
+                                        <th>Note saisie</th>
+                                        <th>Appréciation</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($arr_users1)) { ?>
+                                        <?php foreach ($arr_users1 as $user1) { ?>
+                                            <tr class="user-row">
+                                                <td class="text-center"><?= $user1['Nom_Evaluateur']; ?></td>
+                                                <td class="text-center"><?= $user1['Nom_Utilisateur']; ?></td>
+                                                <td class="text-center"><?= $user1['NoteFinale_NS']; ?></td>
+                                                <td class="text-center"><?= $user1['Commentaire_NS']; ?></td>
+                                                <td>
+                                                    <a href="studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user['Nom_Evaluateur']) ?>">
+                                                        <button type='button' class='btn bg bi bi-pencil-fill'></button>
+                                                    </a>
+                                                    <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user1['ID_NS'] ?>" data-nomutilisateur="<?= $user1['Nom_Utilisateur'] ?>">
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div id="divND">
-            <div class="container-fluid space">
-                <div class="panel" id="panel">
-                    <table id="tableD2" class="display" style="width:100%">
-                        <thead>
-                            <tr class="bg">
-                                <th>Etudiant</th>
-                                <th>Nombre de note professionnels</th>
-                                <th>Nombre de notes enseignants</th>
-                                <th>Note calculée</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($arr_users2)) { ?>
-                                <?php foreach ($arr_users2 as $user2) { ?>
-                                    <tr class="user-row">
-                                        <td class="text-center"><?= $user2['Nom_Utilisateur']; ?></td>
-                                        <td class="text-center"><?= $user2['Nb_Professionnels']; ?></td>
-                                        <td class="text-center"><?= $user2['Nb_Enseignants']; ?></td>
-                                        <td class="text-center"><?= getStutdentGradeOral($user2["ID_UtilisateurEvalue"]);; ?></td>
+                    <div id="divND">
+                        <div class="panel" id="panel">
+                            <table id="tableD2" class="display" style="width:100%">
+                                <thead>
+                                    <tr class="bg">
+                                        <th>Etudiant</th>
+                                        <th>Nombre de note professionnels</th>
+                                        <th>Nombre de notes enseignants</th>
+                                        <th>Note calculée</th>
                                     </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($arr_users2)) { ?>
+                                        <?php foreach ($arr_users2 as $user2) { ?>
+                                            <tr class="user-row">
+                                                <td class="text-center"><?= $user2['Nom_Utilisateur']; ?></td>
+                                                <td class="text-center"><?= $user2['Nb_Professionnels']; ?></td>
+                                                <td class="text-center"><?= $user2['Nb_Enseignants']; ?></td>
+                                                <td class="text-center"><?= getStutdentGradeOral($user2["ID_UtilisateurEvalue"]);; ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="divSP">
+                        <div class="panel" id="panel">
+                            <table id="tableD3" class="display" style="width:100%">
+                                <thead>
+                                    <tr class="bg">
+                                        <th>SP</th>
+                                        <th>SP</th>
+                                        <th>SP</th>
+                                        <th>SP</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($arr_users2)) { ?>
+                                        <?php foreach ($arr_users2 as $user2) { ?>
+                                            <tr class="user-row">
+                                                <td class="text-center">SP</td>
+                                                <td class="text-center">SP</td>
+                                                <td class="text-center">SP</td>
+                                                <td class="text-center">SP</td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,15 +238,23 @@ $_SESSION['success'] = 0;
             buttons: ['excel'],
         });
 
-
-
-
+        var table = $('#tableD3').DataTable({
+            stateSave: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+            },
+            order: [
+                [0, 'asc']
+            ],
+            dom: 'Blfrtip',
+            buttons: ['excel'],
+        });
 
         let btnSD = document.querySelector('#btnSD');
         let btnND = document.querySelector('#btnND');
-        let btnSP = document.querySelector('#btnSP');
         let divSD = document.querySelector('#divSD');
         let divND = document.querySelector('#divND');
+        let btnSP = document.querySelector('#btnSP');
         let divSP = document.querySelector('#divSP');
         let hidden = true;
 
@@ -234,36 +262,47 @@ $_SESSION['success'] = 0;
         if (sessionStorage.getItem('selectedButton') === 'btnND') {
             hidden = false;
             divND.removeAttribute('hidden');
-            btnND.className.add('active');
-            divSP.setAttribute('hidden', '');
-            btnSP.className = "btn me-md-3 bg btn-custom";
+            btnND.className = "btn me-md-3 bg btn-custom active";
             divSD.setAttribute('hidden', '');
             btnSD.className = "btn me-md-3 bg btn-custom";
+            divSP.setAttribute('hidden', '');
+            btnSP.className = "btn me-md-3 bg btn-custom";
         } else if (sessionStorage.getItem('selectedButton') === 'btnSP') {
             hidden = false;
             divSP.removeAttribute('hidden');
-            btnSP.className.add('active');
+            btnSP.className = "btn me-md-3 bg btn-custom active";
             divND.setAttribute('hidden', '');
             btnND.className = "btn me-md-3 bg btn-custom";
             divSD.setAttribute('hidden', '');
             btnSD.className = "btn me-md-3 bg btn-custom";
         } else {
             divSD.removeAttribute('hidden');
-            btnSD.className.add('active');
-            divSP.setAttribute('hidden', '');
-            btnSP.className = "btn me-md-3 bg btn-custom";
+            btnSD.className = "btn me-md-3 bg btn-custom active";
             divND.setAttribute('hidden', '');
             btnND.className = "btn me-md-3 bg btn-custom";
+            divSP.setAttribute('hidden', '');
+            btnSP.className = "btn me-md-3 bg btn-custom";
         }
 
         btnSD.addEventListener('click', () => {
+            if (hidden) {
+                divSD.removeAttribute('hidden');
+                btnSD.className = "btn me-md-3 bg btn-custom active";
+                divND.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom";
+                divSP.setAttribute('hidden', '');
+                btnSP.className = "btn me-md-3 bg btn-custom";
+                hidden = false;
+                // Sauvegarde le choix du bouton en session
+                sessionStorage.setItem('selectedButton', 'btnSD');
+            }
             if (!hidden) {
                 divSD.removeAttribute('hidden');
-                btnSD.className.add('active');
+                btnSD.className = "btn me-md-3 bg btn-custom active";
                 divND.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom";
                 divSP.setAttribute('hidden', '');
-                btnND.className.remove('active');
-                btnSP.className.remove('active');
+                btnSP.className = "btn me-md-3 bg btn-custom";
                 hidden = true;
                 // Sauvegarde le choix du bouton en session
                 sessionStorage.setItem('selectedButton', 'btnSD');
@@ -273,23 +312,121 @@ $_SESSION['success'] = 0;
         btnND.addEventListener('click', () => {
             if (hidden) {
                 divND.removeAttribute('hidden');
-                btnND.className.add('active');
-                divSP.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom active";
                 divSD.setAttribute('hidden', '');
-                btnSD.className.remove('active');
-                btnSP.className.remove('active');
+                btnSD.className = "btn me-md-3 bg btn-custom";
+                divSP.setAttribute('hidden', '');
+                btnSP.className = "btn me-md-3 bg btn-custom";
                 hidden = false;
                 // Sauvegarde le choix du bouton en session
                 sessionStorage.setItem('selectedButton', 'btnND');
             }
+            if (!hidden) {
+                divND.removeAttribute('hidden');
+                btnND.className = "btn me-md-3 bg btn-custom active";
+                divSD.setAttribute('hidden', '');
+                btnSD.className = "btn me-md-3 bg btn-custom";
+                divSP.setAttribute('hidden', '');
+                btnSP.className = "btn me-md-3 bg btn-custom";
+                hidden = true;
+                // Sauvegarde le choix du bouton en session
+                sessionStorage.setItem('selectedButton', 'btnND');
+            }
         });
+
+        btnSP.addEventListener('click', () => {
+            if (hidden) {
+                divSP.removeAttribute('hidden');
+                btnSP.className = "btn me-md-3 bg btn-custom active";
+                divSD.setAttribute('hidden', '');
+                btnSD.className = "btn me-md-3 bg btn-custom";
+                divND.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom";
+                hidden = false;
+                // Sauvegarde le choix du bouton en session
+                sessionStorage.setItem('selectedButton', 'btnSP');
+            }
+            if (!hidden) {
+                divSP.removeAttribute('hidden');
+                btnSP.className = "btn me-md-3 bg btn-custom active";
+                divND.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom";
+                divSD.setAttribute('hidden', '');
+                btnSD.className = "btn me-md-3 bg btn-custom";
+                hidden = true;
+                // Sauvegarde le choix du bouton en session
+                sessionStorage.setItem('selectedButton', 'btnSP');
+            }
+        });
+
+        // let btnSD = document.querySelector('#btnSD');
+        // let btnND = document.querySelector('#btnND');
+        // let btnSP = document.querySelector('#btnSP');
+        // let btnND = document.querySelector('#btnND');
+        // let divND = document.querySelector('#divND');
+        // let divSP = document.querySelector('#divSP');
+        // let hidden = true;
+
+        // // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
+        // if (sessionStorage.getItem('selectedButton') === 'btnND') {
+        //     hidden = false;
+        //     divND.removeAttribute('hidden');
+        //     btnND.className.add('active');
+        //     divSP.setAttribute('hidden', '');
+        //     btnSP.className = "btn me-md-3 bg btn-custom";
+        //     btnND.setAttribute('hidden', '');
+        //     btnSD.className = "btn me-md-3 bg btn-custom";
+        // } else if (sessionStorage.getItem('selectedButton') === 'btnSP') {
+        //     hidden = false;
+        //     divSP.removeAttribute('hidden');
+        //     btnSP.className.add('active');
+        //     divND.setAttribute('hidden', '');
+        //     btnND.className = "btn me-md-3 bg btn-custom";
+        //     btnND.setAttribute('hidden', '');
+        //     btnSD.className = "btn me-md-3 bg btn-custom";
+        // } else {
+        //     btnND.removeAttribute('hidden');
+        //     btnSD.className.add('active');
+        //     divSP.setAttribute('hidden', '');
+        //     btnSP.className = "btn me-md-3 bg btn-custom";
+        //     divND.setAttribute('hidden', '');
+        //     btnND.className = "btn me-md-3 bg btn-custom";
+        // }
+
+        // btnSD.addEventListener('click', () => {
+        //     if (!hidden) {
+        //         btnND.removeAttribute('hidden');
+        //         btnSD.className.add('active');
+        //         divND.setAttribute('hidden', '');
+        //         divSP.setAttribute('hidden', '');
+        //         btnND.className.remove('active');
+        //         btnSP.className.remove('active');
+        //         hidden = true;
+        //         // Sauvegarde le choix du bouton en session
+        //         sessionStorage.setItem('selectedButton', 'btnSD');
+        //     }
+        // });
+
+        // btnND.addEventListener('click', () => {
+        //     if (hidden) {
+        //         divND.removeAttribute('hidden');
+        //         btnND.className.add('active');
+        //         divSP.setAttribute('hidden', '');
+        //         btnND.setAttribute('hidden', '');
+        //         btnSD.className.remove('active');
+        //         btnSP.className.remove('active');
+        //         hidden = false;
+        //         // Sauvegarde le choix du bouton en session
+        //         sessionStorage.setItem('selectedButton', 'btnND');
+        //     }
+        // });
         /*
         btnSP.addEventListener('click', () => {
             if (hidden) {
                 divSP.removeAttribute('hidden');
                 btnSP.className.add('active');
                 divND.setAttribute('hidden', '');
-                divSD.setAttribute('hidden', '');
+                btnND.setAttribute('hidden', '');
                 btnND.className.remove('active');
                 btnSD.className.remove('active');
                 hidden = false;
