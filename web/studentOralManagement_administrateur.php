@@ -217,7 +217,7 @@ if (!isConnectedUser()) {
                                                 <td class="text-center"><?= $user3['Nb_Enseignants']; ?></td>
                                                 <td class="text-center"><?= getStutdentGradeOral($user3["ID_UtilisateurEvalue"]);; ?></td>
                                                 <td>
-                                                    <button type='button' class='btn bg bi bi-pencil-fill btn-addSession' data-id="<?= $user3['ID_UtilisateurEvalue'] ?>" data-session="<?= $user3['SoutenanceSupp_Utilisateur'] ?>">
+                                                    <button type='button' class='btn bg bi bi-unlock-fill btn-addSession' data-id="<?= $user3['ID_UtilisateurEvalue'] ?>" data-session="<?= $user3['SoutenanceSupp_Utilisateur'] ?>">
                                                     </button>
                                                 </td>
                                             </tr>
