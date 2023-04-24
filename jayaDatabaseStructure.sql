@@ -342,8 +342,8 @@ ALTER TABLE `notes_suivi`
 --
 -- Contraintes pour la table `utilisateur`
 --
-ALTER TABLE `utilisateur`
-  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`ID_Planning`) REFERENCES `planning` (`ID_Planning`);
+ALTER TABLE `utilisateur` 
+  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`ID_Planning`) REFERENCES `planning` (`ID_Planning`) ON DELETE CASCADE;
 COMMIT;
 
 -- jeu de données de base
