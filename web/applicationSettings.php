@@ -228,40 +228,6 @@ $_SESSION['success'] = 0;
             buttons: ['excel'],
         });
 
-        // let btnPF = document.querySelector('#btnPF');
-        // let btnPD = document.querySelector('#btnPD');
-        // let divPF = document.querySelector('#divPF');
-        // let divPD = document.querySelector('#divPD');
-        // let hidden = true;
-
-        // btnPF.addEventListener('click', () => {
-        //     if (!hidden) {
-        //         divPF.removeAttribute('hidden');
-        //         btnPF.className = "btn me-md-3 bg btn-custom active";
-
-        //         divPD.setAttribute('hidden', '');
-        //         btnPD.className = "btn me-md-3 bg btn-custom";
-
-        //         hidden = true;
-        //     } else {
-
-        //     }
-        // });
-
-        // btnPD.addEventListener('click', () => {
-        //     if (hidden) {
-        //         divPD.removeAttribute('hidden');
-        //         btnPD.className = "btn me-md-3 bg btn-custom active";
-
-        //         divPF.setAttribute('hidden', '');
-        //         btnPF.className = "btn me-md-3 bg btn-custom";
-
-        //         hidden = false;
-        //     } else {
-
-        //     }
-        // });
-
         let btnPF = document.querySelector('#btnPF');
         let btnPD = document.querySelector('#btnPD');
         let divPF = document.querySelector('#divPF');

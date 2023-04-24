@@ -360,6 +360,8 @@ INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VAL
 ('Coefficient - note de suivi', '1', NULL),
 ('Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance', '00:00', NULL);
 
+ALTER TABLE utilisateur ADD SoutenanceSupp_Utilisateur VARCHAR(3) NULL AFTER ID_Planning;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

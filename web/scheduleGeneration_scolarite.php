@@ -42,19 +42,19 @@
     *les étudiants doivent n'être affectés a aucun planning
     */
     $query = "SELECT DISTINCT 
-                u1.id_Utilisateur,
-                u1.Nom_Utilisateur AS Nom_Etudiant,
-                u1.Annee_Utilisateur,
-                i.Entreprise_Invite, 
-                i.Ville_Invite,
-                u1.Promo_Utilisateur, 
-                u1.HuisClos_Utilisateur 
-            FROM Utilisateur u1 
-            LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant 
-            INNER JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur 
-            INNER JOIN invite i ON ea.id_invite = i.id_invite
-            WHERE u1.Annee_Utilisateur = '$currentStudentYear'
-            AND u1.ID_Planning IS NULL";
+        u1.id_Utilisateur,
+        u1.Nom_Utilisateur AS Nom_Etudiant,
+        u1.Annee_Utilisateur,
+        i.Entreprise_Invite, 
+        i.Ville_Invite,
+        u1.Promo_Utilisateur, 
+        u1.HuisClos_Utilisateur 
+    FROM Utilisateur u1 
+    LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant 
+    INNER JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur 
+    INNER JOIN invite i ON ea.id_invite = i.id_invite
+    WHERE u1.Annee_Utilisateur = '$currentStudentYear'
+    AND u1.ID_Planning IS NULL";
     
     $statement = $db->query($query);
     $studentsList = $statement->fetchAll();
@@ -285,6 +285,8 @@
             $currentPlanningIndex++;
         }
     }
+
+    $_SESSION['success'] = 1;
 
     header("Location: schedule_scolarite.php");
 
