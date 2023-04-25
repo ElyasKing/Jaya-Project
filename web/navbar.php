@@ -69,7 +69,7 @@
         <a class="nav-link active" href="schedule_scolarite.php">Planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Invit&eacute;s</a>
+        <a class="nav-link active" href="guestManagement_scolarite.php">Invit&eacute;s</a>
       </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">

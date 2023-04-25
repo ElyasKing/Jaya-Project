@@ -303,21 +303,21 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `est_apprenti`
   ADD CONSTRAINT `est_apprenti_ibfk_1` FOREIGN KEY (`ID_Utilisateur`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE,
-  ADD CONSTRAINT `est_apprenti_ibfk_2` FOREIGN KEY (`ID_Invite`) REFERENCES `invite` (`ID_Invite`);
+  ADD CONSTRAINT `est_apprenti_ibfk_2` FOREIGN KEY (`ID_Invite`) REFERENCES `invite` (`ID_Invite`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `est_compose`
 --
 ALTER TABLE `est_compose`
   ADD CONSTRAINT `est_compose_ibfk_1` FOREIGN KEY (`ID_NO`) REFERENCES `notes_soutenance` (`ID_NS`) ON DELETE CASCADE,
-  ADD CONSTRAINT `est_compose_ibfk_2` FOREIGN KEY (`ID_Parametre`) REFERENCES `parametres` (`ID_param`);
+  ADD CONSTRAINT `est_compose_ibfk_2` FOREIGN KEY (`ID_Parametre`) REFERENCES `parametres` (`ID_param`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `etudiant_tuteur`
 --
 ALTER TABLE `etudiant_tuteur`
   ADD CONSTRAINT `etudiant_tuteur_ibfk_1` FOREIGN KEY (`ID_etudiant`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE,
-  ADD CONSTRAINT `etudiant_tuteur_ibfk_2` FOREIGN KEY (`ID_tuteur`) REFERENCES `utilisateur` (`ID_Utilisateur`);
+  ADD CONSTRAINT `etudiant_tuteur_ibfk_2` FOREIGN KEY (`ID_tuteur`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `habilitations`
@@ -331,13 +331,13 @@ ALTER TABLE `habilitations`
 ALTER TABLE `notes_soutenance`
   ADD CONSTRAINT `notes_soutenance_ibfk_1` FOREIGN KEY (`ID_InviteEvaluateur`) REFERENCES `invite` (`ID_Invite`),
   ADD CONSTRAINT `notes_soutenance_ibfk_2` FOREIGN KEY (`ID_UtilisateurEvalue`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE,
-  ADD CONSTRAINT `notes_soutenance_ibfk_3` FOREIGN KEY (`ID_UtilisateurEvaluateur`) REFERENCES `utilisateur` (`ID_Utilisateur`);
+  ADD CONSTRAINT `notes_soutenance_ibfk_3` FOREIGN KEY (`ID_UtilisateurEvaluateur`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `notes_suivi`
 --
 ALTER TABLE `notes_suivi`
-  ADD CONSTRAINT `notes_suivi_ibfk_1` FOREIGN KEY (`ID_Utilisateur`) REFERENCES `utilisateur` (`ID_Utilisateur`);
+  ADD CONSTRAINT `notes_suivi_ibfk_1` FOREIGN KEY (`ID_Utilisateur`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `utilisateur`
