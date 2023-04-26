@@ -42,43 +42,45 @@ if(isset($_POST['submit'])){
 
     $email = $_POST['email'];
 
-    // vérifie que l'adresse email existe dans la table utilisateur
-    $query = "SELECT id_utilisateur, nom, prenom FROM Mail_Utilisateur WHERE email = :email";
-    $stmt = Database::connect()->prepare($query);
-    $stmt->bindParam(":email", $email);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// vérifie que l'adresse email existe dans la table utilisateur
+$query = "SELECT ID_Utilisateur, Nom_Utilisateur, Mail_Utilisateur FROM utilisateur WHERE Mail_Utilisateur = :email";
+$stmt = Database::connect()->prepare($query);
+$stmt->bindParam(":email", $email);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if($user === false){
-        $_SESSION['reset_password_error'] = "Adresse email non trouvée.";
-        header('Location: reset_password.php');
-        exit();
-    }
+var_dump($user); // Ajout de cette ligne pour vérifier les données utilisateur récupérées
 
-    // génère un token unique et l'insère dans la table password_reset_tokens
-    $token = bin2hex(random_bytes(16));
-    $query = "INSERT INTO password_reset_tokens (id_utilisateur, token) VALUES (:id_utilisateur, :token)";
-    $stmt = Database::connect()->prepare($query);
-    $stmt->bindParam(":id_utilisateur", $user['id_utilisateur']);
-    $stmt->bindParam(":token", $token);
-    $stmt->execute();
-
-    // envoie un e-mail à l'utilisateur avec le lien de réinitialisation
-    $to = $email;
-    $subject = "Réinitialisation de votre mot de passe JAYA";
-    $message = "Bonjour " . $user['prenom'] . " " . $user['nom'] . ",\n\n";
-    $message .= "Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe JAYA : \n";
-    $message .= "http://localhost/Jaya-Project/pages/new_password.php?token=" . $token;
-    $headers = "From: jaya-project@example.com";
-
-    if(mail($to, $subject, $message, $headers)){
-        $_SESSION['reset_password_success'] = "Un e-mail de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.";
-    } else {
-        $_SESSION['reset_password_error'] = "Une erreur est survenue lors de l'envoi de l'e-mail de réinitialisation de mot de passe.";
-    }
-
+if($user === false){
+    $_SESSION['reset_password_error'] = "Adresse email non trouvée.";
     header('Location: reset_password.php');
     exit();
 }
-?>
 
+// génère un token unique et l'insère dans la table password_reset_tokens
+$token = bin2hex(random_bytes(16));
+$query = "INSERT INTO password_reset_tokens (user_id, token, Mail_Utilisateur) VALUES (:user_id, :token, :Mail_Utilisateur)";
+$stmt = Database::connect()->prepare($query);
+$stmt->bindParam(":user_id", $user['ID_Utilisateur']);
+$stmt->bindParam(":token", $token);
+$stmt->bindParam(":Mail_Utilisateur", $user['Mail_Utilisateur']);
+$stmt->execute();
+
+ // envoie un e-mail à l'utilisateur avec le lien de réinitialisation
+$to = $email;
+$subject = "Réinitialisation de votre mot de passe JAYA";
+$message = "Bonjour " . $user['Nom_Utilisateur'] . ",\n\n";
+$message .= "Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe JAYA : \n";
+$message .= "http://localhost/Jaya-Project/pages/new_password.php?token=" . $token;
+$headers = "From: jaya-project@example.com";
+
+if(mail($to, $subject, $message, $headers)){
+    $_SESSION['reset_password_success'] = "Un e-mail de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.";
+} else {
+    $_SESSION['reset_password_error'] = "Une erreur est survenue lors de l'envoi de l'e-mail de réinitialisation de mot de passe.";
+}
+
+header('Location: reset_password.php');
+exit();
+}
+?>
