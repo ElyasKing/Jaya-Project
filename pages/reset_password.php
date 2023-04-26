@@ -18,17 +18,17 @@ session_start();
       </form>
     </div>
 
-    <?php
-      if (isset($_SESSION['reset_password_success'])) {
-          echo "<script>alert('" . $_SESSION['reset_password_success'] . "')</script>";
-          unset($_SESSION['reset_password_success']);
-      }
+    <?php if (isset($_SESSION['reset_password_success'])): ?>
+  <div class="alert alert-success">
+    <?php echo $_SESSION['reset_password_success']; unset($_SESSION['reset_password_success']); ?>
+  </div>
+<?php endif; ?>
 
-      if (isset($_SESSION['reset_password_error'])) {
-          echo "<script>alert('" . $_SESSION['reset_password_error'] . "')</script>";
-          unset($_SESSION['reset_password_error']);
-      }
-    ?>
+<?php if (isset($_SESSION['reset_password_error'])): ?>
+  <div class="alert alert-danger">
+    <?php echo $_SESSION['reset_password_error']; unset($_SESSION['reset_password_error']); ?>
+  </div>
+<?php endif; ?>
   </body>
 </html>
 
