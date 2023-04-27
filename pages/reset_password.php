@@ -74,13 +74,17 @@ $message .= "Veuillez cliquer sur le lien suivant pour réinitialiser votre mot 
 $message .= "http://localhost/Jaya-Project/pages/new_password.php?token=" . $token;
 $headers = "From: jaya-project@example.com";
 
-if(mail($to, $subject, $message, $headers)){
-    $_SESSION['reset_password_success'] = "Un e-mail de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.";
+if (mail($to, $subject, $message, $headers)) {
+  $_SESSION['reset_password_success'] = "Un e-mail de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.";
 } else {
-    $_SESSION['reset_password_error'] = "Une erreur est survenue lors de l'envoi de l'e-mail de réinitialisation de mot de passe.";
-}
+  $_SESSION['reset_password_error'] = "Une erreur est survenue lors de l'envoi de l'e-mail de réinitialisation de mot de passe.";
 
-header('Location: reset_password.php');
-exit();
+  // Envoie un e-mail de non-distribution à l'utilisateur connecté et à l'administrateur
+  $undelivered_subject = "Échec de la distribution de l'e-mail de réinitialisation de mot de passe";
+  $undelivered_message = "L'e-mail de réinitialisation de mot de passe pour l'adresse e-mail suivante n'a pas pu être délivré : " . $email;
+  $undelivered_headers = "From: " . $_SESSION['user_email'];
+
+  mail($_SESSION['user_email'], $undelivered_subject, $undelivered_message, $undelivered_headers);
+  mail($admin_email, $undelivered_subject, $undelivered_message, $undelivered_headers);
 }
 ?>
