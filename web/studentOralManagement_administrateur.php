@@ -29,13 +29,14 @@ if (!isConnectedUser()) {
 
             $db = Database::connect();
 
-            // ID : 5 = nombre minimum de note professionnel, ID : 6 = nombre minimum de note enseignant (cf DB)
-            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='5' OR `ID_param`='6';";
+            // ID : 5 = nombre minimum de note professionnel, ID : 6 = nombre minimum de note enseignant, ID :3 : Duree d'une duree de soutenance (cf DB)
+            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='5' OR `ID_param`='6' OR `ID_param`='3';";
             $result = $db->query($sql);
 
             $rows = $result->fetchAll();
             $note_pro = $rows[0]['Description_param'];
             $note_enseignant = $rows[1]['Description_param'];
+            $duree_soutenance = $rows[2]['Description_param'];
 
             /*
             Requete pour l'index 1 
