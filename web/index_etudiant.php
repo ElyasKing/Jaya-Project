@@ -45,8 +45,10 @@ if ($result->rowCount() > 0) {
     $result = $db->query($sql);
     $duree = $result->fetch();
 
+    echo $duree['Description_param'];
+
     // on extrait les heures et les minutes de la durée
-    preg_match('/(\d+):(\d+):(\d+)/', $duree['Description_param'], $matches);
+    preg_match('/(\d{2}):(\d{2})/', $duree['Description_param'], $matches);
     $heures = intval($matches[1]);
     $minutes = intval($matches[2]);
 

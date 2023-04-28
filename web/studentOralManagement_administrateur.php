@@ -34,9 +34,9 @@ if (!isConnectedUser()) {
             $result = $db->query($sql);
 
             $rows = $result->fetchAll();
-            $note_pro = $rows[0]['Description_param'];
-            $note_enseignant = $rows[1]['Description_param'];
-            $duree_soutenance = $rows[2]['Description_param'];
+            $duree_soutenance = $rows[0]['Description_param'];
+            $note_pro = $rows[1]['Description_param'];
+            $note_enseignant = $rows[2]['Description_param'];
 
             /*
             Requete pour l'index 1 
