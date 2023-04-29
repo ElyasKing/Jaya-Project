@@ -187,7 +187,7 @@ if (!isConnectedUser()) {
                                     echo "<td class='text-center'></td>";
                                 }
                                 echo "
-                                        <td><a href='#?id=" . $student["ID_Etudiant"] . "&planning=" . $student["ID_Planning"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
+                                        <td><a href='scheduleStudentConfiguration_scolarite.php?id=".$student["ID_Etudiant"]."&planning=".$student["ID_Planning"]."'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
                             }
                             ?>
@@ -258,6 +258,12 @@ switch ($success) {
     case 1:
         echo '<script>toastr.success("Les génération des plannings à été effectuée !");</script>';
         break;
+    case 2:
+        echo '<script>toastr.success("Le changement de planning à été effectué.");</script>';
+        break;
+    case 3:
+        echo '<script>toastr.success("Le planning à été mis à jour.");</script>';
+        break;
     default:
         // rien
 }
@@ -312,7 +318,7 @@ $_SESSION['success'] = 0;
         }
 
         // Sélectionner l'option enregistrée en session
-        if (selectedPlanning) {
+        if (selectedPlanning && document.querySelector(`#planningSelector option[value="${selectedPlanning}"]`)) {
             planningSelector.value = selectedPlanning;
             let oldSelectedOption = document.querySelector("#planningSelector option[selected]");
             if (oldSelectedOption) {
@@ -322,6 +328,12 @@ $_SESSION['success'] = 0;
             if (newSelectedOption) {
                 newSelectedOption.setAttribute("selected", "");
             }
+            filterRows();
+        }else {
+            // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
+            selectedPlanning = planningSelector.options[0].value;
+            sessionStorage.setItem('selectedPlanning', selectedPlanning);
+            planningSelector.value = selectedPlanning;
             filterRows();
         }
 
@@ -343,7 +355,7 @@ $_SESSION['success'] = 0;
         // Vérifie s'il y a une valeur stockée en session pour le bouton Configure
         if (sessionStorage.getItem('btnConfigureHidden') === 'true') {
             btnConfigure.setAttribute('hidden', '');
-        } else {
+        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false'){
             btnConfigure.removeAttribute('hidden');
         }
 

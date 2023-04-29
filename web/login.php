@@ -83,17 +83,13 @@ if (isset($_SESSION['success'])) {
 
 	switch ($login_error) {
 		case 1:
-			echo '<script>toastr.error("Identifiant ou mot de passe incorrect ! !");</script>';
+			echo '<script>toastr.error("Identifiant ou mot de passe incorrect !");</script>';
 			break;
 		case 2:
 			echo '<script>toastr.warning("Vous n\'êtes pas habilité à accèder à cette application. Veuillez vous identifier.");</script>';
 			break;
 		default:
 			// rien
-	}
-
-	if ($login_error == 1) {
-		echo "<script>toastr.error(\"Identifiant ou mot de passe incorrect !\");</script>";
 	}
 	$_SESSION['success'] = 0;
 }
