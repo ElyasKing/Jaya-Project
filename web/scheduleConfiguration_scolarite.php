@@ -17,7 +17,7 @@ if (!isConnectedUser()) {
     include("header.php");
     $db = Database::connect();
 
-    $query = "SELECT ID_Planning, Nom_Planning FROM planning WHERE ID_Planning ='".$_SESSION['activeSchedule']."'";
+    $query = "SELECT ID_Planning, Nom_Planning, DateSession_Planning, HeureDebutSession_Planning FROM planning WHERE ID_Planning ='".$_SESSION['activeSchedule']."'";
     $statement = $db->query($query);
     $scheduleName = $statement->fetch();
     ?>
@@ -38,7 +38,7 @@ if (!isConnectedUser()) {
                 <h4 class="text-center">Parametrer la session</h4>
                 <br>
                 <br>
-                <form action="#" method="post">
+                <form action="scheduleCheckConfiguration_scolarite.php" method="post">
                     <div class="row d-flex justify-content-center">
                         <div class="col-12 col-md-8 col-lg-6 col-xl-10">
                             <div class="card shadow-2-strong css-login">
@@ -52,13 +52,13 @@ if (!isConnectedUser()) {
                                     <div class='row'>
                                         <div class="col">
                                             <label for="sessionDate" class="form-label">Date de la session de soutenance :</label>
-                                            <input id="sessionDate" required type="date" class="form-control" name="sessionDate">
+                                            <input id="sessionDate" required type="date" class="form-control" name="sessionDate" value="<?= $scheduleName['DateSession_Planning'] ?>">
                                         </div>
                                     </div>
                                     <div class='row'>
                                         <div class="col">
                                             <label for="sessionTime" class="form-label">Heure de début de la session de soutenance :</label>
-                                            <input id="sessionTime" required type="time" class="form-control" name="sessionTime">
+                                            <input id="sessionTime" required type="time" class="form-control" name="sessionTime" value="<?= $scheduleName['HeureDebutSession_Planning'] ?>">
                                         </div>
                                     </div>
                                     <br>
