@@ -160,12 +160,37 @@ if ($result->rowCount() > 0) {
         <h4>Informations soutenance</h4>
         <br>
         <div class="center">
-            <?php if ($arr_schedule == []) { ?>
-                <p>Pas d'heure attribuée</P>
-            <?php }
-            if ($arr_schedule <> []) { ?>
-                <p>Votre soutenance pour l'UE Projet Professionnel aura lieu le <?php echo $date_fr ?> de <?php echo $heure_debut ?> à <?php echo $heure_fin ?></p>
-            <?php } ?>
+            <?php if ($arr_schedule == []) {
+                echo '
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                            <div class="card shadow-2-strong css-login">
+                                <div class="card-body p-5">
+                                    <div class="row">
+                                    <p class="text-center">Vous ne pourrez acceder aux plannings de soutenances qu\'une fois que la Scolarité les aura validé.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+            }
+            if ($arr_schedule <> []) {
+                echo '
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                <div class="card shadow-2-strong css-login">
+                    <div class="card-body p-5">
+                        <div class="row">
+                            <p class="text-center">Votre soutenance pour l\'UE Projet Professionnel aura lieu le ' . $date_fr . ' de ' . $heure_debut . ' à ' . $heure_fin . '</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ';
+            }
+            ?>
         </div>
     </div>
 
