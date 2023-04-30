@@ -66,7 +66,7 @@ $stmt->bindParam(":token", $token);
 $stmt->bindParam(":Mail_Utilisateur", $user['Mail_Utilisateur']);
 $stmt->execute();
 
- // envoie un e-mail à l'utilisateur avec le lien de réinitialisation
+// envoie un e-mail à l'utilisateur avec le lien de réinitialisation
 $to = $email;
 $subject = "Réinitialisation de votre mot de passe JAYA";
 $message = "Bonjour " . $user['Nom_Utilisateur'] . ",\n\n";
@@ -87,4 +87,7 @@ if (mail($to, $subject, $message, $headers)) {
   mail($_SESSION['user_email'], $undelivered_subject, $undelivered_message, $undelivered_headers);
   mail($admin_email, $undelivered_subject, $undelivered_message, $undelivered_headers);
 }
-?>
+
+header('Location: reset_password.php');
+exit();
+}
