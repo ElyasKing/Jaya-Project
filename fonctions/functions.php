@@ -15,11 +15,17 @@ function isConnectedUser (){
 // requete SQL pour les index 
 function getStudentInformationForIndexes()
 {
+    $date = getdate();
+    $currentYear = $date['year'];
+    $lastYear = $currentYear - 1;
+    $currentStudentYear = $lastYear . "-" . $currentYear;
+
     $sql = "SELECT 
     u1.ID_Utilisateur AS ID_Etudiant,
     u1.Nom_Utilisateur AS Nom_Etudiant,
     u1.Mail_Utilisateur AS Mail_Etudiant,
     u1.Promo_Utilisateur,
+    u1.Annee_Utilisateur,
     u1.HuisClos_Utilisateur,
     GROUP_CONCAT(DISTINCT i.Entreprise_Invite SEPARATOR ';') AS Entreprise_Invite,
     GROUP_CONCAT(DISTINCT i.Ville_Invite SEPARATOR ';') AS Ville_Invite,
@@ -33,7 +39,7 @@ function getStudentInformationForIndexes()
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-    WHERE h.Etudiant_Habilitations='oui'
+    WHERE h.Etudiant_Habilitations='oui' AND u1.Annee_Utilisateur = '$currentStudentYear'
     GROUP BY u1.ID_Utilisateur;";
 
     return $sql;
@@ -43,11 +49,17 @@ function getStudentInformationForIndexes()
 function
 getStudentInformation_TuteurUniversitaire($User_ID)
 {
+    $date = getdate();
+    $currentYear = $date['year'];
+    $lastYear = $currentYear - 1;
+    $currentStudentYear = $lastYear . "-" . $currentYear;
+
     $sql = "SELECT 
     u1.ID_Utilisateur AS ID_Etudiant,
     u1.Nom_Utilisateur AS Nom_Etudiant,
     u1.Mail_Utilisateur AS Mail_Etudiant,
     u1.Promo_Utilisateur,
+    u1.Annee_Utilisateur,
     u1.HuisClos_Utilisateur,
     GROUP_CONCAT(DISTINCT i.Entreprise_Invite SEPARATOR ';') AS Entreprise_Invite,
     GROUP_CONCAT(DISTINCT i.Ville_Invite SEPARATOR ';') AS Ville_Invite,
@@ -61,7 +73,7 @@ getStudentInformation_TuteurUniversitaire($User_ID)
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-    WHERE h.Etudiant_Habilitations='oui' and u2.ID_Utilisateur='" . $User_ID . "'
+    WHERE h.Etudiant_Habilitations='oui' and u2.ID_Utilisateur='" . $User_ID . "' AND u1.Annee_Utilisateur = '$currentStudentYear'
     GROUP BY u1.ID_Utilisateur;";
 
     return $sql;
