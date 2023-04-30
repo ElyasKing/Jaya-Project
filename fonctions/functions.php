@@ -100,13 +100,13 @@ function
 getStudentEvaluation_Etudiant($User_ID)
 {
     $sql = "SELECT 
-    ID_NF,
-    NoteFinaleTuteur_NF AS Note_Tuteur,
-    NoteFinaleUE_NF AS Note_Finale,
-    Poster_NF,
-    Rapport_NF
-    FROM notes_suivi
-    WHERE ID_Utilisateur='" . $User_ID . "' AND Validation_NF='oui'";
+    ns.ID_NF,
+    ns.NoteFinaleTuteur_NF AS Note_Tuteur,
+    ns.NoteFinaleUE_NF AS Note_Finale,
+    ns.Poster_NF,
+    ns.Rapport_NF
+    FROM notes_suivi ns, decisions d
+    WHERE ns.ID_Utilisateur='" . $User_ID . "' AND d.Validation_NF='oui'";
 
     return $sql;
 }
@@ -170,6 +170,14 @@ getStutdentGradeOral($User_ID)
             //A la fin ne pas oublier de remettre la note sur 20 
             $noteFinale = $noteFinale / $division;
 
+            //Et on retire le point d orthographe si y'a
+            // on récupère la durée d'une soutenance pour obtenir le début et la fin
+            $sql ="SELECT Orthographe_NF FROM notes_suivi WHERE ID_Utilisateur='" . $User_ID . "';";
+            $result = $db->query($sql);
+            $ortho = $result->fetchColumn();
+
+            $noteFinale=$noteFinale - $ortho;
+
             return $noteFinale;
         } else return "";
     } else return "DEF";
@@ -181,9 +189,8 @@ function getStudentSchedule_Etudiant($User_ID)
 {
     $sql = "SELECT p.ID_Planning, p.DateSession_Planning, p.HeureDebutSession_Planning 
     FROM planning p
-    INNER JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
-    WHERE u.ID_Utilisateur = '" . $User_ID . "'
-    AND p.ValidationScolarite_Planning = 'oui';";
+    LEFT JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
+    WHERE u.ID_Utilisateur = '" . $User_ID . "';";
 
     return $sql;
 }

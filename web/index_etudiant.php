@@ -1,5 +1,5 @@
 <?php
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -19,56 +19,64 @@ if ($result->rowCount() > 0) {
 
 //Deuxième tableau : informations liées à la notation
 
-$sql = getStudentEvaluation_Etudiant($_SESSION["user_id"]);
-
+$sql = "SELECT Validation_NF FROM decisions WHERE ValidationScolarite_Planning = 'oui'";
 $result = $db->query($sql);
 $arr_evaluation = [];
 if ($result->rowCount() > 0) {
-    $arr_evaluation = $result->fetchAll();
+    $sql = getStudentEvaluation_Etudiant($_SESSION["user_id"]);
+
+    $result = $db->query($sql);
+    if ($result->rowCount() > 0) {
+        $arr_evaluation = $result->fetchAll();
+    }
+
+    $noteOral = getStutdentGradeOral($_SESSION["user_id"]);
 }
-
-$noteOral = getStutdentGradeOral($_SESSION["user_id"]);
-
 
 //Troisième tableau : Information liées au planning
 
-$sql = getStudentSchedule_Etudiant($_SESSION["user_id"]);
-
+//on vérifie si la scolarité a validé 
+$sql = "SELECT ValidationScolarite_Planning FROM decisions WHERE ValidationScolarite_Planning = 'oui'";
 $result = $db->query($sql);
+
 $arr_schedule = [];
 if ($result->rowCount() > 0) {
-    $arr_schedule = $result->fetchAll();
+    $sql = getStudentSchedule_Etudiant($_SESSION["user_id"]);
 
-
-    // on récupère la durée d'une soutenance pour obtenir le début et la fin
-    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3'";
     $result = $db->query($sql);
-    $duree = $result->fetch();
-
-    echo $duree['Description_param'];
-
-    // on extrait les heures et les minutes de la durée
-    preg_match('/(\d{2}):(\d{2})/', $duree['Description_param'], $matches);
-    $heures = intval($matches[1]);
-    $minutes = intval($matches[2]);
-
-    // on crée un nouvel objet DateInterval avec les heures et les minutes extraites
-    $duree = new DateInterval('PT' . $heures . 'H' . $minutes . 'M');
-
-    $date = $arr_schedule[0]['DateSession_Planning'];
-    $heure_debut = $arr_schedule[0]['HeureDebutSession_Planning'];
-
-
-    // on calcule l'heure de fin en ajoutant la durée à l'heure de début
-    $heure_fin = new DateTime($heure_debut);
-    $heure_fin = $heure_fin->add($duree);
-    $heure_fin = $heure_fin->format('H:i:s');
+    if ($result->rowCount() > 0) {
+        $arr_schedule = $result->fetchAll();
 
 
 
-    $dateTime = new DateTime($date);
-    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-    $date_fr = strftime('%d %B %Y', $dateTime->getTimestamp());
+        // on récupère la durée d'une soutenance pour obtenir le début et la fin
+        $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3'";
+        $result = $db->query($sql);
+        $duree = $result->fetch();
+
+        // on extrait les heures et les minutes de la durée
+        preg_match('/(\d{2}):(\d{2})/', $duree['Description_param'], $matches);
+        $heures = intval($matches[1]);
+        $minutes = intval($matches[2]);
+
+        // on crée un nouvel objet DateInterval avec les heures et les minutes extraites
+        $duree = new DateInterval('PT' . $heures . 'H' . $minutes . 'M');
+
+        $date = $arr_schedule[0]['DateSession_Planning'];
+        $heure_debut = $arr_schedule[0]['HeureDebutSession_Planning'];
+
+
+        // on calcule l'heure de fin en ajoutant la durée à l'heure de début
+        $heure_fin = new DateTime($heure_debut);
+        $heure_fin = $heure_fin->add($duree);
+        $heure_fin = $heure_fin->format('H:i:s');
+
+
+
+        $dateTime = new DateTime($date);
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+        $date_fr = strftime('%d %B %Y', $dateTime->getTimestamp());
+    }
 }
 ?>
 

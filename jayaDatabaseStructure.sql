@@ -127,7 +127,7 @@ CREATE TABLE `notes_suivi` (
   `Remarque_NF` varchar(800) DEFAULT NULL,
   `Rapport_NF` varchar(3) DEFAULT NULL,
   `Appreciation_NF` varchar(800) DEFAULT NULL,
-  `Orthographe_NF` int(2) DEFAULT NULL,
+  `Orthographe_NF` float DEFAULT NULL,
   `ID_Utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
