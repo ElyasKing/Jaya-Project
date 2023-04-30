@@ -75,7 +75,7 @@ if ($result->rowCount() > 0) {
 
         $dateTime = new DateTime($date);
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        $date_fr = strftime('%d %B %Y', $dateTime->getTimestamp());
+        $date_fr = strftime('%d/%m/%Y', $dateTime->getTimestamp());
     }
 }
 ?>
