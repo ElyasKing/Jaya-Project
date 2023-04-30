@@ -109,7 +109,8 @@
         $currentPlanningIndex = 1;
 
         // vérifier le dernier index de planification existant dans la base de données
-        $query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_huis_clos%'";
+        //SELECT MAX(SUBSTRING_INDEX(Nom_Planning, '-N°', -1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_huis_clos%';
+        $query = "SELECT MAX(SUBSTRING_INDEX(Nom_Planning, '-N°', -1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_huis_clos%'";
         $statement = $db->prepare($query);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -150,7 +151,8 @@
         $currentPlanningIndex = 1;
 
         // vérifier le dernier index de planification existant dans la base de données
-        $query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_huis_clos%'";
+        // $query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_huis_clos%'";
+        $query = "SELECT MAX(SUBSTRING_INDEX(Nom_Planning, '-N°', -1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_huis_clos%'";
         $statement = $db->prepare($query);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -193,7 +195,8 @@
         $currentPlanningIndex = 1;
 
         // vérifier le dernier index de planification existant dans la base de données
-        $query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_non_huis_clos%'";
+        //$query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_non_huis_clos%'";
+        $query = "SELECT MAX(SUBSTRING_INDEX(Nom_Planning, '-N°', -1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M1_non_huis_clos%'";
         $statement = $db->prepare($query);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -243,7 +246,8 @@
         $currentPlanningIndex = 1;
 
         // vérifier le dernier index de planification existant dans la base de données
-        $query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_non_huis_clos%'";
+        //$query = "SELECT MAX(RIGHT(Nom_Planning, LOCATE('-', REVERSE(Nom_Planning))-1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_non_huis_clos%'";
+        $query = "SELECT MAX(SUBSTRING_INDEX(Nom_Planning, '-N°', -1)) AS last_planning_index FROM planning WHERE Nom_Planning LIKE '%M2_non_huis_clos%'";
         $statement = $db->prepare($query);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
