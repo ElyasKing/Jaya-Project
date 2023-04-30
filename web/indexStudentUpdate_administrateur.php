@@ -127,7 +127,7 @@ if (!isConnectedUser()) {
                                     <br>
                                     <div class='tuteurs-entreprise-container'>
                                         <?php
-                                        $compteur = 1;
+                                        $compteur = 0; // initialisation de compteur à 0
                                         if (empty($tuteur_entreprise)) {
                                         ?>
                                             <div class="row tuteur-entreprise">
@@ -136,7 +136,7 @@ if (!isConnectedUser()) {
                                                     <select class="form-select" name="nomte[]" required>
                                                         <option value=""></option>
                                                         <?php foreach ($liste_invite as $invite) { ?>
-                                                            <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" <?= (!$tuteur_entreprise && !$invite['Nom_Invite']) ? 'selected' : '' ?>>
+                                                            <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" data-ville-te="<?= $invite['Ville_Invite'] ?>" data-entreprise-te="<?= $invite['Entreprise_Invite'] ?>"  <?= (!$invite['Nom_Invite']) ? 'selected' : '' ?>>
                                                                 <?= $invite['Nom_Invite'] ?>
                                                             </option>
                                                         <?php } ?>
@@ -149,7 +149,8 @@ if (!isConnectedUser()) {
                                             </div>
                                             <?php
                                         } else {
-                                            foreach ($tuteur_entreprise as $TE) {
+                                            foreach ($tuteur_entreprise as $index => $TE) {
+                                                $compteur = $index + 1;
                                             ?>
                                                 <div class="row tuteur-entreprise">
                                                     <div class="col">
@@ -157,7 +158,7 @@ if (!isConnectedUser()) {
                                                         <select class="form-select" name="nomte[]" data-index="<?= $compteur ?>" required>
                                                             <option value=""></option>
                                                             <?php foreach ($liste_invite as $invite) { ?>
-                                                                <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" <?= ($invite['Nom_Invite'] == $TE['Nom_Invite']) ? 'selected' : '' ?>>
+                                                                <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" data-entreprise-te="<?= $invite['Entreprise_Invite'] ?>" data-ville-te="<?= $invite['Ville_Invite'] ?>" <?= ($invite['Nom_Invite'] == $TE['Nom_Invite']) ? 'selected' : '' ?>>
                                                                     <?= $invite['Nom_Invite'] ?>
                                                                 </option>
                                                             <?php } ?>
@@ -169,11 +170,11 @@ if (!isConnectedUser()) {
                                                     </div>
                                                 </div>
                                         <?php
-                                                $compteur++;
                                             }
                                         }
                                         ?>
                                     </div>
+
                                     <br>
                                     <input type="hidden" class="form-control" name="id" value="<?= $etudiant['ID_Utilisateur'] ?>">
                                     <div class="row">
@@ -222,26 +223,55 @@ if (!isConnectedUser()) {
     const defaultTuteur = selectTuteur.options[selectTuteur.selectedIndex];
     emailTuteur.value = defaultTuteur.getAttribute('data-email');
 
-    //-----------------------------------------------------------
+    //----------------------------------------------------------
+
+    // Récupération des éléments HTML pour l'étudiant
+    var inputEntreprise = document.querySelector('input[name="entreprise"]');
+    var inputVille = document.querySelector('input[name="ville"]');
 
     // Récupération des éléments HTML pour le tuteur entreprise
     var selectTuteurEntreprise = document.querySelectorAll('select[name="nomte[]"]');
     var emailTuteurEntreprise = document.querySelectorAll('input[name="emailte[]"]');
 
+    // Fonction pour mettre à jour les champs entreprise et ville
+    function updateEntrepriseAndVille(index, selectedTuteur) {
+        const entreprise = document.querySelectorAll('input[name="entreprise"]')[index];
+        const ville = document.querySelectorAll('input[name="ville"]')[index];
 
+
+
+        if (entreprise && ville) {
+            entreprise.value = selectedTuteur.getAttribute('data-entreprise-te');
+            ville.value = selectedTuteur.getAttribute('data-ville-te');
+        }
+    }
+
+
+    // Traitement pour le cas où il n'y a pas de tuteur entreprise sélectionné
+    if (selectTuteurEntreprise.length > 0 && selectTuteurEntreprise[0].selectedIndex === 0) {
+        selectTuteurEntreprise.forEach((select, index) => {
+            select.addEventListener('input', () => {
+                const selectedTuteur = select.options[select.selectedIndex];
+                updateEntrepriseAndVille(index, selectedTuteur);
+            });
+        });
+    }
+
+    // Traitement pour le cas où il y a un ou plusieurs tuteurs entreprise sélectionnés
     selectTuteurEntreprise.forEach((select, index) => {
         select.addEventListener('change', () => {
-            // Récupération de la valeur sélectionnée dans la liste déroulante
             const selectedTuteur = select.options[select.selectedIndex];
-
-            // Mise à jour de la valeur du champ emailTuteurEntreprise avec le mail du tuteur entreprise sélectionné
+            // Mise à jour des champs emailTuteurEntreprise, entreprise et ville avec les données de l'invité sélectionné
             emailTuteurEntreprise[index].value = selectedTuteur.getAttribute('data-email-te');
+            updateEntrepriseAndVille(index, selectedTuteur);
         });
 
-        // Au chargement de la page, on met à jour le champ emailTuteurEntreprise avec la valeur sélectionnée par défaut
+        // Au chargement de la page, on met à jour les champs emailTuteurEntreprise, entreprise et ville avec les valeurs sélectionnées par défaut
         const defaultTuteur = select.options[select.selectedIndex];
         emailTuteurEntreprise[index].value = defaultTuteur.getAttribute('data-email-te');
+        updateEntrepriseAndVille(index, defaultTuteur);
     });
+
 
     //-----------------------------
 
@@ -342,4 +372,5 @@ if (!isConnectedUser()) {
             document.querySelector('.tuteurs-entreprise-container').lastElementChild.remove();
         }
     });
+</script>
 </script>

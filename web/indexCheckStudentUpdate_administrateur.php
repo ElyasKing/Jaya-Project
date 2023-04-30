@@ -34,9 +34,10 @@ if (isset($_POST)) {
         $query = "INSERT INTO est_apprenti (ID_Utilisateur, ID_Invite) VALUES ('" . $idEtudiant . "', '" . $idTE . "')";
         $result = $conn->query($query);
 
-
-        $query = "UPDATE `invite` SET `Entreprise_Invite` ='" . $entreprise . "', `Ville_Invite` ='" . $ville . "' WHERE `ID_Invite`='" . $idTE . "'";
-        $result = $conn->query($query);
+        //Utilisation d'une requete préparée pour la gestion des caractères spéciaux
+        $query = "UPDATE `invite` SET `Entreprise_Invite` = ?, `Ville_Invite` = ? WHERE `ID_Invite`=?";
+        $result = $conn->prepare($query);
+        $result->execute([$entreprise, $ville, $idTE]);
     }
 
 
