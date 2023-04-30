@@ -150,7 +150,7 @@ if (!isConnectedUser()) {
                                                 <td class="text-center"><?= $user1['NoteFinale_NS']; ?></td>
                                                 <td class="text-center"><?= $user1['Commentaire_NS']; ?></td>
                                                 <td>
-                                                    <a href="studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user['Nom_Evaluateur']) ?>">
+                                                    <a href="studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user1['Nom_Evaluateur']) ?>">
                                                         <button type='button' class='btn bg bi bi-pencil-fill'></button>
                                                     </a>
                                                     <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user1['ID_NS'] ?>" data-nomutilisateur="<?= $user1['Nom_Utilisateur'] ?>">

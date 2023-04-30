@@ -3,7 +3,7 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -49,7 +49,7 @@ if(!isConnectedUser()){
             $liste_tuteur = $result->fetchAll();
 
             //récupérer la liste de tous les invités 
-            $query = "SELECT ID_Invite, Nom_Invite, Mail_Invite FROM invite;";
+            $query = "SELECT ID_Invite, Nom_Invite, Mail_Invite,Entreprise_Invite, Ville_Invite FROM invite WHERE estProfessionel_Invite='oui';";
             $result = $db->query($query);
             $liste_invite = $result->fetchAll();
 
@@ -79,19 +79,17 @@ if(!isConnectedUser()){
                                 <div class="card-body p-5">
                                     <div class='row'>
                                         <div class="col">
-                                            <label for="nomEtudiant" class="form-label">Nom :</label>
-                                            <input type="text" class="form-control" name="nomEtudiant" value="<?= $etudiant['nom_Utilisateur'] ?>" readonly>
+                                            <p class="form-label">Nom : <?= $etudiant['nom_Utilisateur'] ?></p>
                                         </div>
                                         <div class="col">
-                                            <label for="emailEtudiant" class="form-label">Email :</label>
-                                            <input type="email" class="form-control" name="emailEtudiant" value="<?= $etudiant['Mail_Utilisateur'] ?>" readonly>
+                                            <p class="form-label">Email : <?= $etudiant['Mail_Utilisateur'] ?></p>
                                         </div>
                                     </div>
                                     <br>
                                     <div class='row'>
                                         <div class="col">
                                             <label for="nomTuteur" class="form-label">Nom du tuteur universitaire</label>
-                                            <select class="form-control" name="nomTuteur" id="nomTuteur" required>
+                                            <select class="form-select" name="nomTuteur" id="nomTuteur" required>
                                                 <option value=""></option>
                                                 <?php foreach ($liste_tuteur as $tuteur) { ?>
                                                     <option value="<?= $tuteur['Nom_Utilisateur'] ?>" data-email="<?= $tuteur['Mail_Utilisateur'] ?>" <?php if ($tuteur_universitaire && $tuteur['Nom_Utilisateur'] == $tuteur_universitaire['nom_Utilisateur']) echo 'selected'; ?>>
@@ -109,7 +107,10 @@ if(!isConnectedUser()){
                                     <div class='row'>
                                         <div class="col">
                                             <label for="promo" class="form-label">Promo :</label>
-                                            <input type="text" class="form-control" name="promo" value="<?= $etudiant['Promo_Utilisateur'] ?>">
+                                            <select class="form-select" name="promo">
+                                                <option value="M1 MIAGE" <?php if ($etudiant['Promo_Utilisateur'] == 'M1 MIAGE') echo 'selected'; ?>>M1 MIAGE</option>
+                                                <option value="M2 MIAGE" <?php if ($etudiant['Promo_Utilisateur'] == 'M2 MIAGE') echo 'selected'; ?>>M2 MIAGE</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label for="entreprise" class="form-label">Entreprise :</label>
@@ -132,7 +133,7 @@ if(!isConnectedUser()){
                                             <div class="row tuteur-entreprise">
                                                 <div class="col">
                                                     <label for="nomTE" class="form-label">Nom du tuteur entreprise :</label>
-                                                    <select class="form-control" name="nomte[]" required>
+                                                    <select class="form-select" name="nomte[]" required>
                                                         <option value=""></option>
                                                         <?php foreach ($liste_invite as $invite) { ?>
                                                             <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" data-id-te="<?= $invite['ID_Invite'] ?>" <?= (!$tuteur_entreprise && !$invite['Nom_Invite']) ? 'selected' : '' ?>>
@@ -153,7 +154,7 @@ if(!isConnectedUser()){
                                                 <div class="row tuteur-entreprise">
                                                     <div class="col">
                                                         <label for="nomTE<?= $compteur ?>" class="form-label">Nom du tuteur entreprise :</label>
-                                                        <select class="form-control" name="nomte[]" data-index="<?= $compteur ?>" required>
+                                                        <select class="form-select" name="nomte[]" data-index="<?= $compteur ?>" required>
                                                             <option value=""></option>
                                                             <?php foreach ($liste_invite as $invite) { ?>
                                                                 <option value="<?= $invite['Nom_Invite'] ?>" data-email-te="<?= $invite['Mail_Invite'] ?>" <?= ($invite['Nom_Invite'] == $TE['Nom_Invite']) ? 'selected' : '' ?>>
@@ -190,6 +191,7 @@ if(!isConnectedUser()){
                                     </div>
                                     <div class="text-center">
                                         <button class="btn me-md-3 bg" type="submit">Modifier</button>
+                                        <a type="button" href="index.php" class="btn me-md-3 bg">Retour</a>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +266,7 @@ if(!isConnectedUser()){
         nomLabel.textContent = 'Nom du tuteur entreprise :';
         nomLabel.classList.add('form-label');
         const nomSelect = document.createElement('select');
-        nomSelect.classList.add('form-control');
+        nomSelect.classList.add('form-select');
         nomSelect.name = 'nomte[]';
         nomSelect.required = true;
 
@@ -302,10 +304,10 @@ if(!isConnectedUser()){
                     matchingElements.push(elements[i]);
                 }
             }
-        <?php if (!empty($matchingElements)) {
+            <?php if (!empty($matchingElements)) {
                 continue;
             }
-        ?>
+            ?>
             const option<?= $compteur ?> = document.createElement('option');
             option<?= $compteur ?>.value = '<?= $invite['Nom_Invite'] ?>';
             option<?= $compteur ?>.text = '<?= $invite['Nom_Invite'] ?>';
