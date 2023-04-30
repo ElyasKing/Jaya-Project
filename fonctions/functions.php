@@ -108,7 +108,6 @@ getStudentEvaluation_Etudiant($User_ID)
     FROM notes_suivi
     WHERE ID_Utilisateur='" . $User_ID . "' AND Validation_NF='oui'";
 
-
     return $sql;
 }
 

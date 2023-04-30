@@ -9,7 +9,6 @@ if (!isConnectedUser()) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 
@@ -141,7 +140,7 @@ if (!isConnectedUser()) {
                                 <th>Huis clos</th>
                                 <th>Date de la session de soutenance</th>
                                 <th>Horaires de la session de soutenance</th>
-                                <th></th>
+                                <!-- <th></th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -187,62 +186,17 @@ if (!isConnectedUser()) {
                                 } else {
                                     echo "<td class='text-center'></td>";
                                 }
-                                echo "
-                                        <td><a href='scheduleStudentConfiguration_scolarite.php?id=".$student["ID_Etudiant"]."&planning=".$student["ID_Planning"]."'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
-                                    </tr>";
                             }
                             ?>
                         </tbody>
                     </table>
-                </div>
+                </div>   
             </div>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <form id="configure-planning-form" action="scheduleConfiguration_scolarite.php" method="post">
+                <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
                 </form>
-                <a href="#" onclick='
-                    var SelectedOption = document.querySelector("#planningSelector option[selected]"); 
-                    var activeSchedule = planningSelector.value; 
-                    /*console.log(activeSchedule);*/
-                    $.ajax({
-                        url: "scheduleAjaxPostConfigurationVariable.php",
-                        type: "POST",
-                        data: {
-                            activeSchedule: activeSchedule
-                        },
-                        "success": function(data) {
-                            console.log("Variable enregistrée dans la session : " + data);
-                            document.getElementById("configure-planning-form").submit();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log("Erreur : " + textStatus);
-                        }
-                    });
-                    '>
-                    <button id="btnConfigure" hidden class='btn me-md-3 btn-custom bg'>Parametrer la session</button>
-                </a>
-
-                <?php
-                $query = 'SELECT `ValidationResponsableUE_Planning` FROM `decisions`';
-                $statement = $db->query($query);
-                $validationByRespUE = $statement->fetch();
-
-                if($validationByRespUE[0] == "oui"){
-                ?>
-                    <form id="schedule-sendMail-form" action="scheduleCheckSendMail_scolarite.php" method="post">
-                    </form>
-                    <a href="#" onclick="if(confirm('Souhaitez-vous vraiment envoyer un planning individuel aux étudiants et à leurs tuteurs par mail.')){document.getElementById('schedule-sendMail-form').submit();}else{return false;};"><button id="btn-envoyer-planning" class="btn me-md-3 btn-custom bg">Envoyer le planning</button></a>
-                <?php
-                }
-                ?>
-
-                <form id="generate-planning-form" action="scheduleGeneration_scolarite.php" method="post">
-                </form>
-                <a href="#" onclick='if(confirm("Souhaitez-vous vraiment g&eacute;n&eacute;rer ou ajouter des plannings de soutenances ?")){document.getElementById("generate-planning-form").submit();}else{return false;};'><button id="btn-generer" class="btn me-md-3 btn-custom bg">G&eacute;n&eacute;rer</button></a>
-
-                <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
-                </form>
-                <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les informations de soutenances ? Les utilisateurs suivants y auront accès : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <a href="#" onclick='if(confirm("Vous venez de valider les informations de soutenances.Les utilisateurs ayant le rôle \"Scolarité\" peuvent désormais envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
             </div>
         </div>
     </div>

@@ -21,6 +21,16 @@ SET time_zone = "+00:00";
 -- Base de données : `jaya`
 --
 
+--
+-- Structure de la table `decisions`
+--
+
+CREATE TABLE `decisions` (
+  `ValidationScolarite_Planning` varchar(3) DEFAULT NULL,
+  `ValidationResponsableUE_Planning` varchar(3) DEFAULT NULL,
+  `Validation_NF` varchar(3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -118,8 +128,7 @@ CREATE TABLE `notes_suivi` (
   `Rapport_NF` varchar(3) DEFAULT NULL,
   `Appreciation_NF` varchar(800) DEFAULT NULL,
   `Orthographe_NF` int(2) DEFAULT NULL,
-  `ID_Utilisateur` int(11) NOT NULL,
-  `Validation_NF` varchar(3) DEFAULT NULL
+  `ID_Utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -145,9 +154,7 @@ CREATE TABLE `planning` (
   `ID_Planning` int(11) NOT NULL,
   `Nom_Planning` varchar(100) DEFAULT NULL,
   `DateSession_Planning` date DEFAULT NULL,
-  `HeureDebutSession_Planning` time DEFAULT NULL,
-  `ValidationScolarite_Planning` varchar(3) DEFAULT NULL,
-  `ValidationResponsableUE_Planning` varchar(3) DEFAULT NULL
+  `HeureDebutSession_Planning` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -361,6 +368,8 @@ INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VAL
 ('Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance', '00:00', NULL);
 
 ALTER TABLE utilisateur ADD SoutenanceSupp_Utilisateur VARCHAR(3) NULL AFTER ID_Planning;
+
+INSERT INTO `decisions` (`ValidationScolarite_Planning`, `ValidationResponsableUE_Planning`, `Validation_NF`) VALUES ('non', 'non', 'non');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

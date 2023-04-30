@@ -17,7 +17,7 @@
             <a class="nav-link active" href="studentOralManagement_administrateur.php">Soutenances</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Planning</a>
+            <a class="nav-link active" href="schedule_administrateur.php">Planning</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">Suivi recap</a>
@@ -43,7 +43,7 @@
         <a class="nav-link active" href="accountManager_users.php">Compte</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Planning</a>
+        <a class="nav-link active" href="schedule_responsableUE.php">Planning</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="#">Suivi recap</a>
@@ -92,7 +92,7 @@
         <a class="nav-link active" href="studentOralManagement_tuteurUniversitaire.php">Soutenances</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Planning</a>
+        <a class="nav-link active" href="schedule_tuteurUniversitaire.php">Planning</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="#">Suivi recap</a>
