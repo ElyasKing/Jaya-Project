@@ -1,0 +1,93 @@
+<?php
+include("../application_config/db_class.php");
+include("../fonctions/functions.php");
+session_start();
+
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
+$db = Database::connect();
+// Récupérer les utilisateurs
+$sql = "SELECT * FROM invite";
+$statement = $db->query($sql);
+
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <?php
+    include("header.php");
+    ?>
+    <link rel="stylesheet" type="text/less" href="../css/generate_qr.scss">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.1.1/less.min.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="bar">
+            <span class="sphere"></span>
+        </div>
+        <div id="content">
+            <?php
+            include("navbar.php");
+
+            // Résoudre le chemin absolu du fichier qrlib.php
+            $qr_lib_path = '../lib/phpqrcode/qrlib.php';
+
+            // Inclure la bibliothèque PHP QR Code
+            require_once $qr_lib_path;
+
+            // Texte à encoder en QR code (URL dans le futur)
+            $text = "ratio florian!";
+
+            // Chemin du fichier où le QR code sera enregistré
+            $filename = '../images/QR_IMG/qrcode.png';
+
+            // Taille et niveau de correction d'erreur du QR code
+            $size = 3;
+            $level = 'H';
+
+            // Générer le QR code
+            QRcode::png($text, $filename, $level, $size);
+            ?>
+
+            <div class="container">
+                <br>
+                <br>
+                <h4 class="text-center">Liste des QR Codes invités</h4>
+                <div id="qr-container">
+                <?php
+                // Parcourir les utilisateurs et générer les QR codes
+                while ($row = $statement->fetch()) {
+                    $text = $row['Nom_Invite'] . ' - ' . $row['Mail_Invite'] . ' - ' . $row['Entreprise_Invite'];
+
+                    // Générer le nom du fichier en fonction de l'ID de l'utilisateur
+                    $filename = '../images/QR_IMG/qrcode_' . $row['ID_Invite'] . '.png';
+
+                    // Générer le QR code
+                    QRcode::png($text, $filename, $level, $size);
+
+                    // Afficher le QR code et les informations de l'utilisateur
+                    echo '<div class="qr-code-wrapper">';
+                    echo '<img src="' . $filename . '" />';
+                    echo '<p class="qr-code-info">' . $row['Nom_Invite'] . '<br> (' . $row['Entreprise_Invite'] . ')' . '</p>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+
+                <div id="action-button">
+                    <button onclick="window.print()">Imprimer</button>
+                    <button>Retour</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
