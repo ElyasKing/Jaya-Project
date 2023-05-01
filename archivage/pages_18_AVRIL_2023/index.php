@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <head>
   <?php
-  include("header.php");
+  include("./navigation/header.php");
 
   ?>
 </head>
@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
     <div id="content">
       <?php
-      include("navbar.php");
+      include("home/navigation/navbar.php");
       switch($_SESSION['active_profile']){
         case "ADMINISTRATEUR":  // Si profil detecté dans get_connectUser = administrateur
           include("index_admin.php");

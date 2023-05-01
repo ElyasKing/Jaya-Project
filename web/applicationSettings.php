@@ -14,7 +14,7 @@ if(!isConnectedUser()){
 
 <head>
     <?php
-    include("header.php");
+    include("home/navigation/header.php");
     ?>
 </head>
 
@@ -25,7 +25,7 @@ if(!isConnectedUser()){
         </div>
         <div id="content">
             <?php
-            include("navbar.php");
+            include("home/navigation/navbar.php");
 
             $db = Database::connect();
 
@@ -57,7 +57,7 @@ if(!isConnectedUser()){
                     </div>
                     <br>
                     <div id="divPF">
-                        <form action="applicationSettingsCheckFixedSettingsUpdate.php" method="post">
+                        <form action="home/applicationSettings/applicationSettingsCheckFixedSettingsUpdate.php" method="post">
                             <?php
                             $numberOfCols = 0;
                             echo '
@@ -69,16 +69,16 @@ if(!isConnectedUser()){
                             foreach ($fixedSettings as $fixedSetting) {
                                 if ($numberOfCols < 2) {
                                     if (
-                                        $fixedSetting['Nom_param'] == "Date de début des sessions de soutenance"
-                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenance"
+                                        $fixedSetting['Nom_param'] == "Date de début des sessions de soutenances"
+                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenances"
                                     ) {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
                                                 <input type="date" class="form-control" name="description[]" value="' . $fixedSetting["Description_param"] . '">
                                             </div>';
-                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance" 
-                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance") {
+                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenances"
+                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenances") {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
@@ -96,16 +96,16 @@ if(!isConnectedUser()){
                                     echo "</div><div class='row'>";
                                     $numberOfCols = 1;
                                     if (
-                                        $fixedSetting['Nom_param'] == "Date de début des sessions de soutenance"
-                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenance"
+                                        $fixedSetting['Nom_param'] == "Date de début des sessions de soutenances"
+                                        || $fixedSetting['Nom_param'] == "Date de fin des sessions de soutenances"
                                     ) {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
                                                 <input type="date" class="form-control" name="description[]" value="' . $fixedSetting["Description_param"] . '">
                                             </div>';
-                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenance"
-                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance") {
+                                    } elseif ($fixedSetting['Nom_param'] == "Durée d'une session de soutenances"
+                                            || $fixedSetting['Nom_param'] == "Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenances") {
                                         echo '<div class="col">
                                                 <input type="hidden" class="form-control" name="id[]" value="' . $fixedSetting["ID_param"] . '">
                                                 <label for="description" class="form-label">' . $fixedSetting["Nom_param"] . '</label>
@@ -165,7 +165,7 @@ if(!isConnectedUser()){
         </div>
         <br>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="applicationSettingsDynamicsSettingsCreation.php" class="btn me-lg-3 bg btn-custom">Ajouter un critère</a>
+            <a href="home/applicationSettings/applicationSettingsDynamicsSettingsCreation.php" class="btn me-lg-3 bg btn-custom">Ajouter un critère</a>
         </div>
     </div>
 </body>

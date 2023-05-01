@@ -13,7 +13,7 @@ if(!isConnectedUser()){
 
 <head>
     <?php
-    include("./header.php");
+    include("./home/navigation/header.php");
     ?>
 </head>
 
@@ -24,7 +24,7 @@ if(!isConnectedUser()){
         </div>
         <div id="content">
             <?php
-            include("./navbar.php");
+            include("./home/navigation/navbar.php");
             ?>
 
             <div class="container-fluid space">

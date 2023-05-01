@@ -18,7 +18,7 @@ session_start();
         </div>
         <div id="content">
             <?php
-            include("./navbar.php");
+            include("./home/navigation/navbar.php");
             ?>
 
             <div class="container-fluid space">

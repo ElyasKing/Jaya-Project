@@ -183,7 +183,7 @@ getStutdentGradeOral($User_ID)
             $noteFinale = $noteFinale / $division;
 
             //Et on retire le point d orthographe si y'a
-            // on récupère la durée d'une soutenance pour obtenir le début et la fin
+            // on récupère la durée d'une soutenances pour obtenir le début et la fin
             $sql ="SELECT Orthographe_NF FROM notes_suivi WHERE ID_Utilisateur='" . $User_ID . "';";
             $result = $db->query($sql);
             $ortho = $result->fetchColumn();

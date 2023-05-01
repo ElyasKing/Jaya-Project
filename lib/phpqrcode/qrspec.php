@@ -252,7 +252,7 @@
         // Alignment pattern ---------------------------------------------------
 
         // Positions of alignment patterns.
-        // This array includes only the second and the third position of the 
+        // This array home only the second and the third position of the
         // alignment patterns. Rest of them can be calculated from the distance 
         // between them.
          

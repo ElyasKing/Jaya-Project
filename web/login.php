@@ -1,6 +1,6 @@
 <?php
 include("../application_config/db_class.php");
-include("header.php");
+include("home/navigation/header.php");
 session_start();
 ?>
 
@@ -9,7 +9,7 @@ session_start();
 
 <head>
 	<?php
-	include("header.php");
+	include("home/navigation/navbar.php");
 	?>
 </head>
 
@@ -20,7 +20,7 @@ session_start();
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-				<a class="navbar-brand" href="login.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
+				<a class="navbar-brand" href="login.php"><img src="<?php echo $base_url; ?>images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				</ul>
 			</div>
@@ -28,7 +28,7 @@ session_start();
 	</nav>
 	<br><br><br>
 	<div class="container">
-		<form method="post" action="loginCheckLogin.php">
+		<form method="post" action="home/login/loginCheckLogin.php">
 			<div class="row d-flex justify-content-center">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 					<div class="card shadow-2-strong css-login">

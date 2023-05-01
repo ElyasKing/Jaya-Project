@@ -2,13 +2,13 @@
 session_start();
 include "../application_config/db_class.php";
 include 'header.php';
-include 'navbar.php';
+include 'home/navigation/navbar.php';
 $conn = Database::connect();
 $annee = date('Y');
 ?>
 
 
-<link rel="stylesheet" type="text/less" href="../css/generate_qr.scss">
+<link rel="stylesheet" type="text/less" href="../css/generate_qr.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.1.1/less.min.js"></script>
 
 <?php

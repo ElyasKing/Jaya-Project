@@ -1,7 +1,7 @@
 <?php
 include "../application_config/db_class.php";
 include 'header.php';
-//include 'navbar.php';
+//include 'home/navigation/navbar.php';
 $conn = Database::connect();
 
 $id = $_GET['id'];
