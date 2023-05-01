@@ -63,15 +63,20 @@ if (!isConnectedUser()) {
             Requete pour l'index 2
             */
 
-            $sql = "SELECT NS.ID_UtilisateurEvalue, U.Nom_Utilisateur, 
-                    COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN NS.ID_InviteEvaluateur END) AS Nb_Professionnels, 
-                    COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' THEN NS.ID_InviteEvaluateur 
-                        WHEN NS.ID_UtilisateurEvaluateur  IS NOT NULL THEN NS.ID_UtilisateurEvaluateur 
-                        ELSE NULL END) AS Nb_Enseignants 
-                    FROM notes_soutenance NS 
-                    LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur 
-                    LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur
-                    GROUP BY NS.ID_UtilisateurEvalue, U.Nom_Utilisateur;";
+            $sql = "SELECT
+            NS.ID_UtilisateurEvalue, 
+            U.ID_Utilisateur, 
+            U.Nom_Utilisateur, 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
+            COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
+            FROM 
+            utilisateur U 
+            INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
+            LEFT JOIN notes_soutenance NS ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur
+            LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur 
+            GROUP BY 
+            U.ID_Utilisateur, 
+            U.Nom_Utilisateur;";
             //Where clause à rajouter plus tard
 
 
@@ -89,17 +94,21 @@ if (!isConnectedUser()) {
             Requete pour l'index 3
             */
 
-            $sql = "SELECT NS.ID_UtilisateurEvalue, 
-                    U.Nom_Utilisateur, 
-                    U.SoutenanceSupp_Utilisateur,
-                    COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN NS.ID_InviteEvaluateur END) AS Nb_Professionnels, 
-                    COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' THEN NS.ID_InviteEvaluateur 
-                        WHEN NS.ID_UtilisateurEvaluateur  IS NOT NULL THEN NS.ID_UtilisateurEvaluateur 
-                        ELSE NULL END) AS Nb_Enseignants 
-                    FROM notes_soutenance NS 
-                    LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur 
-                    LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur
-                    GROUP BY NS.ID_UtilisateurEvalue, U.Nom_Utilisateur
+            $sql = "SELECT
+                    NS.ID_UtilisateurEvalue,
+                    U.ID_Utilisateur, 
+                    U.Nom_Utilisateur,
+                    U.SoutenanceSupp_Utilisateur, 
+                    COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
+                    COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
+                    FROM 
+                    utilisateur U 
+                    INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
+                    LEFT JOIN notes_soutenance NS ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur
+                    LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur 
+                    GROUP BY 
+                    U.ID_Utilisateur, 
+                    U.Nom_Utilisateur;
                     HAVING Nb_Professionnels <$note_pro OR Nb_Enseignants  < $note_enseignant;";
             //Where clause à rajouter plus tard
 

@@ -104,15 +104,15 @@ hr {
 }
 
 .tr-bgColorGreen{
-    background-color: aquamarine !important;
+    background-color: rgba(80, 200, 120, 0.363) !important;
 }
 
 .tr-bgColorYellow {
-    background-color:khaki !important;
+    background-color:rgba(240, 230, 140, 0.562) !important;
 }
 
 .tr-bgColorRed {
-    background-color:red !important;
+    background-color:rgba(241, 126, 116, 0.5)!important;
 }
 
 .noDecoration, a:link, a:visited {
