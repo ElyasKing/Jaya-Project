@@ -19,8 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //le champ note finale est renseigné
     if($note_finale<>""){
-    $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`,  `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES ('".$note_finale."', '".$commentaire."', '".$etud_ID."', '".$_SESSION['user_id']."')";
-    $result = $db->query($query);
+        $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$note_finale, $commentaire, $etud_ID, $_SESSION['user_id']]);
+
     }
     //Le champ note finale n'est pas renseigné alors on fait un calcul de tous les paramètres et on vérifie si la somme de ceux ci fait 20 
     else{
@@ -42,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($totalnoteparam<>20){
          $total=(($total*20)/$totalnoteparam);
      }
-     
-    //requete pour mettre à jour informations de l'utilisateur 
-    $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES ('".$total."', '".$commentaire."', '".$etud_ID."', '".$_SESSION['user_id']."')";
-    $result = $db->query($query);
+
+        $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$total, $commentaire, $etud_ID, $_SESSION['user_id']]);
 
     //On récupère l'ID de la dernière note ajoutée
     $note_ID = $db->query("SELECT ID_NS FROM `notes_soutenance` order by ID_NS DESC LIMIT 1")->fetchColumn();

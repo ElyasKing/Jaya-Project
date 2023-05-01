@@ -29,14 +29,15 @@ if (!isConnectedUser()) {
 
             $db = Database::connect();
 
-            // ID : 5 = nombre minimum de note professionnel, ID : 6 = nombre minimum de note enseignant, ID :3 : Duree d'une duree de soutenance (cf DB)
-            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='5' OR `ID_param`='6' OR `ID_param`='3';";
+            // ID : 5 = nombre minimum de note professionnel, ID : 6 = nombre minimum de note enseignant, ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
+            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='5' OR `ID_param`='6' OR `ID_param`='3' OR `ID_param`='11';";
             $result = $db->query($sql);
 
             $rows = $result->fetchAll();
             $duree_soutenance = $rows[0]['Description_param'];
             $note_pro = $rows[1]['Description_param'];
             $note_enseignant = $rows[2]['Description_param'];
+            $duree_supp = $rows[3]['Description_param'];
 
             /*
             Requete pour l'index 1 
@@ -73,10 +74,15 @@ if (!isConnectedUser()) {
             utilisateur U 
             INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
             LEFT JOIN notes_soutenance NS ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur
-            LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur 
+            LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur
+            WHERE 
+            (CONCAT(P.DateSession_Planning, ' ', P.HeureDebutSession_Planning) <= NOW() AND 
+            ADDTIME(CONCAT(P.DateSession_Planning, ' ', P.HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW())
+            OR U.SoutenanceSupp_Utilisateur = 'oui'
             GROUP BY 
             U.ID_Utilisateur, 
-            U.Nom_Utilisateur;";
+            U.Nom_Utilisateur;
+        ";
             //Where clause à rajouter plus tard
 
 
@@ -95,21 +101,28 @@ if (!isConnectedUser()) {
             */
 
             $sql = "SELECT
-                    NS.ID_UtilisateurEvalue,
-                    U.ID_Utilisateur, 
-                    U.Nom_Utilisateur,
-                    U.SoutenanceSupp_Utilisateur, 
-                    COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
-                    COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
-                    FROM 
-                    utilisateur U 
-                    INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
-                    LEFT JOIN notes_soutenance NS ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur
-                    LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur 
-                    GROUP BY 
-                    U.ID_Utilisateur, 
-                    U.Nom_Utilisateur;
-                    HAVING Nb_Professionnels <$note_pro OR Nb_Enseignants  < $note_enseignant;";
+            NS.ID_UtilisateurEvalue,
+            U.ID_Utilisateur, 
+            U.Nom_Utilisateur,
+            U.SoutenanceSupp_Utilisateur, 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
+            COUNT(CASE WHEN (I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'oui') OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
+            FROM 
+            utilisateur U 
+            INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
+            LEFT JOIN notes_soutenance NS ON NS.ID_UtilisateurEvalue = U.ID_Utilisateur
+            LEFT JOIN invite I ON I.ID_Invite = NS.ID_InviteEvaluateur OR I.ID_Invite = NS.ID_UtilisateurEvaluateur 
+            WHERE 
+            P.DateSession_Planning < CURRENT_DATE() OR 
+            (P.DateSession_Planning = CURRENT_DATE() AND 
+            ADDTIME(CONCAT(P.DateSession_Planning, ' ', P.HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) < NOW())
+            GROUP BY 
+            U.ID_Utilisateur, 
+            U.Nom_Utilisateur
+            HAVING 
+            Nb_Professionnels < $note_pro OR Nb_Enseignants  < $note_enseignant OR U.SoutenanceSupp_Utilisateur = 'oui';
+
+        ";
             //Where clause à rajouter plus tard
 
             $result = $db->query($sql);
@@ -227,8 +240,7 @@ if (!isConnectedUser()) {
                                                 <td class="text-center"><?= $user3['Nb_Enseignants']; ?></td>
                                                 <td class="text-center"><?= getStutdentGradeOral($user3["ID_UtilisateurEvalue"]);; ?></td>
                                                 <td>
-                                                    <button type='button' class='btn bg bi bi-unlock-fill btn-addSession' data-id="<?= $user3['ID_UtilisateurEvalue'] ?>" data-session="<?= $user3['SoutenanceSupp_Utilisateur'] ?>">
-                                                    </button>
+                                                    <button type='button' class='btn bg bi <?= $user3['SoutenanceSupp_Utilisateur'] == 'oui' ? 'bi-lock-fill' : 'bi-unlock-fill' ?> btn-addSession' data-id="<?= $user3['ID_Utilisateur'] ?>" data-session="<?= $user3['SoutenanceSupp_Utilisateur'] ?>"></button>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -444,13 +456,13 @@ $_SESSION['success'] = 0;
         $('.btn-addSession').click(function() {
             var id = $(this).data('id');
             var session = $(this).data('session');
-            if (session == "") {
-                if (confirm('Souhaitez vous vraiment réouvrir une session supplémentaire pour cette étudiant ?')) {
-                    window.location.href = 'studentOralAddSession_administrateur.php?id=' + id;
-                }
-            } else {
+            if (session == "oui") {
                 if (confirm('Souhaitez vous vraiment fermer la session supplémentaire ouverte pour cette étudiant ?')) {
                     window.location.href = 'studentOralDeletionSession_administrateur.php?id=' + id;
+                }
+            } else {
+                if (confirm('Souhaitez vous vraiment réouvrir une session supplémentaire pour cette étudiant ?')) {
+                    window.location.href = 'studentOralAddSession_administrateur.php?id=' + id;
                 }
             }
         });

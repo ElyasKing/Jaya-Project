@@ -322,12 +322,18 @@ function getSettings($settingType)
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
 function getStudentForOral($User_ID)
 {
-    $query = "SELECT U.Nom_Utilisateur 
+    $query =
+    "SELECT U.Nom_Utilisateur 
         FROM utilisateur U 
         LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur 
-        WHERE H.Etudiant_Habilitations = 'oui' AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
+        WHERE H.Etudiant_Habilitations = 'oui' 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
         FROM notes_soutenance 
-        WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "');";
+        WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "') 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_etudiant
+        FROM etudiant_tuteur
+        WHERE ID_tuteur = '" . $User_ID . "')
+        AND U.ID_Utilisateur <> '" . $User_ID . "';";
 
     return $query;
 }
@@ -338,5 +344,31 @@ function shortString($string, $maxLength) {
         $string = substr($string, 0, $maxLength) . '...';
     }
     return $string;
+}
+
+//permet de vérifier si on est en période de soutenance
+function isTimeForOral(){
+
+    //  ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
+    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3' OR `ID_param`='11';";
+
+    $db = Database::connect();
+
+    $result = $db->query($sql);
+
+    $rows = $result->fetchAll();
+    $duree_soutenance = $rows[0]['Description_param'];
+    $duree_supp = $rows[1]['Description_param'];
+
+    $squery="SELECT DateSession_Planning, HeureDebutSession_Planning 
+    FROM Planning 
+    WHERE (CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
+    AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW());";
+
+    $result = $db->query($squery);
+    if ($result->rowCount() > 0) {
+        return 1;
+    }
+    else return 0;  
 }
 

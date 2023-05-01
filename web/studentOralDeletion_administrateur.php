@@ -17,6 +17,7 @@ if (isset($_GET['id'])) {
     $query = "DELETE FROM notes_soutenance WHERE Id_NS = $id";
     $statement = $db->prepare($query);
     $statement->execute();
+    
 
     $db = Database::disconnect();
 
