@@ -68,8 +68,8 @@ if (!isConnectedUser()) {
             NS.ID_UtilisateurEvalue, 
             U.ID_Utilisateur, 
             U.Nom_Utilisateur, 
-            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
-            COUNT(CASE WHEN I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non'  AND NS.ID_UtilisateurEvaluateur IS NULL THEN 1 END) AS Nb_Professionnels, 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
             FROM 
             utilisateur U 
             INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
@@ -105,8 +105,8 @@ if (!isConnectedUser()) {
             U.ID_Utilisateur, 
             U.Nom_Utilisateur,
             U.SoutenanceSupp_Utilisateur, 
-            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' THEN 1 END) AS Nb_Professionnels, 
-            COUNT(CASE WHEN (I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'oui') OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'non' AND NS.ID_UtilisateurEvaluateur IS NULL THEN 1 END) AS Nb_Professionnels, 
+            COUNT(CASE WHEN I.EstProfessionel_Invite = 'oui' AND I.EstEnseignant_Invite = 'oui' OR NS.ID_UtilisateurEvaluateur IS NOT NULL THEN 1 END) AS Nb_Enseignants 
             FROM 
             utilisateur U 
             INNER JOIN planning P ON U.ID_Planning = P.ID_Planning
