@@ -190,7 +190,7 @@ getStutdentGradeOral($User_ID)
 
             $noteFinale=$noteFinale - $ortho;
 
-            return $noteFinale;
+            return round($noteFinale,2);
         } else return "";
     } else return "DEF";
 }
@@ -269,6 +269,7 @@ function getAccountInformationsById($id)
     $sql = "SELECT 
             H.Id_Utilisateur,
             U.Nom_Utilisateur, 
+            U.Promo_Utilisateur,
             '****' AS MDP_Utilisateur, 
             H.Admin_Habilitations, 
             H.ResponsableUE_Habilitations, 
@@ -387,3 +388,69 @@ function isTimeForOral(){
     else return 0;  
 }
 
+//recuperer les informations pour le suivi recap
+function getStudentMonitoring(){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur 
+    WHERE h.Etudiant_Habilitations LIKE 'oui';";
+
+    return $query;
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoringById($User_ID){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur 
+    WHERE h.Etudiant_Habilitations LIKE 'oui' AND u.ID_Utilisateur = $User_ID";
+
+    return $query;
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoringForTuteurUniversitaire($tuteurUniversitaire){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur
+    LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant
+    WHERE h.Etudiant_Habilitations LIKE 'oui' AND et.ID_tuteur =".$tuteurUniversitaire;
+
+    return $query;
+}

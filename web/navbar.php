@@ -1,3 +1,4 @@
+<?php $active_profile = $_SESSION['active_profile']; ?>
 <nav class="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="index.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <?php if ($_SESSION['active_profile'] == "ADMINISTRATEUR") { ?>
+        <?php if ($active_profile == "ADMINISTRATEUR") { ?>
           <li class="nav-item">
             <a class="nav-link active" href="index.php">Accueil</a>
           </li>
@@ -20,7 +21,7 @@
             <a class="nav-link active" href="schedule_administrateur.php">Planning</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Suivi recap</a>
+            <a class="nav-link active" href="studentMonitoring_users.php">Suivi recap</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="applicationSettings.php">Paramètres</a>
@@ -35,7 +36,7 @@
         </li>
       </ul>
     <?php } ?>
-    <?php if ($_SESSION['active_profile'] == "RESPONSABLE UE") { ?>
+    <?php if ($active_profile == "RESPONSABLE UE") { ?>
       <li class="nav-item">
         <a class="nav-link active" href="index.php">Accueil</a>
       </li>
@@ -46,7 +47,7 @@
         <a class="nav-link active" href="schedule_responsableUE.php">Planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Suivi recap</a>
+        <a class="nav-link active" href="studentMonitoring_users.php">Suivi recap</a>
       </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
@@ -58,7 +59,7 @@
         </li>
       </ul>
     <?php } ?>
-    <?php if ($_SESSION['active_profile'] == "SCOLARITE") { ?>
+    <?php if ($active_profile == "SCOLARITE") { ?>
       <li class="nav-item">
         <a class="nav-link active" href="index.php">Accueil</a>
       </li>
@@ -81,7 +82,7 @@
         </li>
       </ul>
     <?php } ?>
-    <?php if ($_SESSION['active_profile'] == "TUTEUR UNIVERSITAIRE") { ?>
+    <?php if ($active_profile == "TUTEUR UNIVERSITAIRE") { ?>
       <li class="nav-item">
         <a class="nav-link active" href="index.php">Accueil</a>
       </li>
@@ -95,7 +96,7 @@
         <a class="nav-link active" href="schedule_tuteurUniversitaire.php">Planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Suivi recap</a>
+        <a class="nav-link active" href="studentMonitoring_tuteurUniversitaire.php">Suivi recap</a>
       </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
@@ -107,7 +108,7 @@
         </li>
       </ul>
     <?php } ?>
-    <?php if ($_SESSION['active_profile'] == "ETUDIANT") { ?>
+    <?php if ($active_profile == "ETUDIANT") { ?>
       <li class="nav-item">
         <a class="nav-link active" href="index.php">Accueil</a>
       </li>
@@ -124,7 +125,7 @@
         </li>
       </ul>
     <?php } ?>
-    <?php if ($_SESSION['active_profile'] == "INVITE" || $_SESSION['active_profile'] == "ENSEIGNANT INVITE" || $_SESSION['active_profile'] == "PROFESSIONNEL INVITE") { ?>
+    <?php if ($active_profile == "INVITE" || $active_profile == "ENSEIGNANT INVITE" || $active_profile == "PROFESSIONNEL INVITE") { ?>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
@@ -143,12 +144,12 @@
           echo "<div class='nav-link active'>";
           echo "<table>";
           echo "<tr><td><strong>" . $_SESSION['user_name'] . "</td></tr>";
-          if (($_SESSION['active_profile'] != "INVITE" || $_SESSION['active_profile'] != "ENSEIGNANT INVITE" || $_SESSION['active_profile'] != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] > 1)) {
-            echo "<tr><td><font size=-1><a class='nav-link active'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
-          } elseif (($_SESSION['active_profile'] != "INVITE" || $_SESSION['active_profile'] != "ENSEIGNANT INVITE" || $_SESSION['active_profile'] != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] <= 1)) {
-            echo "<tr><td><font size=-1><a class='nav-link active'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
-          } elseif ($_SESSION['active_profile'] == "INVITE" || $_SESSION['active_profile'] == "ENSEIGNANT INVITE" || $_SESSION['active_profile'] == "PROFESSIONNEL INVITE") {
-            echo "<tr><td><font size=-1><a class='nav-link active'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
+          if (($active_profile != "INVITE" || $active_profile != "ENSEIGNANT INVITE" || $active_profile != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] > 1)) {
+            echo "<tr><td><font size=-1><a class='nav-link active'>" . $active_profile . "</a></font></td></tr>";
+          } elseif (($active_profile != "INVITE" || $active_profile != "ENSEIGNANT INVITE" || $active_profile != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] <= 1)) {
+            echo "<tr><td><font size=-1><a class='nav-link active'>" . $active_profile . "</a></font></td></tr>";
+          } elseif ($active_profile == "INVITE" || $active_profile == "ENSEIGNANT INVITE" || $active_profile == "PROFESSIONNEL INVITE") {
+            echo "<tr><td><font size=-1><a class='nav-link active'>" . $active_profile . "</a></font></td></tr>";
           }
           echo "</table>";
           echo "</div>";
@@ -156,12 +157,12 @@
           echo "<div class='nav-link active'>";
           echo "<table>";
           echo "<tr><td><strong>" . $_SESSION['user_name'] . "</td></tr>";
-          if (($_SESSION['active_profile'] != "INVITE" || $_SESSION['active_profile'] != "ENSEIGNANT INVITE" || $_SESSION['active_profile'] != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] > 1)) {
-            echo "<tr><td><font size=-1><a class='nav-link active' href='changeProfile.php'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
-          } elseif (($_SESSION['active_profile'] != "INVITE" || $_SESSION['active_profile'] != "ENSEIGNANT INVITE" || $_SESSION['active_profile'] != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] <= 1)) {
-            echo "<tr><td><font size=-1><a class='nav-link active'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
-          } elseif ($_SESSION['active_profile'] == "INVITE" || $_SESSION['active_profile'] == "ENSEIGNANT INVITE" || $_SESSION['active_profile'] == "PROFESSIONNEL INVITE") {
-            echo "<tr><td><font size=-1><a class='nav-link active'>" . $_SESSION['active_profile'] . "</a></font></td></tr>";
+          if (($active_profile != "INVITE" || $active_profile != "ENSEIGNANT INVITE" || $active_profile != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] > 1)) {
+            echo "<tr><td><font size=-1><a class='nav-link active' href='changeProfile.php'>" . $active_profile . "</a></font></td></tr>";
+          } elseif (($active_profile != "INVITE" || $active_profile != "ENSEIGNANT INVITE" || $active_profile != "PROFESSIONNEL INVITE") && ($_SESSION['change_profile_access'] <= 1)) {
+            echo "<tr><td><font size=-1><a class='nav-link active'>" . $active_profile . "</a></font></td></tr>";
+          } elseif ($active_profile == "INVITE" || $active_profile == "ENSEIGNANT INVITE" || $active_profile == "PROFESSIONNEL INVITE") {
+            echo "<tr><td><font size=-1><a class='nav-link active'>" . $active_profile . "</a></font></td></tr>";
           }
           echo "</table>";
           echo "</div>";

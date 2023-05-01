@@ -224,8 +224,7 @@ $_SESSION['success'] = 0;
             order: [
                 [0, 'asc']
             ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+            dom: 'lfrtip'
         });
 
         let btnPF = document.querySelector('#btnPF');

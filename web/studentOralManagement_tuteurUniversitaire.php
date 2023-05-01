@@ -142,8 +142,7 @@ $isoral = isTimeForOral();
                         order: [
                             [0, 'asc']
                         ],
-                        dom: 'Blfrtip',
-                        buttons: ['excel'],
+                        dom: 'lfrtip'
                     });
 
                     $('.btn-delete').click(function() {

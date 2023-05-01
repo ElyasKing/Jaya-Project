@@ -78,8 +78,7 @@ if ($result->rowCount() > 0) {
             order: [
                 [0, 'asc']
             ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+            dom: 'lfrtip'
         });
 
     });
