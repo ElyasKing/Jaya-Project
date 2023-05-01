@@ -164,8 +164,7 @@ if(!isConnectedUser()){
                         order: [
                             [3, 'desc']
                         ],
-                        dom: 'Blfrtip',
-                        buttons: ['excel'],
+                        dom: 'lfrtip'
                     });
 
                     $('.btn-delete').click(function() {

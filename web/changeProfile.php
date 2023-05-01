@@ -49,7 +49,9 @@ if(!isConnectedUser()){
                     * 4 - Tuteur universitaire
                     * 5 - Etudiant
                     */
-                                if ($_SESSION["user_is_admin"] == "oui") {
+                                if ($_SESSION["user_is_admin"] == "oui" & $_SESSION["user_is_respUE"] == "non" &&
+                                $_SESSION["user_is_scola"] == "non" && $_SESSION["user_is_tuteurU"] == "non" &&
+                                $_SESSION["user_is_student"] == "non") {
                                     $_SESSION['active_profile'] = "ADMINISTRATEUR";
                                 } elseif ($_SESSION["user_is_admin"] == "non" && $_SESSION["user_is_respUE"] == "oui") {
                                     $_SESSION['active_profile'] = "RESPONSABLE UE";

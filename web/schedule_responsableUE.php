@@ -194,10 +194,24 @@ if (!isConnectedUser()) {
             </div>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
-                </form>
-                <a href="#" onclick='if(confirm("Vous venez de valider les informations de soutenances.Les utilisateurs ayant le rôle \"Scolarité\" peuvent désormais envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
-            </div>
+            <?php
+                $query = "SELECT ValidationScolarite_Planning FROM decisions";
+                $statement = $db->query($query);
+                $result = $statement->fetch();
+
+                if($result[0] == "non"){ ?>
+                    <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
+                    </form>
+                    <a href="#" onclick='if(confirm("Souhaitez-vous valider les informations de soutenances. Les utilisateurs ayant le rôle \"Scolarité\" pourront envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <?php
+                }else{ ?>
+                    <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
+                    </form>
+                    <a href="#" onclick='if(confirm("Souhaitez-vous revenir sur votre validation des informations de soutenances. Les utilisateurs ayant le rôle \"Scolarité\" ne pourront plus envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <?php
+                }
+                ?>
+                </div>
         </div>
     </div>
 </body>
@@ -255,8 +269,7 @@ $_SESSION['success'] = 0;
             order: [
                 [3, 'desc']
             ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+            dom: 'lfrtip',
 
         });
 

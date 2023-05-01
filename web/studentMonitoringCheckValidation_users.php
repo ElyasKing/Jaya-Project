@@ -11,17 +11,17 @@ if(!isConnectedUser()){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {    
     $db = Database::connect();
 
-    $query = "SELECT ValidationScolarite_Planning FROM decisions";
+    $query = "SELECT Validation_NF FROM decisions";
     $statement = $db->query($query);
     $result = $statement->fetch();
 
     if($result[0] == "non"){
-        $query = "UPDATE decisions SET ValidationScolarite_Planning = 'oui'";
+        $query = "UPDATE decisions SET Validation_NF = 'oui'";
     }else{
-        $query = "UPDATE decisions SET ValidationScolarite_Planning = 'non'";
+        $query = "UPDATE decisions SET Validation_NF = 'non'";
     }
     $db->query($query);
-
     
-    header('Location: schedule_scolarite.php');   
+    $_SESSION['success'] = 1;
+    header('Location: studentMonitoring_users.php');   
 }

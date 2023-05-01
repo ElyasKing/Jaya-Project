@@ -91,13 +91,16 @@ if (!isConnectedUser()) {
                         <tbody>
                             <?php
                             foreach ($studentsList as $student) { ?>
-                                <tr <?php if (
-                                    empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
-                                    empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
-                                    empty($user['Mail_Tuteur_Universitaire']) || empty($user['HuisClos_Utilisateur'])
-                                ) {
-                                    echo 'class="tr-bgColor"';
-                                } ?>>
+                                <tr <?php
+                                    if (
+                                        empty($student['nom_Utilisateur']) || empty($student['Promo_Utilisateur']) ||
+                                        empty($student['Poster_NF']) || empty($student['Rapport_NF']) ||
+                                        empty($student['Orthographe_NF']) || empty($student['NoteFinaleTuteur_NF']) ||
+                                        empty($student['noteFinaleUE_NF'])
+                                    ) {
+                                        echo 'class="tr-bgColorRed"';
+                                    }
+                                    ?>>
                                 <?php
                                 echo "
                                         <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
@@ -111,25 +114,73 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
                                         <td class='text-center'>" . $student['noteFinaleUE_NF'] . "</td>
-                                        <td><a href='#?id=".$student["ID_Utilisateur"]."'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
+                                        <td><a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
                             }
-                            ?>
+                                ?>
                         </tbody>
                     </table>
                 </div>
+                <p><span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Les étudiants dont les informations sont incomplètes (ex : document manquant, note manquante) seront considérés comme étant défaillants.</p>
             </div>
-            <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
-                </form>
-                <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner  à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                <?php
+                    $query = "SELECT Validation_NF FROM decisions";
+                    $statement = $db->query($query);
+                    $result = $statement->fetch();
+
+                    if($result[0] == "non"){
+                        ?> 
+                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                        </form>
+                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                    <?php
+                    }else{
+                        ?> 
+                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                        </form>
+                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                    <?php
+                    }
+                ?>
+                
             </div>
         </div>
     </div>
 </body>
 
 </html>
+<script src="../js/toastr.min.js"></script>
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>
+<?php
+$success = $_SESSION['success'];
+switch ($success) {
+    case 1:
+        echo '<script>toastr.success("Suivi recap modifié avec succès !");</script>';
+        break;
+    default:
+        // rien
+}
+$_SESSION['success'] = 0;
+?>
 <script>
     $(document).ready(function() {
         // Récupérer la valeur sélectionnée en session
@@ -141,7 +192,7 @@ if (!isConnectedUser()) {
                 url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
             },
             order: [
-                [3, 'desc']
+                [0, 'asc']
             ],
             dom: 'Blfrtip',
             buttons: ['excel'],
@@ -189,7 +240,7 @@ if (!isConnectedUser()) {
                 newSelectedOption.setAttribute("selected", "");
             }
             filterRows();
-        }else {
+        } else {
             // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
             selectedSuiviRecap = suiviRecapSelector.options[0].value;
             sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);

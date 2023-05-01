@@ -100,6 +100,9 @@ if (!isConnectedUser()) {
                 // echo "<pre>";
                 // var_dump($studentsList);
                 // echo "</pre>";die;
+                $query = "SELECT ID_Planning, Nom_Planning FROM planning";
+                $statement = $db->query($query);
+                $planning = $statement->fetchAll();
 
                 $query = "SELECT ID_Planning, Nom_Planning FROM planning";
                 $statement = $db->query($query);
@@ -108,7 +111,11 @@ if (!isConnectedUser()) {
                 <div class="panel" id="panel">
                     <div class="col-6 col-md-4 mx-auto">
                         <?php
-                        echo "<select id='planningSelector' class='form-select' >";
+                        if(empty($planning)){
+                            echo "<select id='planningSelector' disabled class='form-select' >";
+                        }else{
+                            echo "<select id='planningSelector' class='form-select' >";
+                        }
 
                         $firstOption = true;
                         $i = 0;
@@ -240,9 +247,23 @@ if (!isConnectedUser()) {
                 </form>
                 <a href="#" onclick='if(confirm("Souhaitez-vous vraiment g&eacute;n&eacute;rer ou ajouter des plannings de soutenances ?")){document.getElementById("generate-planning-form").submit();}else{return false;};'><button id="btn-generer" class="btn me-md-3 btn-custom bg">G&eacute;n&eacute;rer</button></a>
 
-                <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
-                </form>
-                <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les informations de soutenances ? Les utilisateurs suivants y auront accès : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <?php
+                $query = "SELECT ValidationScolarite_Planning FROM decisions";
+                $statement = $db->query($query);
+                $result = $statement->fetch();
+
+                if($result[0] == "non"){ ?>
+                    <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
+                    </form>
+                    <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les informations de soutenances ? Les utilisateurs suivants y auront accès : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <?php
+                }else{ ?>
+                    <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
+                    </form>
+                    <a href="#" onclick='if(confirm("Souhaitez-vous revenir sur votre validation des informations de soutenances ? Les utilisateurs suivants sont concernés : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
