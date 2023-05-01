@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Créer un compte</h2>
                 <hr>
                 <br>

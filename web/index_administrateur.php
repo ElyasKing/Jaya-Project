@@ -16,7 +16,7 @@ if ($result->rowCount() > 0) {
 ?>
 
 
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -104,16 +104,19 @@ if (isset($_SESSION['success']) && $_SESSION['success'] == 1) {
 ?>
 <script>
     $(document).ready(function() {
-        var table = $('#example').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+        $(".bar").fadeOut(1000, function(){
+            $('#content').fadeIn();
+            var table = $('#example').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
         });
     });
 </script>

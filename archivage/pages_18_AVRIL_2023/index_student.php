@@ -3,7 +3,7 @@ $conn = Database::connect();
 $annee = date('Y');
 ?>
 
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -34,15 +34,18 @@ $annee = date('Y');
 
 <script>
     $(document).ready(function () {
-        $('#example').DataTable({
-            stateSave: true,
-            language : {
-                url : "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [[3, 'desc']],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            $('#example').DataTable({
+                stateSave: true,
+                language : {
+                    url : "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [[3, 'desc']],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
 
+            });
         });
     });
 </script>

@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Suivi Recap</h2>
                 <hr>
                 <br>
@@ -46,14 +46,14 @@ if (!isConnectedUser()) {
                 $query = "SELECT DISTINCT `Annee_Utilisateur` 
                     FROM `utilisateur` u 
                     LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant 
-                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =".$_SESSION["user_id"];
+                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =" . $_SESSION["user_id"];
                 $statement = $db->query($query);
                 $annee = $statement->fetch();
 
                 $query = "SELECT DISTINCT `Annee_Utilisateur` 
                     FROM `utilisateur` u 
                     LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant 
-                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =".$_SESSION["user_id"];
+                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =" . $_SESSION["user_id"];
                 $statement = $db->query($query);
                 // echo "<pre>";
                 // var_dump($studentsList);
@@ -63,12 +63,12 @@ if (!isConnectedUser()) {
                 <div class="panel" id="panel">
                     <div class="col-6 col-md-4 mx-auto">
                         <?php
-                        if(empty($annee)){
+                        if (empty($annee)) {
                             echo "<select id='suiviRecapSelector' disabled class='form-select' >";
-                        }else{
+                        } else {
                             echo "<select id='suiviRecapSelector' class='form-select' >";
                         }
-                        
+
                         $firstOption = true;
                         $i = 0;
                         while ($row = $statement->fetch()) {
@@ -142,6 +142,14 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script src="../js/toastr.min.js"></script>
 <script>
     toastr.options = {

@@ -28,7 +28,7 @@ if (!isConnectedUser()) {
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Planning</h2>
                 <hr>
                 <br>
@@ -123,10 +123,12 @@ if (!isConnectedUser()) {
                             }
                         }
                         echo "</select>";
-                        if($cpt > 0){
+                        if ($cpt > 0) {
                         ?>
-                        <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans plannification. Il se peut qu'il n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {echo $sws['Nom_Etudiant'] ." (". $sws['Promo_Utilisateur'] .")"." ; ";}?> ">
-                        <span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Etudiant non plannifiés : <?= $cpt ?></abbr></p>
+                            <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans plannification. Il se peut qu'il n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {
+                                                                                                                                                                                                                                                                                                                            echo $sws['Nom_Etudiant'] . " (" . $sws['Promo_Utilisateur'] . ")" . " ; ";
+                                                                                                                                                                                                                                                                                                                        } ?> ">
+                                    <span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Etudiant non plannifiés : <?= $cpt ?></abbr></p>
                         <?php } ?>
                     </div>
                     <table id="planning" class="display" style="width:100%">
@@ -190,34 +192,40 @@ if (!isConnectedUser()) {
                             ?>
                         </tbody>
                     </table>
-                </div>   
+                </div>
             </div>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <?php
+                <?php
                 $query = "SELECT ValidationScolarite_Planning FROM decisions";
                 $statement = $db->query($query);
                 $result = $statement->fetch();
 
-                if($result[0] == "non"){ ?>
+                if ($result[0] == "non") { ?>
                     <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
                     </form>
                     <a href="#" onclick='if(confirm("Souhaitez-vous valider les informations de soutenances. Les utilisateurs ayant le rôle \"Scolarité\" pourront envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
                 <?php
-                }else{ ?>
+                } else { ?>
                     <form id="schedule-validation-form" action="scheduleCheckValidation_responsableUE.php" method="post">
                     </form>
                     <a href="#" onclick='if(confirm("Souhaitez-vous revenir sur votre validation des informations de soutenances. Les utilisateurs ayant le rôle \"Scolarité\" ne pourront plus envoyer le planning aux étudiants ainsi qu’à leur(s) tuteur(s).")){document.getElementById("schedule-validation-form").submit();}else{return false;};'><button id="btn-valider" class="btn me-md-3 btn-custom bg">Valider</button></a>
                 <?php
                 }
                 ?>
-                </div>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script src="../js/toastr.min.js"></script>
 <script>
     toastr.options = {
@@ -314,7 +322,7 @@ $_SESSION['success'] = 0;
                 newSelectedOption.setAttribute("selected", "");
             }
             filterRows();
-        }else {
+        } else {
             // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
             selectedPlanning = planningSelector.options[0].value;
             sessionStorage.setItem('selectedPlanning', selectedPlanning);
@@ -340,7 +348,7 @@ $_SESSION['success'] = 0;
         // Vérifie s'il y a une valeur stockée en session pour le bouton Configure
         if (sessionStorage.getItem('btnConfigureHidden') === 'true') {
             btnConfigure.setAttribute('hidden', '');
-        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false'){
+        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false') {
             btnConfigure.removeAttribute('hidden');
         }
 

@@ -49,7 +49,7 @@ if(!isConnectedUser()){
             }
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Comptes</h2>
                 <hr>
                 <br>
@@ -156,6 +156,8 @@ if(!isConnectedUser()){
             ?>
             <script>
                 $(document).ready(function() {
+                    $(".bar").fadeOut(1000, function() {
+                        $('#content').fadeIn();
                     $('#example').DataTable({
                         stateSave: true,
                         language: {
@@ -186,6 +188,7 @@ if(!isConnectedUser()){
                             $('.user-row').show();
                         }
                     });
+                });
                 });
             </script>
 

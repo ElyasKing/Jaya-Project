@@ -83,7 +83,7 @@ if ($result->rowCount() > 0) {
 
 
 <html>
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -223,26 +223,29 @@ if ($result->rowCount() > 0) {
 </html>
 <script>
     $(document).ready(function() {
-        var table1 = $('#table1').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            "ordering": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "lengthChange": false
-        });
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            var table1 = $('#table1').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                "ordering": false,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "lengthChange": false
+            });
 
-        var table2 = $('#table2').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            "ordering": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "lengthChange": false
+            var table2 = $('#table2').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                "ordering": false,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "lengthChange": false
+            });
         });
 
     });

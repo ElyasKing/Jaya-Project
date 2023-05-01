@@ -3,7 +3,7 @@ $conn = Database::connect();
 $annee = date('Y');
 ?>
 
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>

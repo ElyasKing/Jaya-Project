@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Planning</h2>
                 <hr>
                 <br>
@@ -111,9 +111,9 @@ if (!isConnectedUser()) {
                 <div class="panel" id="panel">
                     <div class="col-6 col-md-4 mx-auto">
                         <?php
-                        if(empty($planning)){
+                        if (empty($planning)) {
                             echo "<select id='planningSelector' disabled class='form-select' >";
-                        }else{
+                        } else {
                             echo "<select id='planningSelector' class='form-select' >";
                         }
 
@@ -131,10 +131,12 @@ if (!isConnectedUser()) {
                             }
                         }
                         echo "</select>";
-                        if($cpt > 0){
+                        if ($cpt > 0) {
                         ?>
-                        <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans plannification. Il se peut qu'il n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {echo $sws['Nom_Etudiant'] ." (". $sws['Promo_Utilisateur'] .")"." ; ";}?> ">
-                        <span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Etudiant non plannifiés : <?= $cpt ?></abbr></p>
+                            <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans plannification. Il se peut qu'il n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {
+                                                                                                                                                                                                                                                                                                                            echo $sws['Nom_Etudiant'] . " (" . $sws['Promo_Utilisateur'] . ")" . " ; ";
+                                                                                                                                                                                                                                                                                                                        } ?> ">
+                                    <span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Etudiant non plannifiés : <?= $cpt ?></abbr></p>
                         <?php } ?>
                     </div>
                     <table id="planning" class="display" style="width:100%">
@@ -195,7 +197,7 @@ if (!isConnectedUser()) {
                                     echo "<td class='text-center'></td>";
                                 }
                                 echo "
-                                        <td><a href='scheduleStudentConfiguration_scolarite.php?id=".$student["ID_Etudiant"]."&planning=".$student["ID_Planning"]."'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
+                                        <td><a href='scheduleStudentConfiguration_scolarite.php?id=" . $student["ID_Etudiant"] . "&planning=" . $student["ID_Planning"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
                             }
                             ?>
@@ -234,7 +236,7 @@ if (!isConnectedUser()) {
                 $statement = $db->query($query);
                 $validationByRespUE = $statement->fetch();
 
-                if($validationByRespUE[0] == "oui"){
+                if ($validationByRespUE[0] == "oui") {
                 ?>
                     <form id="schedule-sendMail-form" action="scheduleCheckSendMail_scolarite.php" method="post">
                     </form>
@@ -252,12 +254,12 @@ if (!isConnectedUser()) {
                 $statement = $db->query($query);
                 $result = $statement->fetch();
 
-                if($result[0] == "non"){ ?>
+                if ($result[0] == "non") { ?>
                     <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
                     </form>
                     <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les informations de soutenances ? Les utilisateurs suivants y auront accès : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
                 <?php
-                }else{ ?>
+                } else { ?>
                     <form id="schedule-validationSco-form" action="scheduleCheckValidation_scolarite.php" method="post">
                     </form>
                     <a href="#" onclick='if(confirm("Souhaitez-vous revenir sur votre validation des informations de soutenances ? Les utilisateurs suivants sont concernés : Administrateur (modification), Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
@@ -270,7 +272,13 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script src="../js/toastr.min.js"></script>
 <script>
     toastr.options = {
@@ -368,7 +376,7 @@ $_SESSION['success'] = 0;
                 newSelectedOption.setAttribute("selected", "");
             }
             filterRows();
-        }else {
+        } else {
             // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
             selectedPlanning = planningSelector.options[0].value;
             sessionStorage.setItem('selectedPlanning', selectedPlanning);
@@ -394,7 +402,7 @@ $_SESSION['success'] = 0;
         // Vérifie s'il y a une valeur stockée en session pour le bouton Configure
         if (sessionStorage.getItem('btnConfigureHidden') === 'true') {
             btnConfigure.setAttribute('hidden', '');
-        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false'){
+        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false') {
             btnConfigure.removeAttribute('hidden');
         }
 

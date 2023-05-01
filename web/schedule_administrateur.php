@@ -36,7 +36,7 @@ if (!isConnectedUser()) {
 
             if ($validationSco[0] == "non") {
             ?>
-                <div class="container-fluid space">
+                <div class="container-fluid">
                     <h2 class="center colored">Planning</h2>
                     <hr>
                     <br>
@@ -100,9 +100,9 @@ if (!isConnectedUser()) {
                     <div class="panel" id="panel">
                         <div class="col-6 col-md-4 mx-auto">
                             <?php
-                            if(empty($planning)){
+                            if (empty($planning)) {
                                 echo "<select id='planningSelector' disabled class='form-select' >";
-                            }else{
+                            } else {
                                 echo "<select id='planningSelector' class='form-select' >";
                             }
 
@@ -187,7 +187,7 @@ if (!isConnectedUser()) {
             <?php
             } else if ($validationSco[0] == "oui") {
             ?>
-                <div class="container-fluid space">
+                <div class="container-fluid">
                     <h2 class="center colored">Planning</h2>
                     <hr>
                     <br>
@@ -268,9 +268,9 @@ if (!isConnectedUser()) {
                     <div class="panel" id="panel">
                         <div class="col-6 col-md-4 mx-auto">
                             <?php
-                            if(empty($planning)){
+                            if (empty($planning)) {
                                 echo "<select id='planningSelector' disabled class='form-select' >";
-                            }else{
+                            } else {
                                 echo "<select id='planningSelector' class='form-select' >";
                             }
 
@@ -416,7 +416,13 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Récupérer la valeur sélectionnée en session
@@ -517,5 +523,6 @@ if (!isConnectedUser()) {
                 sessionStorage.setItem('btnConfigureHidden', 'false');
             }
         });
+
     });
 </script>

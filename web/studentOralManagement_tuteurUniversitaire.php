@@ -47,7 +47,7 @@ $isoral = isTimeForOral();
             }
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Soutenance</h2>
                 <hr>
                 <br>
@@ -134,23 +134,26 @@ $isoral = isTimeForOral();
             ?>
             <script>
                 $(document).ready(function() {
-                    $('#example').DataTable({
-                        stateSave: true,
-                        language: {
-                            url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-                        },
-                        order: [
-                            [0, 'asc']
-                        ],
-                        dom: 'lfrtip'
-                    });
+                    $(".bar").fadeOut(1000, function() {
+                        $('#content').fadeIn();
+                        $('#example').DataTable({
+                            stateSave: true,
+                            language: {
+                                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                            },
+                            order: [
+                                [0, 'asc']
+                            ],
+                            dom: 'lfrtip'
+                        });
 
-                    $('.btn-delete').click(function() {
-                        var id = $(this).data('id');
-                        var user = $(this).data('nomutilisateur');
-                        if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
-                            window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
-                        }
+                        $('.btn-delete').click(function() {
+                            var id = $(this).data('id');
+                            var user = $(this).data('nomutilisateur');
+                            if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
+                                window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
+                            }
+                        });
                     });
                 });
             </script>

@@ -139,7 +139,7 @@ if (!isConnectedUser()) {
 
 
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Soutenances</h2>
                 <hr>
                 <br>
@@ -298,173 +298,176 @@ $_SESSION['success'] = 0;
 ?>
 <script>
     $(document).ready(function() {
-        var table = $('#tableD1').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
-        });
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            var table = $('#tableD1').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
 
-        var table = $('#tableD2').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
-        });
+            var table = $('#tableD2').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
 
-        var table = $('#tableD3').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
-        });
+            var table = $('#tableD3').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
 
-        let btnSD = document.querySelector('#btnSD');
-        let btnND = document.querySelector('#btnND');
-        let divSD = document.querySelector('#divSD');
-        let divND = document.querySelector('#divND');
-        let btnSP = document.querySelector('#btnSP');
-        let divSP = document.querySelector('#divSP');
-        let hidden = true;
+            let btnSD = document.querySelector('#btnSD');
+            let btnND = document.querySelector('#btnND');
+            let divSD = document.querySelector('#divSD');
+            let divND = document.querySelector('#divND');
+            let btnSP = document.querySelector('#btnSP');
+            let divSP = document.querySelector('#divSP');
+            let hidden = true;
 
-        // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
-        if (sessionStorage.getItem('selectedButton') === 'btnND') {
-            hidden = false;
-            divND.removeAttribute('hidden');
-            btnND.className = "btn me-md-3 bg btn-custom active";
-            divSD.setAttribute('hidden', '');
-            btnSD.className = "btn me-md-3 bg btn-custom";
-            divSP.setAttribute('hidden', '');
-            btnSP.className = "btn me-md-3 bg btn-custom";
-        } else if (sessionStorage.getItem('selectedButton') === 'btnSP') {
-            hidden = false;
-            divSP.removeAttribute('hidden');
-            btnSP.className = "btn me-md-3 bg btn-custom active";
-            divND.setAttribute('hidden', '');
-            btnND.className = "btn me-md-3 bg btn-custom";
-            divSD.setAttribute('hidden', '');
-            btnSD.className = "btn me-md-3 bg btn-custom";
-        } else {
-            divSD.removeAttribute('hidden');
-            btnSD.className = "btn me-md-3 bg btn-custom active";
-            divND.setAttribute('hidden', '');
-            btnND.className = "btn me-md-3 bg btn-custom";
-            divSP.setAttribute('hidden', '');
-            btnSP.className = "btn me-md-3 bg btn-custom";
-        }
-
-        btnSD.addEventListener('click', () => {
-            if (hidden) {
-                divSD.removeAttribute('hidden');
-                btnSD.className = "btn me-md-3 bg btn-custom active";
-                divND.setAttribute('hidden', '');
-                btnND.className = "btn me-md-3 bg btn-custom";
-                divSP.setAttribute('hidden', '');
-                btnSP.className = "btn me-md-3 bg btn-custom";
+            // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
+            if (sessionStorage.getItem('selectedButton') === 'btnND') {
                 hidden = false;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnSD');
-            }
-            if (!hidden) {
-                divSD.removeAttribute('hidden');
-                btnSD.className = "btn me-md-3 bg btn-custom active";
-                divND.setAttribute('hidden', '');
-                btnND.className = "btn me-md-3 bg btn-custom";
-                divSP.setAttribute('hidden', '');
-                btnSP.className = "btn me-md-3 bg btn-custom";
-                hidden = true;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnSD');
-            }
-        });
-
-        btnND.addEventListener('click', () => {
-            if (hidden) {
                 divND.removeAttribute('hidden');
                 btnND.className = "btn me-md-3 bg btn-custom active";
                 divSD.setAttribute('hidden', '');
                 btnSD.className = "btn me-md-3 bg btn-custom";
                 divSP.setAttribute('hidden', '');
                 btnSP.className = "btn me-md-3 bg btn-custom";
+            } else if (sessionStorage.getItem('selectedButton') === 'btnSP') {
                 hidden = false;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnND');
-            }
-            if (!hidden) {
-                divND.removeAttribute('hidden');
-                btnND.className = "btn me-md-3 bg btn-custom active";
-                divSD.setAttribute('hidden', '');
-                btnSD.className = "btn me-md-3 bg btn-custom";
-                divSP.setAttribute('hidden', '');
-                btnSP.className = "btn me-md-3 bg btn-custom";
-                hidden = true;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnND');
-            }
-        });
-
-        btnSP.addEventListener('click', () => {
-            if (hidden) {
-                divSP.removeAttribute('hidden');
-                btnSP.className = "btn me-md-3 bg btn-custom active";
-                divSD.setAttribute('hidden', '');
-                btnSD.className = "btn me-md-3 bg btn-custom";
-                divND.setAttribute('hidden', '');
-                btnND.className = "btn me-md-3 bg btn-custom";
-                hidden = false;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnSP');
-            }
-            if (!hidden) {
                 divSP.removeAttribute('hidden');
                 btnSP.className = "btn me-md-3 bg btn-custom active";
                 divND.setAttribute('hidden', '');
                 btnND.className = "btn me-md-3 bg btn-custom";
                 divSD.setAttribute('hidden', '');
                 btnSD.className = "btn me-md-3 bg btn-custom";
-                hidden = true;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnSP');
-            }
-        });
-
-
-
-        $('.btn-delete').click(function() {
-            var id = $(this).data('id');
-            var user = $(this).data('nomutilisateur');
-            if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
-                window.location.href = 'studentOralDeletion_administrateur.php?id=' + id;
-            }
-        });
-
-        $('.btn-addSession').click(function() {
-            var id = $(this).data('id');
-            var session = $(this).data('session');
-            if (session == "oui") {
-                if (confirm('Souhaitez vous vraiment fermer la session supplémentaire ouverte pour cette étudiant ?')) {
-                    window.location.href = 'studentOralDeletionSession_administrateur.php?id=' + id;
-                }
             } else {
-                if (confirm('Souhaitez vous vraiment réouvrir une session supplémentaire pour cette étudiant ?')) {
-                    window.location.href = 'studentOralAddSession_administrateur.php?id=' + id;
-                }
+                divSD.removeAttribute('hidden');
+                btnSD.className = "btn me-md-3 bg btn-custom active";
+                divND.setAttribute('hidden', '');
+                btnND.className = "btn me-md-3 bg btn-custom";
+                divSP.setAttribute('hidden', '');
+                btnSP.className = "btn me-md-3 bg btn-custom";
             }
+
+            btnSD.addEventListener('click', () => {
+                if (hidden) {
+                    divSD.removeAttribute('hidden');
+                    btnSD.className = "btn me-md-3 bg btn-custom active";
+                    divND.setAttribute('hidden', '');
+                    btnND.className = "btn me-md-3 bg btn-custom";
+                    divSP.setAttribute('hidden', '');
+                    btnSP.className = "btn me-md-3 bg btn-custom";
+                    hidden = false;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnSD');
+                }
+                if (!hidden) {
+                    divSD.removeAttribute('hidden');
+                    btnSD.className = "btn me-md-3 bg btn-custom active";
+                    divND.setAttribute('hidden', '');
+                    btnND.className = "btn me-md-3 bg btn-custom";
+                    divSP.setAttribute('hidden', '');
+                    btnSP.className = "btn me-md-3 bg btn-custom";
+                    hidden = true;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnSD');
+                }
+            });
+
+            btnND.addEventListener('click', () => {
+                if (hidden) {
+                    divND.removeAttribute('hidden');
+                    btnND.className = "btn me-md-3 bg btn-custom active";
+                    divSD.setAttribute('hidden', '');
+                    btnSD.className = "btn me-md-3 bg btn-custom";
+                    divSP.setAttribute('hidden', '');
+                    btnSP.className = "btn me-md-3 bg btn-custom";
+                    hidden = false;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnND');
+                }
+                if (!hidden) {
+                    divND.removeAttribute('hidden');
+                    btnND.className = "btn me-md-3 bg btn-custom active";
+                    divSD.setAttribute('hidden', '');
+                    btnSD.className = "btn me-md-3 bg btn-custom";
+                    divSP.setAttribute('hidden', '');
+                    btnSP.className = "btn me-md-3 bg btn-custom";
+                    hidden = true;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnND');
+                }
+            });
+
+            btnSP.addEventListener('click', () => {
+                if (hidden) {
+                    divSP.removeAttribute('hidden');
+                    btnSP.className = "btn me-md-3 bg btn-custom active";
+                    divSD.setAttribute('hidden', '');
+                    btnSD.className = "btn me-md-3 bg btn-custom";
+                    divND.setAttribute('hidden', '');
+                    btnND.className = "btn me-md-3 bg btn-custom";
+                    hidden = false;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnSP');
+                }
+                if (!hidden) {
+                    divSP.removeAttribute('hidden');
+                    btnSP.className = "btn me-md-3 bg btn-custom active";
+                    divND.setAttribute('hidden', '');
+                    btnND.className = "btn me-md-3 bg btn-custom";
+                    divSD.setAttribute('hidden', '');
+                    btnSD.className = "btn me-md-3 bg btn-custom";
+                    hidden = true;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnSP');
+                }
+            });
+
+
+
+            $('.btn-delete').click(function() {
+                var id = $(this).data('id');
+                var user = $(this).data('nomutilisateur');
+                if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
+                    window.location.href = 'studentOralDeletion_administrateur.php?id=' + id;
+                }
+            });
+
+            $('.btn-addSession').click(function() {
+                var id = $(this).data('id');
+                var session = $(this).data('session');
+                if (session == "oui") {
+                    if (confirm('Souhaitez vous vraiment fermer la session supplémentaire ouverte pour cette étudiant ?')) {
+                        window.location.href = 'studentOralDeletionSession_administrateur.php?id=' + id;
+                    }
+                } else {
+                    if (confirm('Souhaitez vous vraiment réouvrir une session supplémentaire pour cette étudiant ?')) {
+                        window.location.href = 'studentOralAddSession_administrateur.php?id=' + id;
+                    }
+                }
+            });
         });
     });
 </script>

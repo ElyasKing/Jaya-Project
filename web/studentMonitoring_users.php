@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Suivi Recap</h2>
                 <hr>
                 <br>
@@ -183,82 +183,85 @@ $_SESSION['success'] = 0;
 ?>
 <script>
     $(document).ready(function() {
-        // Récupérer la valeur sélectionnée en session
-        let selectedSuiviRecap = sessionStorage.getItem('selectedSuiviRecap');
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            // Récupérer la valeur sélectionnée en session
+            let selectedSuiviRecap = sessionStorage.getItem('selectedSuiviRecap');
 
-        $('#suiviRecap').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+            $('#suiviRecap').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
 
-        });
+            });
 
-        // Fonction pour filtrer les lignes en fonction de la sélection
-        function filterRows() {
-            selectedSuiviRecap = suiviRecapSelector.value;
-            let rows = document.getElementById("suiviRecap").getElementsByTagName("tr");
+            // Fonction pour filtrer les lignes en fonction de la sélection
+            function filterRows() {
+                selectedSuiviRecap = suiviRecapSelector.value;
+                let rows = document.getElementById("suiviRecap").getElementsByTagName("tr");
 
-            for (let i = 1; i < rows.length; i++) {
-                let row = rows[i];
-                let suiviRecapId = row.cells[0].textContent;
-                if (suiviRecapId === selectedSuiviRecap || selectedSuiviRecap === "tous") {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
+                for (let i = 1; i < rows.length; i++) {
+                    let row = rows[i];
+                    let suiviRecapId = row.cells[0].textContent;
+                    if (suiviRecapId === selectedSuiviRecap || selectedSuiviRecap === "tous") {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+
+                // Enregistrer la valeur sélectionnée en session
+                sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
+
+                // Réaffecter l'attribut "selected" à l'option sélectionnée
+                for (let i = 0; i < suiviRecapSelector.options.length; i++) {
+                    let option = suiviRecapSelector.options[i];
+                    if (option.value === selectedSuiviRecap) {
+                        option.selected = true;
+                    } else {
+                        option.selected = false;
+                    }
                 }
             }
 
-            // Enregistrer la valeur sélectionnée en session
-            sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
-
-            // Réaffecter l'attribut "selected" à l'option sélectionnée
-            for (let i = 0; i < suiviRecapSelector.options.length; i++) {
-                let option = suiviRecapSelector.options[i];
-                if (option.value === selectedSuiviRecap) {
-                    option.selected = true;
-                } else {
-                    option.selected = false;
+            // Sélectionner l'option enregistrée en session
+            if (selectedSuiviRecap && document.querySelector(`#suiviRecapSelector option[value="${selectedSuiviRecap}"]`)) {
+                suiviRecapSelector.value = selectedSuiviRecap;
+                let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
+                if (oldSelectedOption) {
+                    oldSelectedOption.removeAttribute("selected");
                 }
+                let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
+                if (newSelectedOption) {
+                    newSelectedOption.setAttribute("selected", "");
+                }
+                filterRows();
+            } else {
+                // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
+                selectedSuiviRecap = suiviRecapSelector.options[0].value;
+                sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
+                suiviRecapSelector.value = selectedSuiviRecap;
+                filterRows();
             }
-        }
 
-        // Sélectionner l'option enregistrée en session
-        if (selectedSuiviRecap && document.querySelector(`#suiviRecapSelector option[value="${selectedSuiviRecap}"]`)) {
-            suiviRecapSelector.value = selectedSuiviRecap;
-            let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
-            if (oldSelectedOption) {
-                oldSelectedOption.removeAttribute("selected");
-            }
-            let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
-            if (newSelectedOption) {
-                newSelectedOption.setAttribute("selected", "");
-            }
-            filterRows();
-        } else {
-            // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
-            selectedSuiviRecap = suiviRecapSelector.options[0].value;
-            sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
-            suiviRecapSelector.value = selectedSuiviRecap;
-            filterRows();
-        }
-
-        // Filtrer les lignes lorsqu'on change la sélection
-        suiviRecapSelector.addEventListener("change", function() {
-            let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
-            if (oldSelectedOption) {
-                oldSelectedOption.removeAttribute("selected");
-            }
-            let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
-            if (newSelectedOption) {
-                newSelectedOption.setAttribute("selected", "");
-            }
-            filterRows();
+            // Filtrer les lignes lorsqu'on change la sélection
+            suiviRecapSelector.addEventListener("change", function() {
+                let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
+                if (oldSelectedOption) {
+                    oldSelectedOption.removeAttribute("selected");
+                }
+                let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
+                if (newSelectedOption) {
+                    newSelectedOption.setAttribute("selected", "");
+                }
+                filterRows();
+            });
         });
     });
 </script>
