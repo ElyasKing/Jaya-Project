@@ -20,7 +20,7 @@
             <a class="nav-link active" href="schedule_administrateur.php">Planning</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Suivi recap</a>
+            <a class="nav-link active" href="studentMonitoring_users.php">Suivi recap</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="applicationSettings.php">Paramètres</a>
@@ -46,7 +46,7 @@
         <a class="nav-link active" href="schedule_responsableUE.php">Planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Suivi recap</a>
+        <a class="nav-link active" href="studentMonitoring_users.php">Suivi recap</a>
       </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
@@ -95,7 +95,7 @@
         <a class="nav-link active" href="schedule_tuteurUniversitaire.php">Planning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Suivi recap</a>
+        <a class="nav-link active" href="studentMonitoring_tuteurUniversitaire.php">Suivi recap</a>
       </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">

@@ -190,7 +190,7 @@ getStutdentGradeOral($User_ID)
 
             $noteFinale=$noteFinale - $ortho;
 
-            return $noteFinale;
+            return round($noteFinale,2);
         } else return "";
     } else return "DEF";
 }
@@ -338,5 +338,27 @@ function shortString($string, $maxLength) {
         $string = substr($string, 0, $maxLength) . '...';
     }
     return $string;
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoring(){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur 
+    WHERE h.Etudiant_Habilitations LIKE 'oui';";
+
+    return $query;
 }
 
