@@ -7,6 +7,9 @@ include "../application_config/db_class.php";
 include 'header.php';
 include 'navbar.php';
 
+//Ajouter habilitations
+//Reprendre nouvelle methode génération mdp
+//Import de l'invité
 
 $conn = Database::connect();
 
