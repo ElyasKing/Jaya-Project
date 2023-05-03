@@ -1,6 +1,6 @@
 <?php
-include("../../../application_config/db_class.php");
-include("../../../fonctions/functions.php");
+include("../../../../application_config/db_class.php");
+include("../../../../fonctions/functions.php");
 session_start();
 
 if (!isConnectedUser()) {
@@ -14,7 +14,7 @@ if (!isConnectedUser()) {
 
 <head>
     <?php
-    include("../navigation/header.php");
+    include("../../navigation/header.php");
     ?>
 </head>
 
@@ -25,7 +25,7 @@ if (!isConnectedUser()) {
         </div>
         <div id="content">
             <?php
-            include('../navigation/navbar.php');
+            include('../../navigation/navbar.php');
 
             $db = Database::connect();
 
@@ -150,7 +150,7 @@ if (!isConnectedUser()) {
                                                 <td class="text-center"><?= $user1['NoteFinale_NS']; ?></td>
                                                 <td class="text-center"><?= $user1['Commentaire_NS']; ?></td>
                                                 <td>
-                                                    <a href="Modify/studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user1['Nom_Evaluateur']) ?>">
+                                                    <a href="studentOralFormModify_administrateur.php?id=<?= $user1['ID_NS'] ?>&amp;nom_utilisateur=<?= urlencode($user1['Nom_Evaluateur']) ?>">
                                                         <button type='button' class='btn bg bi bi-pencil-fill'></button>
                                                     </a>
                                                     <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user1['ID_NS'] ?>" data-nomutilisateur="<?= $user1['Nom_Utilisateur'] ?>">
@@ -235,7 +235,7 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-<script src="../../../js/toastr.min.js"></script>
+<script src="../../../../js/toastr.min.js"></script>
 <script>
     toastr.options = {
         "closeButton": true,

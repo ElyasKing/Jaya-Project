@@ -1,6 +1,6 @@
 <?php
-include("../../../application_config/db_class.php");
-include("../../../fonctions/functions.php");
+include("../../../../application_config/db_class.php");
+include("../../../../fonctions/functions.php");
 session_start();
 
 if(!isConnectedUser()){
@@ -21,17 +21,6 @@ $listparam = $db->query($query)->fetchAll();
 
 $conn = Database::disconnect();
 
-$ID = $_GET['id'];
-$Evaluateur = $_GET['nom_utilisateur'];
-
-//On récupère la dernière note attribuée
-$query = "SELECT NoteFinale_NS,Commentaire_NS,ID_UtilisateurEvalue FROM `notes_soutenance` WHERE ID_NS='" . $ID . "'";
-$lastNote = $db->query($query)->fetch();
-
-//On récupère le nom de l'étudiant
-$query = "SELECT Nom_Utilisateur FROM utilisateur WHERE ID_Utilisateur ='" . $lastNote['ID_UtilisateurEvalue'] . "'";
-$nomEtudiant = $db->query($query)->fetchColumn();
-
 ?>
 
 
@@ -40,7 +29,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
 
 <head>
     <?php
-    include("../navigation/header.php");
+    include("../../navigation/header.php");
     ?>
 </head>
 
@@ -58,12 +47,12 @@ $nomEtudiant = $db->query($query)->fetchColumn();
         <div class="bar">
             <span class="sphere"></span>
         </div>
-        <?php include('../navigation/navbar.php'); ?>
+        <?php include('../../navigation/navbar.php'); ?>
         <div class="container">
             <br><br>
             <h4 class="text-center">Noter un étudiant</h4>
             <br><br>
-            <form id="note_etud_oral" method="post" action="../Check/studentOralCheckModify_administrateur.php">
+            <form id="note_etud_oral" method="post" action="studentOralCheckNew_tuteurUniversitaire.php">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-10">
                         <div class="card shadow-2-strong css-login">
@@ -71,15 +60,20 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                 <!---personne attribuée à la session--->
                                 <div class="row">
                                     <div class="col">
-                                        <p class="form-label">Evaluateur : <?php echo $Evaluateur ?></p>
+                                        <p class="form-label">Utilisateur : <?php echo ($_SESSION['user_name']) ?></p>
                                     </div>
                                 </div>
                                 <br>
-                                <!---Nom de l'étudiant--->
+                                <!---liste déroulante des étudiants--->
                                 <div class="row">
                                     <div class="col">
-                                        <p class="form-label">Etudiant : <?php echo $nomEtudiant ?></p>
-                                        <input type="hidden" class="form-control" name="id_NS" value="<?= $ID ?>">
+                                        <label for="nom_etud" class="form-label">Nom de l'étudiant :</label>
+
+                                        <select name="liste-noms" class="form-control">
+                                            <?php foreach ($listEtud as $row) { ?>
+                                                <option value="<?php echo $row['Nom_Utilisateur']; ?>"><?php echo $row['Nom_Utilisateur']; ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <br>
@@ -96,7 +90,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label" for="note_finale">Note finale :</label>
-                                        <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" step="0.1" value="<?php echo $lastNote['NoteFinale_NS'] ?>">
+                                        <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" step="0.1" value="">
                                     </div>
                                 </div>
                                 <br>
@@ -104,13 +98,13 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label" for="commentaire">Commentaire :</label>
-                                        <input class="form-control" type="text" id="commentaire" name="commentaire" value="<?php echo $lastNote['Commentaire_NS'] ?>">
+                                        <input class="form-control" type="text" id="commentaire" name="commentaire">
                                     </div>
                                 </div>
                                 <br>
                                 <div class="text-center">
                                     <button class="btn me-md-3 bg" type="submit">Confirmer</button>
-                                    <a type="button" href="../administrateur.php" class="btn me-md-3 bg">Retour</a>
+                                    <a type="button" href="tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>
                                 </div>
                             </div>
                         </div>

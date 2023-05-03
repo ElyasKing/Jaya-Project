@@ -81,7 +81,7 @@ if ($result->rowCount() > 0) {
     </div>
     <br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn me-md-3 bg btn-custom">Générer QR code</button>
+        <a type="button" href="qrCodeGeneration.php" class="btn me-md-3 bg btn-custom" >Générer QR code</a>
         <button type="button" id="btn-importer-admin" class="btn me-md-3 bg btn-custom">Importer</button>
         <a type="button" href="guestManagementFormCreation_scolarite.php" class="btn me-md-3 bg btn-custom">Ajouter un invité</a>
     </div>

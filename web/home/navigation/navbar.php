@@ -73,7 +73,7 @@ require_once 'stylizer.php';
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/schedule/schedule_scolarite.php">Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo $base_url; ?>guest/guestManagement_scolarite.php">Invités</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/guest/guestManagement_scolarite.php">Invités</a>
         </li>
         </ul>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">

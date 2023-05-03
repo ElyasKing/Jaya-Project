@@ -2751,7 +2751,7 @@ if (!class_exists('QRcode', false)) {
 		protected function init_rs_char($symsize, $gfpoly, $fcr, $prim, $nroots, $pad) {
 			// Based on Reed solomon encoder by Phil Karn, KA9Q (GNU-LGPLv2)
 			$rs = null;
-			// Check parameter ranges
+			// tuteurU parameter ranges
 			if (($symsize < 0) OR ($symsize > 8)) {
 				return $rs;
 			}

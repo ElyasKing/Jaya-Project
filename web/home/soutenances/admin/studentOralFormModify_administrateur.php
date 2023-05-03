@@ -22,6 +22,7 @@ $listparam = $db->query($query)->fetchAll();
 $conn = Database::disconnect();
 
 $ID = $_GET['id'];
+$Evaluateur = $_GET['nom_utilisateur'];
 
 //On récupère la dernière note attribuée
 $query = "SELECT NoteFinale_NS,Commentaire_NS,ID_UtilisateurEvalue FROM `notes_soutenance` WHERE ID_NS='" . $ID . "'";
@@ -39,7 +40,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
 
 <head>
     <?php
-    include("../navigation/header.php");
+    include("../../navigation/header.php");
     ?>
 </head>
 
@@ -57,12 +58,12 @@ $nomEtudiant = $db->query($query)->fetchColumn();
         <div class="bar">
             <span class="sphere"></span>
         </div>
-        <?php include('../navigation/navbar.php'); ?>
+        <?php include('../../navigation/navbar.php'); ?>
         <div class="container">
             <br><br>
             <h4 class="text-center">Noter un étudiant</h4>
             <br><br>
-            <form id="note_etud_oral" method="post" action="../Check/studentOralCheckModify_tuteurUniversitaire.php">
+            <form id="note_etud_oral" method="post" action="studentOralCheckModify_administrateur.php">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-10">
                         <div class="card shadow-2-strong css-login">
@@ -70,7 +71,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                 <!---personne attribuée à la session--->
                                 <div class="row">
                                     <div class="col">
-                                        <p class="form-label">Utilisateur : <?php echo ($_SESSION['user_name']) ?></p>
+                                        <p class="form-label">Evaluateur : <?php echo $Evaluateur ?></p>
                                     </div>
                                 </div>
                                 <br>
@@ -87,7 +88,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                     <?php foreach ($listparam as $param) { ?>
                                         <div class="col">
                                             <label class="form-label" for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
-                                            <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" step="0.1"  value="<?php echo $param['nbpoint_param']; ?>">
+                                            <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" step="0.1" value="<?php echo $param['nbpoint_param']; ?>">
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -109,7 +110,7 @@ $nomEtudiant = $db->query($query)->fetchColumn();
                                 <br>
                                 <div class="text-center">
                                     <button class="btn me-md-3 bg" type="submit">Confirmer</button>
-                                    <a type="button" href="../tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>
+                                    <a type="button" href="administrateur.php" class="btn me-md-3 bg">Retour</a>
                                 </div>
                             </div>
                         </div>

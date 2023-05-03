@@ -1,6 +1,6 @@
 <?php
-include("../../../application_config/db_class.php");
-include("../../../fonctions/functions.php");
+include("../../../../application_config/db_class.php");
+include("../../../../fonctions/functions.php");
 session_start();
 
 if(!isConnectedUser()){
@@ -22,5 +22,5 @@ if (isset($_GET['id'])) {
 
   $_SESSION['success'] = 3;
   // Redirige vers la page contenant la liste des utilisateurs
-  header("Location: tuteurUniversitaire.php");
+  header("Location: invite.php");
 }

@@ -9,7 +9,7 @@ session_start();
 
 <head>
 	<?php
-	include("home/navigation/navbar.php");
+	include("./home/navigation/navbar.php");
 	?>
 </head>
 

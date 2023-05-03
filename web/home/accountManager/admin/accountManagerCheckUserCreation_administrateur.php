@@ -1,6 +1,6 @@
 <?php
-include("../../../application_config/db_class.php");
-include("../../../fonctions/functions.php");
+include "../../../../application_config/db_class.php";
+include "../../../../fonctions/functions.php";
 session_start();
 
 if(!isConnectedUser()){
