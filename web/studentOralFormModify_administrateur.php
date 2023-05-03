@@ -3,7 +3,7 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -54,70 +54,65 @@ $nomEtudiant = $db->query($query)->fetchColumn();
 </head>
 
 <body>
-    <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
-        <?php include("navbar.php"); ?>
-        <div class="container">
-            <br><br>
-            <h4 class="text-center">Noter un étudiant</h4>
-            <br><br>
-            <form id="note_etud_oral" method="post" action="StudentOralCheckModify_administrateur.php">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8 col-lg-6 col-xl-10">
-                        <div class="card shadow-2-strong css-login">
-                            <div class="card-body p-5">
-                                <!---personne attribuée à la session--->
-                                <div class="row">
+    <?php include("navbar.php"); ?>
+    <div class="container">
+        <br><br>
+        <h4 class="text-center">Noter un étudiant</h4>
+        <br><br>
+        <form id="note_etud_oral" method="post" action="StudentOralCheckModify_administrateur.php">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                    <div class="card shadow-2-strong css-login">
+                        <div class="card-body p-5">
+                            <!---personne attribuée à la session--->
+                            <div class="row">
+                                <div class="col">
+                                    <p class="form-label">Evaluateur : <?php echo $Evaluateur ?></p>
+                                </div>
+                            </div>
+                            <br>
+                            <!---Nom de l'étudiant--->
+                            <div class="row">
+                                <div class="col">
+                                    <p class="form-label">Etudiant : <?php echo $nomEtudiant ?></p>
+                                    <input type="hidden" class="form-control" name="id_NS" value="<?= $ID ?>">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <!---liste des notes affectées à la soutenance--->
+                                <?php foreach ($listparam as $param) { ?>
                                     <div class="col">
-                                        <p class="form-label">Evaluateur : <?php echo $Evaluateur ?></p>
+                                        <label class="form-label" for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
+                                        <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" step="0.1" value="<?php echo $param['nbpoint_param']; ?>">
                                     </div>
+                                <?php } ?>
+                            </div>
+                            <!---Note finale--->
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label" for="note_finale">Note finale :</label>
+                                    <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" step="0.1" value="<?php echo $lastNote['NoteFinale_NS'] ?>">
                                 </div>
-                                <br>
-                                <!---Nom de l'étudiant--->
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="form-label">Etudiant : <?php echo $nomEtudiant ?></p>
-                                        <input type="hidden" class="form-control" name="id_NS" value="<?= $ID ?>">
-                                    </div>
+                            </div>
+                            <br>
+                            <!---commentaire--->
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label" for="commentaire">Commentaire :</label>
+                                    <input class="form-control" type="text" id="commentaire" name="commentaire" value="<?php echo $lastNote['Commentaire_NS'] ?>">
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <!---liste des notes affectées à la soutenance--->
-                                    <?php foreach ($listparam as $param) { ?>
-                                        <div class="col">
-                                            <label class="form-label" for="<?php echo $param['nom_param']; ?>"><?php echo $param['nom_param']; ?>:</label>
-                                            <input class="form-control" type="number" id="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" name="<?php echo str_replace(" ", "_", $param['nom_param']); ?>" min="0" max="<?php echo $param['nbpoint_param']; ?>" step="0.1" value="<?php echo $param['nbpoint_param']; ?>">
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                                <!---Note finale--->
-                                <div class="row">
-                                    <div class="col">
-                                        <label class="form-label" for="note_finale">Note finale :</label>
-                                        <input class="form-control" type="number" id="note_finale" name="note_finale" min="0" max="20" step="0.1" value="<?php echo $lastNote['NoteFinale_NS'] ?>">
-                                    </div>
-                                </div>
-                                <br>
-                                <!---commentaire--->
-                                <div class="row">
-                                    <div class="col">
-                                        <label class="form-label" for="commentaire">Commentaire :</label>
-                                        <input class="form-control" type="text" id="commentaire" name="commentaire" value="<?php echo $lastNote['Commentaire_NS'] ?>">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="text-center">
-                                    <button class="btn me-md-3 bg" type="submit">Confirmer</button>
-                                    <a type="button" href="studentOralManagement_administrateur.php" class="btn me-md-3 bg">Retour</a>
-                                </div>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <button class="btn me-md-3 bg" type="submit">Confirmer</button>
+                                <a type="button" href="studentOralManagement_administrateur.php" class="btn me-md-3 bg">Retour</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </body>
 

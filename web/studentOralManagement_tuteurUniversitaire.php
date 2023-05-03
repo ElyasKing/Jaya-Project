@@ -48,7 +48,7 @@ $isoral = isTimeForOral();
             ?>
 
             <div class="container-fluid">
-                <h2 class="center colored">Soutenance</h2>
+                <h2 class="center colored">Soutenances</h2>
                 <hr>
                 <br>
                 <br>
@@ -162,3 +162,10 @@ $isoral = isTimeForOral();
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>

@@ -3,7 +3,7 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -46,7 +46,8 @@ if(!isConnectedUser()){
     $differenceMax = 20 - $sumOfpoints;
     $inputMax = $dynamicSetting['NbPoint_param'] + $differenceMax;
     ?>
-    <div class="container">
+
+    <div id="">
         <br>
         <br>
         <h4 class="text-center">Modifier un critère d'évaluation</h4>

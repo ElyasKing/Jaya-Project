@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
     $result = $db->query($query);
     $user = $result->fetch();
     ?>
-    <div class="container">
+    <div id="">
         <br>
         <br>
         <h4 class="text-center">Modifier le suivi recap d'un étudiant</h4>
@@ -117,7 +117,6 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-
 <script>
     let ckeckPoster = document.getElementById('ckeckPoster');
     let remarquePoster = document.getElementById('remarquePoster');

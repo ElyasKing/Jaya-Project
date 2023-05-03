@@ -3,7 +3,7 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -37,7 +37,8 @@ if(!isConnectedUser()){
     $differenceMax = 20 - $sumOfpoints;
     //$inputMax = $dynamicsSettings['NbPoint_param'] + $differenceMax;
     ?>
-    <div class="container">
+
+    <div id="">
         <br>
         <br>
         <h4 class="text-center">Ajouter un critère d'évaluation</h4>
@@ -50,7 +51,7 @@ if(!isConnectedUser()){
                         <div class="card-body p-5">
                             <div class='row'>
                                 <div class="col">
-                                <p class="text-center"><span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Si la somme des points venait à dépasser 20, la modification ne serait pas prise en compte.</p>
+                                    <p class="text-center"><span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Si la somme des points venait à dépasser 20, la modification ne serait pas prise en compte.</p>
                                 </div>
                             </div>
                             <div class='row'>
@@ -69,7 +70,7 @@ if(!isConnectedUser()){
                             <br>
                             <div class="row">
                                 <div class="col">
-                                    <p class="form-label" <?= ( $sumOfpoints == 20 ? 'style="color: red;"':'') ?>>Nombre de points cumulés actuellement : <?= $sumOfpoints ?> / 20</p>
+                                    <p class="form-label" <?= ($sumOfpoints == 20 ? 'style="color: red;"' : '') ?>>Nombre de points cumulés actuellement : <?= $sumOfpoints ?> / 20</p>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -82,6 +83,7 @@ if(!isConnectedUser()){
             </div>
         </form>
     </div>
+
 </body>
 
 </html>

@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
     $result = $db->query($query);
     $user = $result->fetch();
     ?>
-    <div class="container">
+    <div id="">
         <br>
         <br>
         <h4 class="text-center">Modifier le suivi recap d'un étudiant</h4>
@@ -88,19 +88,19 @@ if (!isConnectedUser()) {
                             <div class='row'>
                                 <div class="col">
                                     <label for="orthographe" class="form-label">Orthographe (en moins) : </label>
-                                    <input id="orthographe" type="number" class="form-control" readonly min=0 max=20 step=0.01  required value="<?= $user['Orthographe_NF'] ?>" >    
+                                    <input id="orthographe" type="number" class="form-control" readonly min=0 max=20 step=0.01 required value="<?= $user['Orthographe_NF'] ?>">
                                 </div>
                                 <div class="col">
                                     <label for="noteSuivi" class="form-label">Note de suivi : </label>
-                                    <input id="noteSuivi" type="number" class="form-control" required min=0 max=20 step=0.01 name="noteSuivi" value="<?= $user['NoteFinaleTuteur_NF'] ?>" >    
+                                    <input id="noteSuivi" type="number" class="form-control" required min=0 max=20 step=0.01 name="noteSuivi" value="<?= $user['NoteFinaleTuteur_NF'] ?>">
                                 </div>
                                 <div class="col">
                                     <label for="notePP" class="form-label">Note orale calculée : </label>
-                                    <input id="notePP" type="number" class="form-control" readonly value="<?= $user['noteFinaleUE_NF'] ?>">    
+                                    <input id="notePP" type="number" class="form-control" readonly value="<?= $user['noteFinaleUE_NF'] ?>">
                                 </div>
                                 <div class="col">
                                     <label for="notePP" class="form-label">Note PP calculée : </label>
-                                    <input id="notePP" type="number" class="form-control" readonly value="<?= $user['noteFinaleUE_NF'] ?>">    
+                                    <input id="notePP" type="number" class="form-control" readonly value="<?= $user['noteFinaleUE_NF'] ?>">
                                 </div>
                             </div>
                             <br>
@@ -117,7 +117,6 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-
 <script>
     let ckeckPoster = document.getElementById('ckeckPoster');
     let remarquePoster = document.getElementById('remarquePoster');

@@ -78,3 +78,10 @@ if(!isConnectedUser()){
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>

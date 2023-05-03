@@ -256,6 +256,13 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script src="../js/toastr.min.js"></script>
 <script>
     toastr.options = {
