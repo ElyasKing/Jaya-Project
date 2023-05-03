@@ -127,7 +127,7 @@ CREATE TABLE `notes_suivi` (
   `Remarque_NF` varchar(800) DEFAULT NULL,
   `Rapport_NF` varchar(3) DEFAULT NULL,
   `Appreciation_NF` varchar(800) DEFAULT NULL,
-  `Orthographe_NF` float DEFAULT NULL,
+  `Orthographe_NF` float DEFAULT 0,
   `ID_Utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -345,13 +345,6 @@ ALTER TABLE `notes_soutenance`
 --
 ALTER TABLE `notes_suivi`
   ADD CONSTRAINT `notes_suivi_ibfk_1` FOREIGN KEY (`ID_Utilisateur`) REFERENCES `utilisateur` (`ID_Utilisateur`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `utilisateur`
---
-ALTER TABLE `utilisateur` 
-  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`ID_Planning`) REFERENCES `planning` (`ID_Planning`) ON DELETE CASCADE;
-COMMIT;
 
 -- jeu de données de base
 INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VALUES

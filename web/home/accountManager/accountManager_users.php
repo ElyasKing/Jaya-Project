@@ -28,7 +28,7 @@ if(!isConnectedUser()){
             <?php
             include('../navigation/navbar.php');
             ?>
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Compte</h2>
                 <hr>
                 <br>
@@ -80,6 +80,14 @@ if(!isConnectedUser()){
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 
 <script src="../../../js/toastr.min.js"></script>
 <script>

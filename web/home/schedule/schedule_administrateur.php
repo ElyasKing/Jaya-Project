@@ -36,7 +36,7 @@ if (!isConnectedUser()) {
 
             if ($validationSco[0] == "non") {
             ?>
-                <div class="container-fluid space">
+                <div class="container-fluid">
                     <h2 class="center colored">Planning</h2>
                     <hr>
                     <br>
@@ -89,6 +89,9 @@ if (!isConnectedUser()) {
                     // echo "<pre>";
                     // var_dump($studentsList);
                     // echo "</pre>";die;
+                    $query = "SELECT ID_Planning, Nom_Planning FROM planning";
+                    $statement = $db->query($query);
+                    $planning = $statement->fetchAll();
 
                     $query = "SELECT ID_Planning, Nom_Planning FROM planning";
                     $statement = $db->query($query);
@@ -97,7 +100,11 @@ if (!isConnectedUser()) {
                     <div class="panel" id="panel">
                         <div class="col-6 col-md-4 mx-auto">
                             <?php
-                            echo "<select id='planningSelector' class='form-select' >";
+                            if (empty($planning)) {
+                                echo "<select id='planningSelector' disabled class='form-select' >";
+                            } else {
+                                echo "<select id='planningSelector' class='form-select' >";
+                            }
 
                             $firstOption = true;
                             $i = 0;
@@ -180,7 +187,7 @@ if (!isConnectedUser()) {
             <?php
             } else if ($validationSco[0] == "oui") {
             ?>
-                <div class="container-fluid space">
+                <div class="container-fluid">
                     <h2 class="center colored">Planning</h2>
                     <hr>
                     <br>
@@ -250,6 +257,9 @@ if (!isConnectedUser()) {
                     // echo "<pre>";
                     // var_dump($studentsList);
                     // echo "</pre>";die;
+                    $query = "SELECT ID_Planning, Nom_Planning FROM planning";
+                    $statement = $db->query($query);
+                    $planning = $statement->fetchAll();
 
                     $query = "SELECT ID_Planning, Nom_Planning FROM planning";
                     $statement = $db->query($query);
@@ -258,7 +268,11 @@ if (!isConnectedUser()) {
                     <div class="panel" id="panel">
                         <div class="col-6 col-md-4 mx-auto">
                             <?php
-                            echo "<select id='planningSelector' class='form-select' >";
+                            if (empty($planning)) {
+                                echo "<select id='planningSelector' disabled class='form-select' >";
+                            } else {
+                                echo "<select id='planningSelector' class='form-select' >";
+                            }
 
                             $firstOption = true;
                             $i = 0;
@@ -391,21 +405,24 @@ if (!isConnectedUser()) {
                     <form id="generate-planning-form" action="scheduleGeneration_administrateur.php" method="post">
                     </form>
                     <a href="#" onclick='if(confirm("Souhaitez-vous vraiment g&eacute;n&eacute;rer ou ajouter des plannings de soutenances ?")){document.getElementById("generate-planning-form").submit();}else{return false;};'><button id="btn-generer" class="btn me-md-3 btn-custom bg">G&eacute;n&eacute;rer</button></a>
-
-                    <form id="schedule-validationSco-form" action="scheduleCheckValidation_administrateur.php" method="post">
-                    </form>
-                    <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les informations de soutenances ? Les utilisateurs suivants y auront accès : Tuteur universitaire (lecture), Etudiant (lecture - planning individuel).")){document.getElementById("schedule-validationSco-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider</button></a>
                 </div>
-            <?php
-            }
-            ?>
-            <br>
         </div>
+    <?php
+            }
+    ?>
+    <br>
+    </div>
     </div>
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Récupérer la valeur sélectionnée en session
@@ -419,7 +436,8 @@ if (!isConnectedUser()) {
             order: [
                 [3, 'desc']
             ],
-            dom: 'lfrtip',
+            dom: 'Blfrtip',
+            buttons: ['excel'],
 
         });
 
@@ -505,5 +523,6 @@ if (!isConnectedUser()) {
                 sessionStorage.setItem('btnConfigureHidden', 'false');
             }
         });
+
     });
 </script>

@@ -69,7 +69,7 @@ $conn = Database::disconnect();
                                     <div class="col">
                                         <label for="nom_etud" class="form-label">Nom de l'étudiant :</label>
 
-                                        <select name="liste-noms" class="form-control">
+                                        <select name="liste-noms" class="form-select" required>
                                             <?php foreach ($listEtud as $row) { ?>
                                                 <option value="<?php echo $row['Nom_Utilisateur']; ?>"><?php echo $row['Nom_Utilisateur']; ?></option>
                                             <?php } ?>

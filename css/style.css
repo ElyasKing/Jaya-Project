@@ -107,16 +107,16 @@ hr {
     background-color: rgba(0, 191, 255, 0.115) !important;
 }
 
-.tr-bgColorGreen {
-    background-color: aquamarine !important;
+.tr-bgColorGreen{
+    background-color: rgba(80, 200, 120, 0.363) !important;
 }
 
 .tr-bgColorYellow {
-    background-color:khaki !important;
+    background-color:rgba(240, 230, 140, 0.562) !important;
 }
 
 .tr-bgColorRed {
-    background-color:red !important;
+    background-color:rgba(241, 126, 116, 0.5)!important;
 }
 
 .noDecoration, a:link, a:visited {
@@ -190,4 +190,106 @@ hr {
     border-radius: 1rem !important; 
     background: hsl(0,0%,96%) !important; 
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+/* */
+.content .bar{
+    font-size: 20px;
+    width: 200px;
+    height: 25px;
+    border: 3px solid #23314e;
+    margin: 100px auto;
+    border-radius: 7px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 300px;
+}
+
+.content .bar:after{
+    content: "Chargement ...";
+    position: absolute;
+    color: #23314e;
+    left: 20%;
+    top: 150%;
+}
+
+.content .bar .sphere{
+    display: block;
+    width: 24px;
+    height: 100%;
+    background: #23314e;
+    border-radius: 50%;
+    -moz-animation: slide 1.75s infinite ease-in-out alternate;
+    -webkit-animation: slide 1.75s infinite ease-in-out alternate;
+    -ms-animation: slide 1.75s infinite ease-in-out alternate;
+    -o-animation: slide 1.75s infinite ease-in-out alternate;
+    animation: slide 1.75s infinite ease-in-out alternate;
+}
+
+.container-fluid .bar{
+    font-size: 20px;
+    width: 200px;
+    height: 25px;
+    border: 3px solid #23314e;
+    margin: 100px auto;
+    border-radius: 7px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 300px;
+}
+
+.container-fluid .bar:after{
+    content: "Chargement ...";
+    position: absolute;
+    color: #23314e;
+    left: 20%;
+    top: 150%;
+}
+
+.container-fluid .bar .sphere{
+    display: block;
+    width: 24px;
+    height: 100%;
+    background: #23314e;
+    border-radius: 50%;
+    -moz-animation: slide 1.75s infinite ease-in-out alternate;
+    -webkit-animation: slide 1.75s infinite ease-in-out alternate;
+    -ms-animation: slide 1.75s infinite ease-in-out alternate;
+    -o-animation: slide 1.75s infinite ease-in-out alternate;
+    animation: slide 1.75s infinite ease-in-out alternate;
+}
+
+@-moz-keyframes slide{
+    to{
+        margin-left: 90%;
+    }
+}
+
+@-webkit-keyframes slide{
+    to{
+        margin-left: 90%;
+    }
+}
+
+@-ms-keyframes slide{
+    to{
+        margin-left: 90%;
+    }
+}
+
+@-o-keyframes slide{
+    to{
+        margin-left: 90%;
+    }
+}
+
+@keyframes slide{
+    to{
+        margin-left: 90%;
+    }
+}
+
+#content {
+    display: none;
 }

@@ -12,6 +12,9 @@ if(!isConnectedUser()){
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
+
+$isoral = isTimeForOral();
+
 ?>
 
 <!DOCTYPE html>
@@ -73,10 +76,14 @@ if(!isConnectedUser()){
                                         <td class="text-center"><?= $user['NoteFinale_NS']; ?></td>
                                         <td class="text-center"><?= $user['Commentaire_NS']; ?></td>
                                         <td>
-                                            <a href="studentOralFormModify_tuteurUniversitaire.php?id=<?= $user['ID_NS'] ?>">
-                                                <button type='button' class='btn bg bi bi-pencil-fill'></button>
-                                            </a>
-                                            <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                            <?php if ($isoral == 1) : ?>
+                                                <a href="studentOralFormModify_tuteurUniversitaire.php?id=<?= $user['ID_NS'] ?>">
+                                                    <button type='button' class='btn bg bi bi-pencil-fill'></button>
+                                                </a>
+                                            <?php else : ?>
+                                                <button type='button' class='btn bg bi bi-pencil-fill' disabled></button>
+                                            <?php endif; ?>
+                                            <button type='button' class='btn red bi bi-trash-fill btn-delete' data-id="<?= $user['ID_NS'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>" <?php if ($isoral == 0) echo 'disabled'; ?>>
                                             </button>
                                         </td>
                                     </tr>
@@ -84,7 +91,14 @@ if(!isConnectedUser()){
                             <?php } ?>
                         </tbody>
                     </table>
-                    <a href="studentOralFormNew_tuteurUniversitaire.php" class="btn btn-primary">Nouvelle soutenance</a>
+                    <br>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <?php if ($isoral == 1) : ?>
+                            <a type="button" href="studentOralFormNew_tuteurUniversitaire.php" class="btn me-md-3 btn-custom bg">Nouvelle soutenance</a>
+                        <?php else : ?>
+                            <button type="button" class="btn me-md-3 btn-custom bg" disabled>Nouvelle soutenance</button>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
             <script src="../../../../js/toastr.min.js"></script>
@@ -126,24 +140,26 @@ if(!isConnectedUser()){
             ?>
             <script>
                 $(document).ready(function() {
-                    $('#example').DataTable({
-                        stateSave: true,
-                        language: {
-                            url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-                        },
-                        order: [
-                            [0, 'asc']
-                        ],
-                        dom: 'Blfrtip',
-                        buttons: ['excel'],
-                    });
+                    $(".bar").fadeOut(1000, function() {
+                        $('#content').fadeIn();
+                        $('#example').DataTable({
+                            stateSave: true,
+                            language: {
+                                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                            },
+                            order: [
+                                [0, 'asc']
+                            ],
+                            dom: 'lfrtip'
+                        });
 
-                    $('.btn-delete').click(function() {
-                        var id = $(this).data('id');
-                        var user = $(this).data('nomutilisateur');
-                        if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
-                            window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
-                        }
+                        $('.btn-delete').click(function() {
+                            var id = $(this).data('id');
+                            var user = $(this).data('nomutilisateur');
+                            if (confirm('Êtes-vous sûr de vouloir supprimer la note de ' + user + ' ?')) {
+                                window.location.href = 'studentOralDeletion_tuteurUniversitaire.php?id=' + id;
+                            }
+                        });
                     });
                 });
             </script>

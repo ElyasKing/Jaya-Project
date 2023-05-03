@@ -29,7 +29,7 @@ if (!isConnectedUser()) {
             include('../navigation/navbar.php');
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Planning</h2>
                 <hr>
                 <br>
@@ -41,7 +41,7 @@ if (!isConnectedUser()) {
                 $statement = $db->query($query);
                 $validationSco = $statement->fetch();
 
-                if($validationSco[0] == "oui"){
+                if ($validationSco[0] == "oui") {
 
                     $query = "SELECT 
                         u1.ID_Utilisateur AS ID_Etudiant,
@@ -75,13 +75,13 @@ if (!isConnectedUser()) {
                             LEFT JOIN invite i ON ea.id_invite = i.id_invite
                             LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
                             LEFT JOIN planning p ON u1.ID_Planning = p.ID_Planning
-                    WHERE u1.ID_Planning IS NOT NULL AND et.ID_tuteur =". $_SESSION['user_id'] ."
+                    WHERE u1.ID_Planning IS NOT NULL AND et.ID_tuteur =" . $_SESSION['user_id'] . "
                     GROUP BY u1.ID_Utilisateur"; //
 
                     $statement = $db->query($query);
                     $studentsList = $statement->fetchAll();
 
-                    if(!empty($studentsList)){
+                    if (!empty($studentsList)) {
 
                         // echo "<pre>";
                         // var_dump($studentsList);
@@ -93,23 +93,23 @@ if (!isConnectedUser()) {
                         $lastYear = $currentYear - 1;
                         $currentStudentYear = $lastYear . "-" . $currentYear;
 
-                        
+
                         $firstStudent = false;
-                        foreach($studentsList as $student){
-                            if(!$firstStudent){
-                                $inSqlVar = "(".$student['ID_Etudiant'];
+                        foreach ($studentsList as $student) {
+                            if (!$firstStudent) {
+                                $inSqlVar = "(" . $student['ID_Etudiant'];
                                 $firstStudent = true;
-                            }else{
-                                $inSqlVar .= ",".$student['ID_Etudiant'];
+                            } else {
+                                $inSqlVar .= "," . $student['ID_Etudiant'];
                             }
                         }
                         $inSqlVar .= ")";
 
                         $query = "SELECT p.ID_Planning, Nom_Planning FROM planning p
                         LEFT JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
-                        WHERE u.ID_Utilisateur IN".$inSqlVar;
+                        WHERE u.ID_Utilisateur IN" . $inSqlVar;
                         $statement = $db->query($query);
-                        ?>
+                ?>
 
                         <div class="panel" id="panel">
                             <div class="col-6 col-md-4 mx-auto">
@@ -130,7 +130,7 @@ if (!isConnectedUser()) {
                                     }
                                 }
                                 echo "</select>";
-                            ?>
+                                ?>
                             </div>
                             <table id="planning" class="display" style="width:100%">
                                 <thead>
@@ -194,14 +194,14 @@ if (!isConnectedUser()) {
                             </table>
                         </div>
                     <?php
-                    }else{
+                    } else {
                     ?>
                         <div class="panel" id="panel">
                             <div class="col-6 col-md-4 mx-auto">
                                 <?php
                                 echo "<select disabled id='planningSelector' class='form-select' >";
                                 echo "</select>";
-                            ?>
+                                ?>
                             </div>
                             <table id="planning" class="display" style="width:100%">
                                 <thead>
@@ -220,9 +220,9 @@ if (!isConnectedUser()) {
                                 </tbody>
                             </table>
                         </div>
-                    <?php
+                <?php
                     }
-                }else if($validationSco[0] == "non"){
+                } else if ($validationSco[0] == "non") {
                     echo '
                     <div class="row d-flex justify-content-center">
                         <div class="col-12 col-md-8 col-lg-6 col-xl-10">
@@ -240,13 +240,19 @@ if (!isConnectedUser()) {
                 ?>
             </div>
             <br>
-            
+
         </div>
     </div>
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Récupérer la valeur sélectionnée en session
@@ -305,7 +311,7 @@ if (!isConnectedUser()) {
                 newSelectedOption.setAttribute("selected", "");
             }
             filterRows();
-        }else {
+        } else {
             // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
             selectedPlanning = planningSelector.options[0].value;
             sessionStorage.setItem('selectedPlanning', selectedPlanning);
@@ -331,7 +337,7 @@ if (!isConnectedUser()) {
         // Vérifie s'il y a une valeur stockée en session pour le bouton Configure
         if (sessionStorage.getItem('btnConfigureHidden') === 'true') {
             btnConfigure.setAttribute('hidden', '');
-        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false'){
+        } else if (sessionStorage.getItem('btnConfigureHidden') === 'false') {
             btnConfigure.removeAttribute('hidden');
         }
 

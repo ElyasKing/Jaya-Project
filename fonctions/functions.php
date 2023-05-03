@@ -190,7 +190,7 @@ getStutdentGradeOral($User_ID)
 
             $noteFinale=$noteFinale - $ortho;
 
-            return $noteFinale;
+            return round($noteFinale,2);
         } else return "";
     } else return "DEF";
 }
@@ -269,6 +269,7 @@ function getAccountInformationsById($id)
     $sql = "SELECT 
             H.Id_Utilisateur,
             U.Nom_Utilisateur, 
+            U.Promo_Utilisateur,
             '****' AS MDP_Utilisateur, 
             H.Admin_Habilitations, 
             H.ResponsableUE_Habilitations, 
@@ -322,12 +323,33 @@ function getSettings($settingType)
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
 function getStudentForOral($User_ID)
 {
-    $query = "SELECT U.Nom_Utilisateur 
+    //  ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
+    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3' OR `ID_param`='11';";
+
+    $db = Database::connect();
+
+    $result = $db->query($sql);
+
+    $rows = $result->fetchAll();
+    $duree_soutenance = $rows[0]['Description_param'];
+    $duree_supp = $rows[1]['Description_param'];
+
+    $query =
+    "SELECT U.Nom_Utilisateur 
         FROM utilisateur U 
-        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur 
-        WHERE H.Etudiant_Habilitations = 'oui' AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
-        FROM notes_soutenance 
-        WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "');";
+        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
+        LEFT JOIN planning p ON U.ID_Planning = p.ID_Planning
+        WHERE H.Etudiant_Habilitations = 'oui' 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
+                                    FROM notes_soutenance 
+                                    WHERE ID_UtilisateurEvaluateur = '" . $User_ID . "') 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_etudiant
+                                    FROM etudiant_tuteur
+                                    WHERE ID_tuteur = '" . $User_ID . "')
+        AND U.ID_Utilisateur <> '" . $User_ID . "'
+        AND ( U.SoutenanceSupp_Utilisateur='oui' OR (
+        CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
+        AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW()));";
 
     return $query;
 }
@@ -340,3 +362,96 @@ function shortString($string, $maxLength) {
     return $string;
 }
 
+//permet de vérifier si on est en période de soutenance
+function isTimeForOral(){
+
+    //  ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
+    $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3' OR `ID_param`='11';";
+
+    $db = Database::connect();
+
+    $result = $db->query($sql);
+
+    $rows = $result->fetchAll();
+    $duree_soutenance = $rows[0]['Description_param'];
+    $duree_supp = $rows[1]['Description_param'];
+
+    $squery="SELECT DateSession_Planning, HeureDebutSession_Planning 
+    FROM Planning p
+    LEFT JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
+    WHERE ((CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
+    AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW())) OR u.SoutenanceSupp_Utilisateur='oui';";
+
+    $result = $db->query($squery);
+    if ($result->rowCount() > 0) {
+        return 1;
+    }
+    else return 0;  
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoring(){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur 
+    WHERE h.Etudiant_Habilitations LIKE 'oui';";
+
+    return $query;
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoringById($User_ID){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur 
+    WHERE h.Etudiant_Habilitations LIKE 'oui' AND u.ID_Utilisateur = $User_ID";
+
+    return $query;
+}
+
+//recuperer les informations pour le suivi recap
+function getStudentMonitoringForTuteurUniversitaire($tuteurUniversitaire){
+    $query = "SELECT 
+        u.ID_Utilisateur, 
+        u.nom_Utilisateur, 
+        u.Promo_Utilisateur,
+        u.Annee_Utilisateur, 
+        ns.Poster_NF, 
+        ns.Remarque_NF, 
+        ns.Rapport_NF, 
+        ns.Appreciation_NF, 
+        ns.Orthographe_NF,
+        ns.NoteFinaleTuteur_NF,
+        ns.noteFinaleUE_NF
+    FROM utilisateur u
+    LEFT JOIN notes_suivi ns ON u.ID_Utilisateur = ns.ID_Utilisateur 
+    LEFT JOIN habilitations h ON u.ID_Utilisateur = h.ID_Utilisateur
+    LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant
+    WHERE h.Etudiant_Habilitations LIKE 'oui' AND et.ID_tuteur =".$tuteurUniversitaire;
+
+    return $query;
+}

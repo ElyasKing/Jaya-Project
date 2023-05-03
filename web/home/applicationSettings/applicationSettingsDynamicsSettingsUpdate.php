@@ -59,7 +59,7 @@ if(!isConnectedUser()){
                         <div class="card-body p-5">
                             <div class='row'>
                                 <div class="col">
-                                    <p class="text-center" style="color: red;"><span class="glyphicon glyphicon-plus"></span>Si la somme des points venait à dépasser 20, la modification ne serait pas prise en compte.</p>
+                                    <p class="text-center"><span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Si la somme des points venait à dépasser 20, la modification ne serait pas prise en compte.</p>
                                 </div>
                             </div>
                             <div class='row'>

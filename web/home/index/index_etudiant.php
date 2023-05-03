@@ -47,42 +47,43 @@ if ($result->rowCount() > 0) {
     if ($result->rowCount() > 0) {
         $arr_schedule = $result->fetchAll();
 
+        if ($arr_schedule[0]['DateSession_Planning'] != NULL && $arr_schedule[0]['HeureDebutSession_Planning'] != NULL) {
+
+            // on récupère la durée d'une soutenance pour obtenir le début et la fin
+            $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3'";
+            $result = $db->query($sql);
+            $duree = $result->fetch();
+
+            // on extrait les heures et les minutes de la durée
+            preg_match('/(\d{2}):(\d{2})/', $duree['Description_param'], $matches);
+            $heures = intval($matches[1]);
+            $minutes = intval($matches[2]);
+
+            // on crée un nouvel objet DateInterval avec les heures et les minutes extraites
+            $duree = new DateInterval('PT' . $heures . 'H' . $minutes . 'M');
+
+            $date = $arr_schedule[0]['DateSession_Planning'];
+            $heure_debut = $arr_schedule[0]['HeureDebutSession_Planning'];
 
 
-        // on récupère la durée d'une soutenances pour obtenir le début et la fin
-        $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3'";
-        $result = $db->query($sql);
-        $duree = $result->fetch();
-
-        // on extrait les heures et les minutes de la durée
-        preg_match('/(\d{2}):(\d{2})/', $duree['Description_param'], $matches);
-        $heures = intval($matches[1]);
-        $minutes = intval($matches[2]);
-
-        // on crée un nouvel objet DateInterval avec les heures et les minutes extraites
-        $duree = new DateInterval('PT' . $heures . 'H' . $minutes . 'M');
-
-        $date = $arr_schedule[0]['DateSession_Planning'];
-        $heure_debut = $arr_schedule[0]['HeureDebutSession_Planning'];
-
-
-        // on calcule l'heure de fin en ajoutant la durée à l'heure de début
-        $heure_fin = new DateTime($heure_debut);
-        $heure_fin = $heure_fin->add($duree);
-        $heure_fin = $heure_fin->format('H:i:s');
+            // on calcule l'heure de fin en ajoutant la durée à l'heure de début
+            $heure_fin = new DateTime($heure_debut);
+            $heure_fin = $heure_fin->add($duree);
+            $heure_fin = $heure_fin->format('H:i:s');
 
 
 
-        $dateTime = new DateTime($date);
-        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        $date_fr = strftime('%d/%m/%Y', $dateTime->getTimestamp());
+            $dateTime = new DateTime($date);
+            setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+            $date_fr = strftime('%d/%m/%Y', $dateTime->getTimestamp());
+        }
     }
 }
 ?>
 
 
 <html>
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -147,9 +148,33 @@ if ($result->rowCount() > 0) {
                             <tr>
                                 <td class="text-center"><?= $note['Poster_NF']; ?></td>
                                 <td class="text-center"><?= $note['Rapport_NF']; ?></td>
-                                <td class="text-center"><?= $note['Note_Tuteur']; ?></td>
-                                <td class="text-center"><?= $noteOral ?></td>
-                                <td class="text-center"><?= $note['Note_Finale']; ?></td>
+                                <td class="text-center">
+                                    <?php
+                                    if ($note['Note_Tuteur'] === null) {
+                                        echo '<span class="text-danger">DEF</span>';
+                                    } else {
+                                        echo $note['Note_Tuteur'];
+                                    }
+                                    ?>
+                                </td>
+                                <td class="text-center">
+                                    <?php
+                                    if ($noteOral === "DEF") {
+                                        echo '<span class="text-danger">DEF</span>';
+                                    } else {
+                                        echo $noteOral;
+                                    }
+                                    ?>
+                                </td>
+                                <td class="text-center">
+                                    <?php
+                                    if ($note['Note_Finale'] === null) {
+                                        echo '<span class="text-danger">DEF</span>';
+                                    } else {
+                                        echo $note['Note_Finale'];
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         <?php } ?>
                     <?php } ?>
@@ -160,7 +185,8 @@ if ($result->rowCount() > 0) {
         <h4>Informations soutenance</h4>
         <br>
         <div class="center">
-            <?php if ($arr_schedule == []) {
+            <?php
+            if ($arr_schedule == [] || $arr_schedule[0]['DateSession_Planning'] == NULL || $arr_schedule[0]['HeureDebutSession_Planning'] == NULL) {
                 echo '
                     <div class="row d-flex justify-content-center">
                         <div class="col-12 col-md-8 col-lg-6 col-xl-10">
@@ -175,7 +201,7 @@ if ($result->rowCount() > 0) {
                     </div>
                     ';
             }
-            if ($arr_schedule <> []) {
+            if ($arr_schedule <> [] && $arr_schedule[0]['DateSession_Planning'] != NULL && $arr_schedule[0]['HeureDebutSession_Planning'] != NULL) {
                 echo '
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-10">
@@ -197,26 +223,29 @@ if ($result->rowCount() > 0) {
 </html>
 <script>
     $(document).ready(function() {
-        var table1 = $('#table1').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            "ordering": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "lengthChange": false
-        });
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            var table1 = $('#table1').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                "ordering": false,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "lengthChange": false
+            });
 
-        var table2 = $('#table2').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            "ordering": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "lengthChange": false
+            var table2 = $('#table2').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                "ordering": false,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "lengthChange": false
+            });
         });
 
     });

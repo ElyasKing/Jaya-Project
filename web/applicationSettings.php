@@ -45,7 +45,7 @@ if(!isConnectedUser()){
             }
 
             ?>
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Paramètres</h2>
                 <hr>
                 <br>
@@ -216,69 +216,71 @@ $_SESSION['success'] = 0;
 ?>
 <script>
     $(document).ready(function() {
-        var table = $('#tablePD').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
-        });
+        $(".bar").fadeOut(1000, function(){
+            $('#content').fadeIn();
+            var table = $('#tablePD').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'lfrtip'
+            });
 
-        let btnPF = document.querySelector('#btnPF');
-        let btnPD = document.querySelector('#btnPD');
-        let divPF = document.querySelector('#divPF');
-        let divPD = document.querySelector('#divPD');
-        let hidden = true;
+            let btnPF = document.querySelector('#btnPF');
+            let btnPD = document.querySelector('#btnPD');
+            let divPF = document.querySelector('#divPF');
+            let divPD = document.querySelector('#divPD');
+            let hidden = true;
 
-        // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
-        if (sessionStorage.getItem('selectedButton') === 'btnPD') {
-            hidden = false;
-            divPD.removeAttribute('hidden');
-            btnPD.className = "btn me-md-3 bg btn-custom active";
-            divPF.setAttribute('hidden', '');
-            btnPF.className = "btn me-md-3 bg btn-custom";
-        } else {
-            divPF.removeAttribute('hidden');
-            btnPF.className = "btn me-md-3 bg btn-custom active";
-            divPD.setAttribute('hidden', '');
-            btnPD.className = "btn me-md-3 bg btn-custom";
-        }
-
-        btnPF.addEventListener('click', () => {
-            if (!hidden) {
-                divPF.removeAttribute('hidden');
-                btnPF.className = "btn me-md-3 bg btn-custom active";
-                divPD.setAttribute('hidden', '');
-                btnPD.className = "btn me-md-3 bg btn-custom";
-                hidden = true;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnPF');
-            }
-        });
-
-        btnPD.addEventListener('click', () => {
-            if (hidden) {
+            // Vérifie s'il y a une valeur stockée en session pour le bouton sélectionné
+            if (sessionStorage.getItem('selectedButton') === 'btnPD') {
+                hidden = false;
                 divPD.removeAttribute('hidden');
                 btnPD.className = "btn me-md-3 bg btn-custom active";
                 divPF.setAttribute('hidden', '');
                 btnPF.className = "btn me-md-3 bg btn-custom";
-                hidden = false;
-                // Sauvegarde le choix du bouton en session
-                sessionStorage.setItem('selectedButton', 'btnPD');
+            } else {
+                divPF.removeAttribute('hidden');
+                btnPF.className = "btn me-md-3 bg btn-custom active";
+                divPD.setAttribute('hidden', '');
+                btnPD.className = "btn me-md-3 bg btn-custom";
             }
-        });
+
+            btnPF.addEventListener('click', () => {
+                if (!hidden) {
+                    divPF.removeAttribute('hidden');
+                    btnPF.className = "btn me-md-3 bg btn-custom active";
+                    divPD.setAttribute('hidden', '');
+                    btnPD.className = "btn me-md-3 bg btn-custom";
+                    hidden = true;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnPF');
+                }
+            });
+
+            btnPD.addEventListener('click', () => {
+                if (hidden) {
+                    divPD.removeAttribute('hidden');
+                    btnPD.className = "btn me-md-3 bg btn-custom active";
+                    divPF.setAttribute('hidden', '');
+                    btnPF.className = "btn me-md-3 bg btn-custom";
+                    hidden = false;
+                    // Sauvegarde le choix du bouton en session
+                    sessionStorage.setItem('selectedButton', 'btnPD');
+                }
+            });
 
 
-        $('.btn-delete').click(function() {
-            var id = $(this).data('id');
-            var setting = $(this).data('name');
-            if (confirm('Êtes-vous sûr de vouloir supprimer le paramètre "' + setting + '" ?')) {
-                window.location.href = 'applicationSettingsCheckDynamicSettingDeletion.php?id=' + id;
-            }
+            $('.btn-delete').click(function() {
+                var id = $(this).data('id');
+                var setting = $(this).data('name');
+                if (confirm('Êtes-vous sûr de vouloir supprimer le paramètre "' + setting + '" ?')) {
+                    window.location.href = 'applicationSettingsCheckDynamicSettingDeletion.php?id=' + id;
+                }
+            });
         });
     });
 </script>

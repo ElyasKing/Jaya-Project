@@ -30,7 +30,7 @@ if ($result->rowCount() > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Comptes</h2>
     <hr>
     <br>
