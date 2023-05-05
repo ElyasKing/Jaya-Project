@@ -321,7 +321,7 @@ function getSettings($settingType)
 }
 
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-function getStudentForOral($User_ID)
+function getStudentForOral($User_ID,$habilitation)
 {
     //  ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
     $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3' OR `ID_param`='11';";
@@ -334,8 +334,9 @@ function getStudentForOral($User_ID)
     $duree_soutenance = $rows[0]['Description_param'];
     $duree_supp = $rows[1]['Description_param'];
 
-    $query =
-    "SELECT U.Nom_Utilisateur 
+    if($habilitation<>"INVITE") {
+        $query =
+            "SELECT U.Nom_Utilisateur 
         FROM utilisateur U 
         LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
         LEFT JOIN planning p ON U.ID_Planning = p.ID_Planning
@@ -350,7 +351,25 @@ function getStudentForOral($User_ID)
         AND ( U.SoutenanceSupp_Utilisateur='oui' OR (
         CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
         AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW()));";
-
+    }else{
+        $query =
+        "SELECT U.Nom_Utilisateur 
+        FROM utilisateur U 
+        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
+        LEFT JOIN planning p ON U.ID_Planning = p.ID_Planning
+        WHERE H.Etudiant_Habilitations = 'oui' 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
+                                    FROM notes_soutenance 
+                                    WHERE ID_InviteEvaluateur = '" . $User_ID . "') 
+        AND U.ID_Utilisateur NOT IN (SELECT ID_Utilisateur
+                                    FROM est_apprenti
+                                    WHERE ID_Invite = '" . $User_ID . "')
+        AND U.ID_Utilisateur <> '" . $User_ID . "'
+        AND ( U.SoutenanceSupp_Utilisateur='oui' OR (
+        CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
+        AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW()));";
+    }
+    
     return $query;
 }
 

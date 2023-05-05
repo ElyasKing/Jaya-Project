@@ -12,7 +12,7 @@ $db = Database::connect();
 
 
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-$query = getStudentForOral($_SESSION['user_id']);
+$query = getStudentForOral($_SESSION['user_id'],$_SESSION['active_profile']);
 $listEtud = $db->query($query)->fetchAll();
 
 // Requête SQL pour récupérer les informations des paramètres qui sont des notes

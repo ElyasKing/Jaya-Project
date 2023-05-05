@@ -3,14 +3,21 @@ include("../../../../application_config/db_class.php");
 include("../../../../fonctions/functions.php");
 session_start();
 
-$_SESSION['nom'] = $_GET['nom'];
-$_SESSION['entreprise'] =  $_GET['entreprise'];
-
-var_dump($_SESSION);
 
 
-if(!isset($_SESSION['nom']) && !isset($_SESSION['entreprise'])){
-    if(!isConnectedUser()) {
+
+
+if($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE"){
+    $_SESSION['user_name'] = $_GET['nom'];
+    $_SESSION['entreprise'] =  $_GET['entreprise'];
+    $_SESSION['user_id'] = $_GET['id'];
+    $_SESSION['change_profile_access'] = 6;
+    $_SESSION['active_profile'] = "INVITE";
+}
+
+
+if($_SESSION['active_profile'] <> "INVITE") {
+    if (!isConnectedUser()) {
         $_SESSION['success'] = 2;
         header("Location: login.php");
     }
@@ -38,27 +45,39 @@ $isoral = isTimeForOral();
         <div id="content">
             <?php
             include('../../navigation/navbar.php');
-
-            $sql = "SELECT U.Nom_Utilisateur,
+            if($_SESSION['active_profile'] <> "INVITE") {
+                $sql = "SELECT U.Nom_Utilisateur,
             NS.ID_NS,
             NS.NoteFinale_NS,
-            NS.Commentaire_NS 
+            NS.Commentaire_NS
             FROM notes_soutenance NS 
             LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
-            WHERE NS.ID_UtilisateurEvaluateur = '" . $_SESSION["user_id"] . "';";
+            WHERE NS.ID_UtilisateurEvaluateur = '".$_SESSION['user_id']."'";
+                $result = $db->query($sql);
+            } else {
+                $sql = "SELECT U.Nom_Utilisateur,
+            NS.ID_NS,
+            NS.NoteFinale_NS,
+            NS.Commentaire_NS
+            FROM notes_soutenance NS 
+            LEFT JOIN Utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
+            WHERE NS.ID_InviteEvaluateur = '".$_SESSION['user_id']."'";
+                $result = $db->query($sql);
+            }
 
-            $result = $db->query($sql);
 
-            $arr_users = [];
             if ($result->rowCount() > 0) {
                 $arr_users = $result->fetchAll();
+
             }
             ?>
 
             <div class="container-fluid space">
                 <h2 class="center colored">Soutenances</h2>
                 <hr>
-                <p>Bienvenue <?php echo $_SESSION['nom']." de ".$_SESSION['entreprise']; ?></p>
+                <?php if ($_SESSION['active_profile'] == "INVITE") { ?>
+                <p>Bienvenue <?php echo $_SESSION['user_name']." de ".$_SESSION['entreprise']; ?></p>
+                <?php } ?>
                 <br>
                 <br>
                 <div class="panel" id="panel">
@@ -72,14 +91,14 @@ $isoral = isTimeForOral();
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($arr_users)) { ?>
+                            <?php if (!empty($arr_users))  {?>
                                 <?php foreach ($arr_users as $user) { ?>
                                     <tr class="user-row">
                                         <td class="text-center"><?= $user['Nom_Utilisateur']; ?></td>
                                         <td class="text-center"><?= $user['NoteFinale_NS']; ?></td>
                                         <td class="text-center"><?= $user['Commentaire_NS']; ?></td>
                                         <td>
-                                            <?php if ($isoral == 1) : ?>
+                                            <?php if ($isoral == 1)  : ?>
                                                 <a href="studentOralFormModify_tuteurUniversitaire.php?id=<?= $user['ID_NS'] ?>">
                                                     <button type='button' class='btn bg bi bi-pencil-fill'></button>
                                                 </a>
@@ -97,7 +116,7 @@ $isoral = isTimeForOral();
                     <br>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <?php if ($isoral == 1) : ?>
-                            <a type="button" href="studentOralFormNew_tuteurUniversitaire.php" class="btn me-md-3 btn-custom bg">Nouvelle soutenance</a>
+                                <a type="button" href="studentOralFormNew_tuteurUniversitaire.php?id_user=<?php echo $_SESSION['user_id']; ?>" class="btn me-md-3 btn-custom bg">Nouvelle soutenance</a>
                         <?php else : ?>
                             <button type="button" class="btn me-md-3 btn-custom bg" disabled>Nouvelle soutenance</button>
                         <?php endif; ?>

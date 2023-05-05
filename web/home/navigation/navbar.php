@@ -13,15 +13,6 @@ require_once 'stylizer.php';
                                                       width="180"></a>
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <?php if (isset($_SESSION['nom']) || isset($_SESSION['entreprise'])) { ?>
-      </ul>
-      <ul class="navbar-nav me-0 mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class='nav-link active' href='#'><img id='notification-icon' src='<?php echo $base_url_style; ?>images/notification-icon2.svg' alt='logo_jaya'></a>
-          <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
-        </li>
-      </ul>
-      <?php Exit;} ?>
         <?php if ($_SESSION['active_profile'] == "ADMINISTRATEUR") { ?>
         <li class="nav-item">
           <a class="nav-link active" href="<?php echo $base_url; ?>/index.php">Accueil</a>
@@ -101,7 +92,7 @@ require_once 'stylizer.php';
         <a class="nav-link active" href="<?php echo $base_url; ?>/home/accountManager/accountManager_users.php">Compte</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?php echo $base_url; ?>/home/soutenance/administrateur.php">Soutenances</a>
+        <a class="nav-link active" href="<?php echo $base_url; ?>/home/soutenances/tuteurU/tuteurUniversitaire.php">Soutenances</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="<?php echo $base_url; ?>schedule/schedule_tuteurUniversitaire.php">Planning</a>

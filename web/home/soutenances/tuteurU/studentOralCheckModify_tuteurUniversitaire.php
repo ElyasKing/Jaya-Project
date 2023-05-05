@@ -68,4 +68,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $db = Database::disconnect();
 
 $_SESSION['success'] = 2;
-header("Location: invite.php");
+header("Location: tuteurUniversitaire.php");

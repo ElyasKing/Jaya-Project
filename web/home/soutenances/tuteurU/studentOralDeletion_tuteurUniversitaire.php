@@ -22,5 +22,5 @@ if (isset($_GET['id'])) {
 
   $_SESSION['success'] = 3;
   // Redirige vers la page contenant la liste des utilisateurs
-  header("Location: invite.php");
+  header("Location: tuteurUniversitaire.php");
 }

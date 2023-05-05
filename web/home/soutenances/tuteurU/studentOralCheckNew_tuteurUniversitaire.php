@@ -3,9 +3,11 @@ include "../../../../application_config/db_class.php";
 include("../../../../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
-    $_SESSION['success'] = 2;
-    header("Location: login.php");
+if($_SESSION['active_profile'] <> "INVITE") {
+    if (!isConnectedUser()) {
+        $_SESSION['success'] = 2;
+        header("Location: login.php");
+    }
 }
 
 $db = Database::connect();
@@ -19,7 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //le champ note finale est renseigné
     if($note_finale<>""){
-        $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        if($_SESSION['active_profile'] <> "INVITE") {
+            $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        }else{
+            $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_InviteEvaluateur`) VALUES (?, ?, ?, ?)";
+        }
         $stmt = $db->prepare($query);
         $stmt->execute([$note_finale, $commentaire, $etud_ID, $_SESSION['user_id']]);
 
@@ -45,7 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $total=(($total*20)/$totalnoteparam);
      }
 
-        $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        if($_SESSION['active_profile'] <> "INVITE") {
+            $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_UtilisateurEvaluateur`) VALUES (?, ?, ?, ?)";
+        }else{
+            $query = "INSERT INTO notes_soutenance (`NoteFinale_NS`, `Commentaire_NS`, `ID_UtilisateurEvalue`, `ID_InviteEvaluateur`) VALUES (?, ?, ?, ?)";
+        }
         $stmt = $db->prepare($query);
         $stmt->execute([$total, $commentaire, $etud_ID, $_SESSION['user_id']]);
 
@@ -64,4 +74,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $db = Database::disconnect();
 
 $_SESSION['success'] = 1;
-header("Location: invite.php");
+header("Location: tuteurUniversitaire.php");
