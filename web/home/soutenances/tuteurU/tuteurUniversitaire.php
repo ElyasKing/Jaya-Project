@@ -3,14 +3,17 @@ include("../../../../application_config/db_class.php");
 include("../../../../fonctions/functions.php");
 session_start();
 
-$nom = $_GET['nom'];
-$entreprise = $_GET['entreprise'];
-// mettre en variable de session
+$_SESSION['nom'] = $_GET['nom'];
+$_SESSION['entreprise'] =  $_GET['entreprise'];
+
+var_dump($_SESSION);
 
 
-if(!isConnectedUser()){
-    $_SESSION['success'] = 2;
-    header("Location: login.php");
+if(!isset($_SESSION['nom']) && !isset($_SESSION['entreprise'])){
+    if(!isConnectedUser()) {
+        $_SESSION['success'] = 2;
+        header("Location: login.php");
+    }
 }
 
 $isoral = isTimeForOral();
@@ -55,7 +58,7 @@ $isoral = isTimeForOral();
             <div class="container-fluid space">
                 <h2 class="center colored">Soutenances</h2>
                 <hr>
-                <p>Bienvenue <?php echo $nom." de ".$entreprise; ?></p>
+                <p>Bienvenue <?php echo $_SESSION['nom']." de ".$_SESSION['entreprise']; ?></p>
                 <br>
                 <br>
                 <div class="panel" id="panel">

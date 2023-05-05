@@ -90,7 +90,7 @@ $statement = $db->query($sql);
                 <?php
                 // Parcourir les utilisateurs et générer les QR codes
                 while ($row = $statement->fetch()) {
-                    $text = 'http://localhost/JAYA/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php?nom='.$row['Nom_Invite'].'&entreprise='.$row['Entreprise_Invite'];
+                    $text = 'http://localhost/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php?nom='.$row['Nom_Invite'].'&entreprise='.$row['Entreprise_Invite'];
 
                     // Générer le nom du fichier en fonction de l'ID de l'utilisateur
                     $filename = '../../../images/QR_IMG/qrcode_' . $row['Nom_Invite'] . '-' . $row['Entreprise_Invite'] . '.png';
