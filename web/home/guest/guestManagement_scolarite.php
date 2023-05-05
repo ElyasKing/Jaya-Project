@@ -30,7 +30,6 @@ if ($result->rowCount() > 0) {
 <head>
     <?php
     include("../navigation/header.php");
-    include('../navigation/navbar.php');
     ?>
 </head>
 
@@ -41,7 +40,7 @@ if ($result->rowCount() > 0) {
         </div>
         <div id="content">
             <?php
-            include("navbar.php");
+            include('../navigation/navbar.php');
             ?>
             <div class="container-fluid">
                 <h2 class="center colored">Invité</h2>

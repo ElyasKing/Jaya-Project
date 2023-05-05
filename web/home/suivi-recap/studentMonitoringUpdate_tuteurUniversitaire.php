@@ -1,6 +1,6 @@
 <?php
-include("../application_config/db_class.php");
-include("../fonctions/functions.php");
+include("../../../application_config/db_class.php");
+include("../../../fonctions/functions.php");
 session_start();
 
 if (!isConnectedUser()) {
@@ -14,13 +14,13 @@ if (!isConnectedUser()) {
 
 <head>
     <?php
-    include("header.php");
+    include("../navigation/header.php");
     ?>
 </head>
 
 <body>
     <?php
-    include("navbar.php");
+    include("../navigation/navbar.php");
 
     $db = Database::connect();
 
@@ -35,7 +35,7 @@ if (!isConnectedUser()) {
         <h4 class="text-center">Modifier le suivi recap d'un étudiant</h4>
         <br>
         <br>
-        <form action="studentMonitoringCheckUpdate_users.php" method="post">
+        <form action="studentMonitoringCheckUpdate_tuteurUniversitaire.php" method="post">
             <div class="row d-flex justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-10">
                     <div class="card shadow-2-strong css-login">
@@ -88,11 +88,11 @@ if (!isConnectedUser()) {
                             <div class='row'>
                                 <div class="col">
                                     <label for="orthographe" class="form-label">Orthographe (en moins) : </label>
-                                    <input id="orthographe" type="number" class="form-control" min=0 max=20 step=0.01 name="orthographe" required value="<?= $user['Orthographe_NF'] ?>" >    
+                                    <input id="orthographe" type="number" class="form-control" readonly min=0 max=20 step=0.01  required value="<?= $user['Orthographe_NF'] ?>" >    
                                 </div>
                                 <div class="col">
                                     <label for="noteSuivi" class="form-label">Note de suivi : </label>
-                                    <input id="noteSuivi" type="number" class="form-control" min=0 max=20 step=0.01 name="noteSuivi" value="<?= $user['NoteFinaleTuteur_NF'] ?>" >    
+                                    <input id="noteSuivi" type="number" class="form-control" required min=0 max=20 step=0.01 name="noteSuivi" value="<?= $user['NoteFinaleTuteur_NF'] ?>" >    
                                 </div>
                                 <div class="col">
                                     <label for="notePP" class="form-label">Note orale calculée : </label>
@@ -106,7 +106,7 @@ if (!isConnectedUser()) {
                             <br>
                             <div class="text-center">
                                 <button class="btn me-md-3 bg" type="submit">Modifier</button>
-                                <a type="button" href="studentMonitoring_users.php" class="btn me-md-3 bg">Retour</a>
+                                <a type="button" href="studentMonitoring_tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>
                             </div>
                         </div>
                     </div>

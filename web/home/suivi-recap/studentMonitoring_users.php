@@ -1,6 +1,6 @@
 <?php
-include("../application_config/db_class.php");
-include("../fonctions/functions.php");
+include("../../../application_config/db_class.php");
+include("../../../fonctions/functions.php");
 session_start();
 
 if (!isConnectedUser()) {
@@ -15,7 +15,7 @@ if (!isConnectedUser()) {
 
 <head>
     <?php
-    include("header.php");
+    include("../navigation/header.php");
     ?>
 </head>
 
@@ -26,7 +26,7 @@ if (!isConnectedUser()) {
         </div>
         <div id="content">
             <?php
-            include("navbar.php");
+            include("../navigation/navbar.php");
             ?>
 
             <div class="container-fluid">
@@ -38,23 +38,14 @@ if (!isConnectedUser()) {
                 $db = Database::connect();
 
                 //infos suivi recap
-                $query = getStudentMonitoringForTuteurUniversitaire($_SESSION["user_id"]);
+                $query = getStudentMonitoring();
                 $statement = $db->query($query);
                 $studentsList = $statement->fetchAll();
 
                 //liste des années promo en base
-                $query = "SELECT DISTINCT `Annee_Utilisateur` 
-                    FROM `utilisateur` u 
-                    LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant 
-                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =" . $_SESSION["user_id"];
+                $query = "SELECT DISTINCT `Annee_Utilisateur` FROM `utilisateur` WHERE Annee_Utilisateur IS NOT NULL;";
                 $statement = $db->query($query);
-                $annee = $statement->fetch();
 
-                $query = "SELECT DISTINCT `Annee_Utilisateur` 
-                    FROM `utilisateur` u 
-                    LEFT JOIN etudiant_tuteur et ON u.ID_Utilisateur = et.ID_etudiant 
-                    WHERE Annee_Utilisateur IS NOT NULL AND et.ID_tuteur =" . $_SESSION["user_id"];
-                $statement = $db->query($query);
                 // echo "<pre>";
                 // var_dump($studentsList);
                 // echo "</pre>";die;
@@ -63,12 +54,7 @@ if (!isConnectedUser()) {
                 <div class="panel" id="panel">
                     <div class="col-6 col-md-4 mx-auto">
                         <?php
-                        if (empty($annee)) {
-                            echo "<select id='suiviRecapSelector' disabled class='form-select' >";
-                        } else {
-                            echo "<select id='suiviRecapSelector' class='form-select' >";
-                        }
-
+                        echo "<select id='suiviRecapSelector' class='form-select' >";
                         $firstOption = true;
                         $i = 0;
                         while ($row = $statement->fetch()) {
@@ -128,7 +114,7 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
                                         <td class='text-center'>" . $student['noteFinaleUE_NF'] . "</td>
-                                        <td><a href='studentMonitoringUpdate_tuteurUniversitaire.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
+                                        <td><a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
                             }
                                 ?>
@@ -137,19 +123,33 @@ if (!isConnectedUser()) {
                 </div>
                 <p><span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Les étudiants dont les informations sont incomplètes (ex : document manquant, note manquante) seront considérés comme étant défaillants.</p>
             </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <?php
+                    $query = "SELECT Validation_NF FROM decisions";
+                    $statement = $db->query($query);
+                    $result = $statement->fetch();
+
+                    if($result[0] == "non"){
+                        ?> 
+                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                        </form>
+                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                    <?php
+                    }else{
+                        ?> 
+                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                        </form>
+                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                    <?php
+                    }
+                ?>
+                
+            </div>
         </div>
     </div>
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-        $(".bar").fadeOut(1000, function() {
-            $('#content').fadeIn();
-        });
-    });
-</script>
 <script src="../js/toastr.min.js"></script>
 <script>
     toastr.options = {
@@ -183,81 +183,85 @@ $_SESSION['success'] = 0;
 ?>
 <script>
     $(document).ready(function() {
-        // Récupérer la valeur sélectionnée en session
-        let selectedSuiviRecap = sessionStorage.getItem('selectedSuiviRecap');
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            // Récupérer la valeur sélectionnée en session
+            let selectedSuiviRecap = sessionStorage.getItem('selectedSuiviRecap');
 
-        $('#suiviRecap').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [
-                [0, 'asc']
-            ],
-            dom: 'lfrtip'
+            $('#suiviRecap').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [
+                    [0, 'asc']
+                ],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
 
-        });
+            });
 
-        // Fonction pour filtrer les lignes en fonction de la sélection
-        function filterRows() {
-            selectedSuiviRecap = suiviRecapSelector.value;
-            let rows = document.getElementById("suiviRecap").getElementsByTagName("tr");
+            // Fonction pour filtrer les lignes en fonction de la sélection
+            function filterRows() {
+                selectedSuiviRecap = suiviRecapSelector.value;
+                let rows = document.getElementById("suiviRecap").getElementsByTagName("tr");
 
-            for (let i = 1; i < rows.length; i++) {
-                let row = rows[i];
-                let suiviRecapId = row.cells[0].textContent;
-                if (suiviRecapId === selectedSuiviRecap || selectedSuiviRecap === "tous") {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
+                for (let i = 1; i < rows.length; i++) {
+                    let row = rows[i];
+                    let suiviRecapId = row.cells[0].textContent;
+                    if (suiviRecapId === selectedSuiviRecap || selectedSuiviRecap === "tous") {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+
+                // Enregistrer la valeur sélectionnée en session
+                sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
+
+                // Réaffecter l'attribut "selected" à l'option sélectionnée
+                for (let i = 0; i < suiviRecapSelector.options.length; i++) {
+                    let option = suiviRecapSelector.options[i];
+                    if (option.value === selectedSuiviRecap) {
+                        option.selected = true;
+                    } else {
+                        option.selected = false;
+                    }
                 }
             }
 
-            // Enregistrer la valeur sélectionnée en session
-            sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
-
-            // Réaffecter l'attribut "selected" à l'option sélectionnée
-            for (let i = 0; i < suiviRecapSelector.options.length; i++) {
-                let option = suiviRecapSelector.options[i];
-                if (option.value === selectedSuiviRecap) {
-                    option.selected = true;
-                } else {
-                    option.selected = false;
+            // Sélectionner l'option enregistrée en session
+            if (selectedSuiviRecap && document.querySelector(`#suiviRecapSelector option[value="${selectedSuiviRecap}"]`)) {
+                suiviRecapSelector.value = selectedSuiviRecap;
+                let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
+                if (oldSelectedOption) {
+                    oldSelectedOption.removeAttribute("selected");
                 }
+                let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
+                if (newSelectedOption) {
+                    newSelectedOption.setAttribute("selected", "");
+                }
+                filterRows();
+            } else {
+                // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
+                selectedSuiviRecap = suiviRecapSelector.options[0].value;
+                sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
+                suiviRecapSelector.value = selectedSuiviRecap;
+                filterRows();
             }
-        }
 
-        // Sélectionner l'option enregistrée en session
-        if (selectedSuiviRecap && document.querySelector(`#suiviRecapSelector option[value="${selectedSuiviRecap}"]`)) {
-            suiviRecapSelector.value = selectedSuiviRecap;
-            let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
-            if (oldSelectedOption) {
-                oldSelectedOption.removeAttribute("selected");
-            }
-            let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
-            if (newSelectedOption) {
-                newSelectedOption.setAttribute("selected", "");
-            }
-            filterRows();
-        } else {
-            // L'option sélectionnée n'existe plus dans le sélecteur, sélectionner l'option par défaut
-            selectedSuiviRecap = suiviRecapSelector.options[0].value;
-            sessionStorage.setItem('selectedSuiviRecap', selectedSuiviRecap);
-            suiviRecapSelector.value = selectedSuiviRecap;
-            filterRows();
-        }
-
-        // Filtrer les lignes lorsqu'on change la sélection
-        suiviRecapSelector.addEventListener("change", function() {
-            let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
-            if (oldSelectedOption) {
-                oldSelectedOption.removeAttribute("selected");
-            }
-            let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
-            if (newSelectedOption) {
-                newSelectedOption.setAttribute("selected", "");
-            }
-            filterRows();
+            // Filtrer les lignes lorsqu'on change la sélection
+            suiviRecapSelector.addEventListener("change", function() {
+                let oldSelectedOption = document.querySelector("#suiviRecapSelector option[selected]");
+                if (oldSelectedOption) {
+                    oldSelectedOption.removeAttribute("selected");
+                }
+                let newSelectedOption = document.querySelector("#suiviRecapSelector option:checked");
+                if (newSelectedOption) {
+                    newSelectedOption.setAttribute("selected", "");
+                }
+                filterRows();
+            });
         });
     });
 </script>

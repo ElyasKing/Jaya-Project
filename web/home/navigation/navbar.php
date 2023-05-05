@@ -30,13 +30,13 @@ require_once 'stylizer.php';
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/accountManager/accountManager_administrateur.php">Comptes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo $base_url; ?>/home/soutenances/administrateur.php">Soutenances</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/soutenances/admin/administrateur.php">Soutenances</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/schedule/schedule_administrateur.php">Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Suivi recap</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="<?php echo $base_url; ?>/applicationSettings.php">Paramètres</a>
@@ -45,7 +45,7 @@ require_once 'stylizer.php';
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <a class='nav-link active' href='#'><img id='notification-icon' src='<?php echo $base_url_style; ?>images/notification-icon2.svg' alt='logo_jaya'></a>
-          <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
+          <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
         </li>
       </ul>
       <?php } ?>
@@ -60,13 +60,13 @@ require_once 'stylizer.php';
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/schedule/schedule_responsableUE.php">Planning</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Suivi recap</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
         </li>
         </ul>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item">
             <a class='nav-link active' href='#'><img id='notification-icon' src="<?php echo $base_url_style; ?>images/notification-icon2.svg" alt='logo_jaya'></a>
-            <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
+            <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
           </li>
         </ul>
       <?php } ?>
@@ -88,7 +88,7 @@ require_once 'stylizer.php';
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item">
             <a class='nav-link active' href='#'><img id='notification-icon' src="<?php echo $base_url_style; ?>images/notification-icon2.svg" alt='logo_jaya'></a>
-            <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
+            <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
           </li>
         </ul>
       <?php } ?>
@@ -107,13 +107,13 @@ require_once 'stylizer.php';
         <a class="nav-link active" href="<?php echo $base_url; ?>schedule/schedule_tuteurUniversitaire.php">Planning</a>
       </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Suivi recap</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
         </li>
         </ul>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item">
             <a class='nav-link active' href='#'><img id='notification-icon' src='<?php echo $base_url_style; ?>images/notification-icon2.svg' alt='logo_jaya'></a>
-            <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
+            <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
           </li>
         </ul>
       <?php } ?>
@@ -128,7 +128,7 @@ require_once 'stylizer.php';
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item">
             <a class='nav-link active' href='#'><img id='notification-icon' src='<?php echo $base_url_style; ?>images/notification-icon2.svg' alt='logo_jaya'></a>
-            <a class='nav-link active' href='<?php echo $base_url; ?>/home/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
+            <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
           </li>
         </ul>
       <?php } ?>

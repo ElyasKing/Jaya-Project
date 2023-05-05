@@ -1,6 +1,6 @@
 <?php
-include("../application_config/db_class.php");
-include("../fonctions/functions.php");
+include("../../../application_config/db_class.php");
+include("../../../fonctions/functions.php");
 session_start();
 
 if (!isConnectedUser()) {
@@ -8,7 +8,7 @@ if (!isConnectedUser()) {
     header("Location: login.php");
 }
 
-$id = $ckeckPoster = $remarquePoster = $ckeckRapport = $remarqueRapport = $orthographe = $noteSuivi = "";
+$id = $ckeckPoster = $remarquePoster = $ckeckRapport = $remarqueRapport = $noteSuivi = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);die;
@@ -36,8 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else{
         $remarqueRapport = ''; 
     }
-
-    $orthographe = $_POST['orthographe'];
 
     if($_POST['noteSuivi']!=''){
         $noteSuivi = $_POST['noteSuivi']; 
@@ -72,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(empty($exists)){
         $query = "INSERT INTO notes_suivi(NoteFinaleTuteur_NF, noteFinaleUE_NF, Poster_NF, Remarque_NF, Rapport_NF, Appreciation_NF, Orthographe_NF, ID_Utilisateur) 
-            VALUES ($noteSuivi,$notePP,'$ckeckPoster','$remarquePoster','$ckeckRapport','$remarqueRapport',$orthographe,'$id')";
+            VALUES ($noteSuivi,$notePP,'$ckeckPoster','$remarquePoster','$ckeckRapport','$remarqueRapport',NULL,'$id')";
     }else{
         $query = "UPDATE notes_suivi SET NoteFinaleTuteur_NF=$noteSuivi, noteFinaleUE_NF=$notePP, Poster_NF='$ckeckPoster', Remarque_NF='$remarquePoster', 
-            Rapport_NF='$ckeckRapport', Appreciation_NF='$remarqueRapport', Orthographe_NF=$orthographe
+            Rapport_NF='$ckeckRapport', Appreciation_NF='$remarqueRapport'
             WHERE ID_Utilisateur=$id"; 
     }
     // var_dump($query); die;
@@ -84,5 +82,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     $_SESSION['success'] = 1;
-    header('Location: studentMonitoring_users.php');
+    header('Location: studentMonitoring_tuteurUniversitaire.php');
 }

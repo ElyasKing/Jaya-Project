@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../../../application_config/db_class.php");
+include("../application_config/db_class.php");
 
 $db = Database::connect();
 
@@ -88,7 +88,7 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
        
         // Authentification réussie, rediriger l'utilisateur vers l'accueil de l'application
         $_SESSION['success'] = 0;
-        header("Location: ../../index.php");
+        header("Location: ./index.php");
     } else {
         // Authentification échouée, mot de passe incorrect
         $_SESSION['success'] = 1;

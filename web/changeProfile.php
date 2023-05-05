@@ -19,7 +19,7 @@ if (!isConnectedUser()) {
 
 <body>
     <?php
-    include("./navbar.php");
+    include("./home/navigation/navbar.php");
     ?>
 
     <div class="container-fluid">
