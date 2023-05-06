@@ -1,10 +1,16 @@
 <?php
-include "../application_config/db_class.php";
+include("../application_config/db_class.php");
+include("../fonctions/functions.php");
+session_start();
+
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
 $conn = Database::connect();
 
 if (isset($_POST)) {
-
-    var_dump($_POST);
 
     $idEtudiant = $_POST['id'];
     $promo = $_POST['promo'];
@@ -13,7 +19,7 @@ if (isset($_POST)) {
     $huitclos = isset($_POST['huitClos']) ? "oui" : "non";
 
     // Mise à jour des informations liées à l'étudiant
-    $query = 'UPDATE utilisateur SET Promo_Utilisateur = "' . $promo . '", HuitClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $idEtudiant . '"';
+    $query = 'UPDATE utilisateur SET Promo_Utilisateur = "' . $promo . '", HuisClos_Utilisateur= "' . $huitclos . '" WHERE ID_Utilisateur = "' . $idEtudiant . '"';
     $result = $conn->query($query);
 
     // Mise à jour des informations liées au tuteur entreprise
@@ -28,9 +34,10 @@ if (isset($_POST)) {
         $query = "INSERT INTO est_apprenti (ID_Utilisateur, ID_Invite) VALUES ('" . $idEtudiant . "', '" . $idTE . "')";
         $result = $conn->query($query);
 
-
-        $query = "UPDATE `invite` SET `Entreprise_Invite` ='" . $entreprise . "', `Ville_Invite` ='" . $ville . "' WHERE `ID_Invite`='" . $idTE . "'";
-        $result = $conn->query($query);
+        //Utilisation d'une requete préparée pour la gestion des caractères spéciaux
+        $query = "UPDATE `invite` SET `Entreprise_Invite` = ?, `Ville_Invite` = ? WHERE `ID_Invite`=?";
+        $result = $conn->prepare($query);
+        $result->execute([$entreprise, $ville, $idTE]);
     }
 
 
@@ -43,7 +50,6 @@ if (isset($_POST)) {
     $query = "SELECT COUNT(ID_etudiant)  FROM `etudiant_tuteur` WHERE ID_etudiant='" . $idEtudiant . "'";
     $result = $conn->query($query)->fetch();
     $occurence = $result['COUNT(ID_etudiant)'];
-    echo $occurence;
 
     if ($occurence > 0) {
         $query = "UPDATE `etudiant_tuteur` SET `ID_tuteur`='" . $idTuteurUniversitaire . "' WHERE ID_Etudiant='" . $idEtudiant . "'";
@@ -54,4 +60,5 @@ if (isset($_POST)) {
     }
 }
 
+$_SESSION['success'] = 1;
 header('Location: index.php');

@@ -30,7 +30,7 @@ if ($result->rowCount() > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Comptes</h2>
     <hr>
     <br>
@@ -88,34 +88,37 @@ if ($result->rowCount() > 0) {
 
 <script>
     $(document).ready(function () {
-        $('#example').DataTable({
-            stateSave: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [[3, 'desc']],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
-        });
+        $(".bar").fadeOut(1000, function() {
+            $('#content').fadeIn();
+            $('#example').DataTable({
+                stateSave: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [[3, 'desc']],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
 
-        $('.btn-delete').click(function () {
-            var id = $(this).data('id');
-            var user = $(this).data('nomutilisateur');
-            if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
-                window.location.href = 'delete_user_habilitation.php?id=' + id;
-            }
-        });
+            $('.btn-delete').click(function () {
+                var id = $(this).data('id');
+                var user = $(this).data('nomutilisateur');
+                if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
+                    window.location.href = 'delete_user_habilitation.php?id=' + id;
+                }
+            });
 
-        $('#habilitation-filter').on('change', function() {
-            var selectedValue = $(this).val();
-            if(selectedValue !== '') {
-                $('.user-row').hide();
-                $('.user-row td:nth-child(' + (['Admin', 'ResponsableUE', 'Scolarite', 'TuteurUniversitaire', 'Etudiant'].indexOf(selectedValue) + 3) + ')').filter(function() {
-                    return $(this).text() === 'oui';
-                }).parent().show();
-            } else {
-                $('.user-row').show();
-            }
+            $('#habilitation-filter').on('change', function() {
+                var selectedValue = $(this).val();
+                if(selectedValue !== '') {
+                    $('.user-row').hide();
+                    $('.user-row td:nth-child(' + (['Admin', 'ResponsableUE', 'Scolarite', 'TuteurUniversitaire', 'Etudiant'].indexOf(selectedValue) + 3) + ')').filter(function() {
+                        return $(this).text() === 'oui';
+                    }).parent().show();
+                } else {
+                    $('.user-row').show();
+                }
+            });
         });
     });
 </script>

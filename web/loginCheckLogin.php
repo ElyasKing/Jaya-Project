@@ -1,11 +1,10 @@
 <?php
 session_start();
-
 include("../application_config/db_class.php");
 
-$conn = Database::connect();
+$db = Database::connect();
 
-$email = $password = 0;
+$email = $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
@@ -27,9 +26,9 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
                 FROM utilisateur A 
                 LEFT JOIN habilitations B ON A.ID_Utilisateur = B.ID_Utilisateur 
                 WHERE A.Mail_Utilisateur = '" . $email . "'";
-    $user = $conn->query($query)->fetch();
+    $user = $db->query($query)->fetch();
 
-    $conn = Database::disconnect();
+    $db = Database::disconnect();
 
     // Vérifier si l'utilisateur existe
     // Vérifier si le mot de passe est correct
@@ -88,14 +87,16 @@ if((isset($email) && !empty($email)) && (isset($password) && !empty($password)))
         }
        
         // Authentification réussie, rediriger l'utilisateur vers l'accueil de l'application
-        $_SESSION['flag'] = 0;
+        $_SESSION['success'] = 0;
         header("Location: index.php");
     } else {
         // Authentification échouée, mot de passe incorrect
-        $_SESSION['flag'] = 1;
+        $_SESSION['success'] = 1;
         header("Location: login.php");
     }
 }else{
-    // Aucune saisie. Ne rien faire.
+    // Authentification échouée, mot de passe incorrect
+    $_SESSION['success'] = 1;
+    header("Location: login.php");
 }
 ?>

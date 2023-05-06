@@ -21,7 +21,7 @@ session_start();
             include("./navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Vos habilitations</h2>
                 <hr>
                 <br>

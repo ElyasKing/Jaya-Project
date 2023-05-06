@@ -7,7 +7,7 @@ $sql = "SELECT
     u1.Nom_Utilisateur AS Nom_Etudiant,
     u1.Mail_Utilisateur AS Mail_Etudiant,
     u1.Promo_Utilisateur,
-    u1.HuitClos_Utilisateur,
+    u1.HuisClos_Utilisateur,
     u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
     u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire,
     i.Entreprise_Invite,
@@ -32,7 +32,7 @@ if ($result->rowCount() > 0) {
 ?>
 
 
-<div class="container-fluid space">
+<div class="container-fluid">
     <h2 class="center colored">Accueil</h2>
     <hr>
     <br>
@@ -50,7 +50,7 @@ if ($result->rowCount() > 0) {
                 <th>Email MA</th>
                 <th>Tuteur universitaire</th>
                 <th>Email TU</th>
-                <th>Huit clos</th>
+                <th>Huis clos</th>
                 <th style="display:none;">Roles</th>
             </tr>
         </thead>
@@ -67,7 +67,7 @@ if ($result->rowCount() > 0) {
                     <td class="text-center"><?php echo $user['Mail_Invite']; ?></td>
                     <td class="text-center"><?php echo $user['Nom_Tuteur_Universitaire']; ?></td>
                     <td class="text-center"><?php echo $user['Mail_Tuteur_Universitaire']; ?></td>
-                    <td class="text-center"><?php echo $user['HuitClos_Utilisateur']; ?></td>
+                    <td class="text-center"><?php echo $user['HuisClos_Utilisateur']; ?></td>
                     <td class="text-center" style="display:none;"><?php echo $user['Roles']; ?>
                 </tr>
             <?php } ?>
@@ -79,15 +79,17 @@ if ($result->rowCount() > 0) {
 
 <script>
     $(document).ready(function () {
-        var table = $('#example').DataTable({
-            stateSave: true,
-            language : {
-                url : "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
-            },
-            order: [[3, 'desc']],
-            dom: 'Blfrtip',
-            buttons: ['excel'],
+        $(".bar").fadeOut(1000, function(){
+            $('#content').fadeIn();
+            var table = $('#example').DataTable({
+                stateSave: true,
+                language : {
+                    url : "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                },
+                order: [[3, 'desc']],
+                dom: 'Blfrtip',
+                buttons: ['excel'],
+            });
         });
-
     });
 </script>

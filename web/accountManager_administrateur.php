@@ -3,24 +3,11 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-$success = $_SESSION['success'];
-switch ($success) {
-    case 1:
-        echo '<script>alert("Utilisateur modifié avec succès !");</script>';
-        break;
-    case 2:
-        echo '<script>alert("Utilisateur ajouté avec succès !");</script>';
-        break;
-    case 3:
-        echo '<script>alert("Utilisateur supprimé avec succès !");</script>';
-        break;
-    case 22:
-        echo '<script>alert("Cette adresse mail est déjà associée à un compte utilisateur.");</script>';
-        break;
-    default:
-        // rien
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
 }
-$_SESSION['success'] = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +16,7 @@ $_SESSION['success'] = 0;
 <head>
     <?php
     include("header.php");
-    $conn = Database::connect();
+    $db = Database::connect();
     ?>
 </head>
 
@@ -54,7 +41,7 @@ $_SESSION['success'] = 0;
                 FROM habilitations H 
                 JOIN utilisateur U ON U.Id_Utilisateur = H.Id_Utilisateur;";
 
-            $result = $conn->query($sql);
+            $result = $db->query($sql);
 
             $arr_users = [];
             if ($result->rowCount() > 0) {
@@ -62,20 +49,22 @@ $_SESSION['success'] = 0;
             }
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Comptes</h2>
                 <hr>
                 <br>
                 <br>
                 <div class="panel" id="panel">
-                    <select id='habilitation-filter' class='form-select' style='width: 25% !important; margin: -0.25% 0% 0% 21% !important; position: absolute !important; z-index: 1 !important;'>
-                        <option value="">Toutes les habilitations</option>
-                        <option value="Admin">Administrateur</option>
-                        <option value="ResponsableUE">Responsable d'UE</option>
-                        <option value="Scolarite">Scolarité</option>
-                        <option value="TuteurUniversitaire">Tuteur universitaire</option>
-                        <option value="Etudiant">Étudiant</option>
-                    </select>
+                    <div class="col-6 col-md-4 mx-auto">
+                        <select id='habilitation-filter' class='form-select'>
+                            <option value="">Toutes les habilitations</option>
+                            <option value="Admin">Administrateur</option>
+                            <option value="ResponsableUE">Responsable d'UE</option>
+                            <option value="Scolarite">Scolarité</option>
+                            <option value="TuteurUniversitaire">Tuteur universitaire</option>
+                            <option value="Etudiant">Étudiant</option>
+                        </select>
+                    </div>
                     <table id="example" class="display" style="width:100%">
                         <thead>
                             <tr class="bg">
@@ -102,23 +91,73 @@ $_SESSION['success'] = 0;
                                         <td class="text-center"><?= $user['Etudiant_Habilitations']; ?></td>
                                         <td>
                                             <a href="accountManagerUserUpdate_administrateur.php?id=<?= $user['Id_Utilisateur'] ?>">
-                                                <i class="bi bi-pencil-fill"></i>
+                                                <button type="button" class="btn bg bi bi-pencil-fill"></button>
                                             </a>
-                                            <button class="btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
+                                            <?php if ($user['Nom_Utilisateur'] != $_SESSION["user_name"]) { ?>
+                                                <button class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                                </button>
+                                            <?php }else { ?>
+                                               <button disabled class="btn red bi bi-trash-fill btn-delete" data-id="<?= $user['Id_Utilisateur'] ?>" data-nomutilisateur="<?= $user['Nom_Utilisateur'] ?>">
+                                               </button> 
+                                               <?php
+                                            } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
                         </tbody>
                     </table>
-                    <a href="accountManagerUserCreation_administrateur.php" class="btn btn-primary">Créer un compte</a>
+                    <br>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a type="button" href="accountManagerUserCreation_administrateur.php" class="btn me-md-3 btn-custom bg">Créer un compte</a>
+                    </div>
+                    
                 </div>
             </div>
-
+            <script src="../js/toastr.min.js"></script>
+            <script>
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            </script>
+            <?php
+            $success = $_SESSION['success'];
+            switch ($success) {
+                case 1:
+                    echo '<script>toastr.success("Utilisateur modifié avec succès !");</script>';
+                    break;
+                case 2:
+                    echo '<script>toastr.success("Utilisateur ajouté avec succès !");</script>';
+                    break;
+                case 3:
+                    echo '<script>toastr.success("Utilisateur supprimé avec succès !");</script>';
+                    break;
+                case 22:
+                    echo '<script>toastr.error("Cette adresse mail est déjà associée à un compte utilisateur.");</script>';
+                    break;
+                default:
+                    // rien
+            }
+            $_SESSION['success'] = 0;
+            ?>
             <script>
                 $(document).ready(function() {
+                    $(".bar").fadeOut(1000, function() {
+                        $('#content').fadeIn();
                     $('#example').DataTable({
                         stateSave: true,
                         language: {
@@ -127,8 +166,7 @@ $_SESSION['success'] = 0;
                         order: [
                             [3, 'desc']
                         ],
-                        dom: 'Blfrtip',
-                        buttons: ['excel'],
+                        dom: 'lfrtip'
                     });
 
                     $('.btn-delete').click(function() {
@@ -150,6 +188,7 @@ $_SESSION['success'] = 0;
                             $('.user-row').show();
                         }
                     });
+                });
                 });
             </script>
 

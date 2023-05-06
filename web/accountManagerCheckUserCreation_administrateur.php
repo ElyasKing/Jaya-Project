@@ -3,7 +3,12 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-$conn = Database::connect();
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
+$db = Database::connect();
 
 $administrateur = $responsableUE = $scolarite = $tuteurUniversitaire = $etudiant = $mail = $user = "";
 
@@ -21,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //verif doublon ?
     $query = "SELECT count(*) FROM utilisateur WHERE Mail_Utilisateur LIKE '$mail'";
-    $statement = $conn->query($query);
+    $statement = $db->query($query);
     $countUser = $statement->fetch();
 
     if ($countUser[0] > 0) {
@@ -30,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Insertion de l'utilisateur avec le mot de passe
         $query = "INSERT INTO utilisateur (Nom_Utilisateur, Mail_Utilisateur, MDP_Utilisateur) VALUES ('$user', '$mail', '$mdp')";
-        $conn->query($query);
-        $id_utilisateur = $conn->lastInsertId();
+        $db->query($query);
+        $id_utilisateur = $db->lastInsertId();
 
         // Insertion des habilitations
         $query = "INSERT INTO 
@@ -44,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Etudiant_Habilitations
         ) 
     VALUES ('$id_utilisateur', '$administrateur', '$responsableUE', '$scolarite', '$tuteurUniversitaire', '$etudiant')";
-        $conn->query($query);
+        $db->query($query);
 
         $_SESSION['success'] = 2;
         header('Location: accountManager_administrateur.php');

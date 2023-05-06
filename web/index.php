@@ -3,8 +3,13 @@ include("../application_config/db_class.php");
 include("../fonctions/functions.php");
 session_start();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  if(!empty($_POST['changeProfile'])){
+if(!isConnectedUser()){
+    $_SESSION['success'] = 2;
+    header("Location: login.php");
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!empty($_POST['changeProfile'])) {
     $_SESSION['active_profile'] = $_POST['changeProfile'];
   }
 }
@@ -28,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <div id="content">
       <?php
       include("navbar.php");
-      switch($_SESSION['active_profile']){
+      switch ($_SESSION['active_profile']) {
         case "ADMINISTRATEUR":  // Si profil detecté dans get_connectUser = administrateur
           include("index_administrateur.php");
           break;
@@ -55,3 +60,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 </body>
 
 </html>
+
+<script>sessionStorage.setItem('btnConfigureHidden', 'true');</script>

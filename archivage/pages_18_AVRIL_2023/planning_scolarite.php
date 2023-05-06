@@ -22,7 +22,7 @@ session_start();
             include("navbar.php");
             ?>
 
-            <div class="container-fluid space">
+            <div class="container-fluid">
                 <h2 class="center colored">Planning</h2>
                 <hr>
                 <br>
@@ -36,7 +36,7 @@ session_start();
                 u1.Mail_Utilisateur AS Mail_Etudiant,
                 u1.Annee_Utilisateur,
                 u1.Promo_Utilisateur,
-                u1.HuitClos_Utilisateur,
+                u1.HuisClos_Utilisateur,
                 u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
                 u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire,
                 i.Entreprise_Invite,
@@ -97,7 +97,7 @@ session_start();
                                 <th>Entreprise</th>
                                 <th>Ville</th>
                                 <th>Promo</th>
-                                <th>Huit clos</th>
+                                <th>Huis clos</th>
                                 <th>Date de la session de soutenance</th>
                                 <th>Horaires de la session de soutenance</th>
                                 <th></th>
@@ -113,7 +113,7 @@ session_start();
                                         <td class='text-center'>". $user['Entreprise_Invite'] ."</td>
                                         <td class='text-center'>". $user['Ville_Invite'] ."</td>
                                         <td class='text-center'>". $user['Promo_Utilisateur'] ."</td>
-                                        <td class='text-center'>". $user['HuitClos_Utilisateur'] ."</td>
+                                        <td class='text-center'>". $user['HuisClos_Utilisateur'] ."</td>
                                         <td></td>
                                         <td></td>
                                         <td><a href='#id=". $user['ID_Etudiant'] ."'><i class='bi bi-pencil-fill'></i></a></td>
@@ -125,7 +125,7 @@ session_start();
                                         <td class='text-center'>". $user['Entreprise_Invite'] ."</td>
                                         <td class='text-center'>". $user['Ville_Invite'] ."</td>
                                         <td class='text-center'>". $user['Promo_Utilisateur'] ."</td>
-                                        <td class='text-center'>". $user['HuitClos_Utilisateur'] ."</td>
+                                        <td class='text-center'>". $user['HuisClos_Utilisateur'] ."</td>
                                         <td></td>
                                         <td></td>
                                         <td><a href='#id=". $user['ID_Etudiant'] ."'><i class='bi bi-pencil-fill'></i></a></td>
