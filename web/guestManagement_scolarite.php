@@ -1,6 +1,6 @@
 <?php
 include("../application_config/db_class.php");
-include("../fonctions/functions.php");
+require("./../fonctions/functions.php");
 session_start();
 
 if (!isConnectedUser()) {
@@ -88,7 +88,12 @@ if ($result->rowCount() > 0) {
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="button" class="btn me-md-3 bg btn-custom">Générer QR code</button>
-                <button type="button" id="btn-importer-admin" class="btn me-md-3 bg btn-custom">Importer</button>
+                <form id="form" method="post" action="import_invite.php" enctype="multipart/form-data">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <input type="file" name="file" id="file_import" onchange="myFunction()" hidden>
+                        <label for="file_import" class="btn me-md-3 bg btn-custom">Importer</label>
+                    </div>
+                </form>
                 <a type="button" href="guestManagementFormCreation_scolarite.php" class="btn me-md-3 bg btn-custom">Ajouter un invité</a>
             </div>
         </div>
@@ -96,6 +101,14 @@ if ($result->rowCount() > 0) {
 </body>
 
 </html>
+
+
+<script>
+    function myFunction() {
+        document.getElementById('form').submit();
+
+    }
+</script>
 <script>
     $(document).ready(function() {
         $(".bar").fadeOut(1000, function() {
@@ -135,10 +148,22 @@ switch ($success) {
     case 3:
         echo '<script>toastr.success("Invité ajouté avec succès !");</script>';
         break;
+    case 4:
+        echo '<script>toastr.success("Import réalisé avec succès");</script>';
+        break;
     default:
         // rien
 }
 $_SESSION['success'] = 0;
+
+if (isset($_SESSION['error']) && $_SESSION['error'] == 1) {
+    $success = $_SESSION['error'];
+
+    if ($success == 1) {
+        echo "<script>toastr.error(\"Veuillez selectionner un fichier CSV ou Excel\");</script>";
+    }
+    $_SESSION['error'] = 0;
+}
 ?>
 <script>
     $(document).ready(function() {
