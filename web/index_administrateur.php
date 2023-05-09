@@ -1,5 +1,7 @@
 <?php
-if(!isConnectedUser()){
+
+
+if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
     header("Location: login.php");
 }
@@ -41,7 +43,7 @@ if ($result->rowCount() > 0) {
             </thead>
             <tbody>
                 <?php if (!empty($arr_users)) { ?>
-                    <?php foreach ($arr_users as $user) {?>
+                    <?php foreach ($arr_users as $user) { ?>
                         <tr <?php if (
                                 empty($user['Promo_Utilisateur']) || empty($user['Entreprise_Invite']) ||
                                 empty($user['Ville_Invite']) || empty($user['Nom_Invite']) || empty($user['Mail_Invite']) ||  empty($user['Nom_Tuteur_Universitaire']) ||
@@ -50,14 +52,14 @@ if ($result->rowCount() > 0) {
                                 echo 'class="tr-bgColor"';
                             } ?>>
                             <td class="text-center"><?= $user['Nom_Etudiant']; ?></td>
-                            <td class="text-center"><abbr title="<?= $user['Mail_Etudiant']; ?>"><?= shortString($user['Mail_Etudiant'],10); ?></abbr></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Etudiant']; ?>"><?= shortString($user['Mail_Etudiant'], 10); ?></abbr></td>
                             <td class="text-center"><?= $user['Promo_Utilisateur']; ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Entreprise_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Ville_Invite']); ?></td>
                             <td class="text-center"><?= lineFeedWithSeparator($user['Nom_Invite']); ?></td>
-                            <td class="text-center"><abbr title="<?= $user['Mail_Invite']; ?>"><?= shortString(lineFeedWithSeparator($user['Mail_Invite']),10); ?></abbr></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Invite']; ?>"><?= shortString(lineFeedWithSeparator($user['Mail_Invite']), 10); ?></abbr></td>
                             <td class="text-center"><?= $user['Nom_Tuteur_Universitaire']; ?></td>
-                            <td class="text-center"><abbr title="<?= $user['Mail_Tuteur_Universitaire']; ?>"><?= shortString($user['Mail_Tuteur_Universitaire'],10); ?></abbr></td>
+                            <td class="text-center"><abbr title="<?= $user['Mail_Tuteur_Universitaire']; ?>"><?= shortString($user['Mail_Tuteur_Universitaire'], 10); ?></abbr></td>
                             <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
                             <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
@@ -69,42 +71,66 @@ if ($result->rowCount() > 0) {
     </div>
 </div>
 <br>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" id="btn-importer-admin" class="btn me-md-3 bg btn-custom">Importer</button>
-</div>
+<form id="form" method="post" action="import_administrateur.php" enctype="multipart/form-data">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <input type="file" name="file" id="file_import" onchange="myFunction()" hidden>
+        <label for="file_import" class="btn me-md-3 bg btn-custom">Importer</label>
+    </div>
+</form>
+
+<script>
+    function myFunction() {
+        document.getElementById('form').submit();
+
+    }
+</script>
 <script src="../js/toastr.min.js"></script>
 <script>
-	toastr.options = {
-		"closeButton": true,
-		"debug": false,
-		"newestOnTop": false,
-		"progressBar": true,
-		"positionClass": "toast-top-center",
-		"preventDuplicates": false,
-		"onclick": null,
-		"showDuration": "300",
-		"hideDuration": "1000",
-		"timeOut": "7000",
-		"extendedTimeOut": "1000",
-		"showEasing": "swing",
-		"hideEasing": "linear",
-		"showMethod": "fadeIn",
-		"hideMethod": "fadeOut"
-	}
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 </script>
 <?php
-if (isset($_SESSION['success']) && $_SESSION['success'] == 1) {
-	$success = $_SESSION['success'];
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
 
-	if ($success == 1) {
-		echo "<script>toastr.success(\"Utilisateur modifié avec succès !\");</script>";
-	}
-	$_SESSION['success'] = 0;
+    if ($success == 1) {
+        echo "<script>toastr.success(\"Utilisateur modifié avec succès !\");</script>";
+    }
+    if ($success == 2) {
+        echo "<script>toastr.success(\"Import réalisé avec succès\");</script>";
+    }
+    $_SESSION['success'] = 0;
 }
+
+if (isset($_SESSION['error']) && $_SESSION['error'] == 1) {
+    $success = $_SESSION['error'];
+
+    if ($success == 1) {
+        echo "<script>toastr.error(\"Veuillez selectionner un fichier CSV ou Excel\");</script>";
+    }
+    $_SESSION['error'] = 0;
+}
+
+
 ?>
 <script>
     $(document).ready(function() {
-        $(".bar").fadeOut(1000, function(){
+        $(".bar").fadeOut(1000, function() {
             $('#content').fadeIn();
             var table = $('#example').DataTable({
                 stateSave: true,
