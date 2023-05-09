@@ -22,6 +22,6 @@ if (isset($_GET['id'])) {
 
   $_SESSION['success'] = 3;
   // Redirige vers la page contenant la liste des utilisateurs
-  header("Location: accountManager_administrateur.php");
+  header("Location: ../accountManager_administrateur.php");
 }
 ?>

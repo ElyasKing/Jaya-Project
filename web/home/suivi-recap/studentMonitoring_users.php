@@ -133,13 +133,17 @@ if (!isConnectedUser()) {
                         ?> 
                         <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
                         </form>
-                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                        <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                            <button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button>
+                        <!-- </a> -->
                     <?php
                     }else{
                         ?> 
                         <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
                         </form>
-                        <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'><button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button></a>
+                        <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                            <button id="btn-cacher-scolarite" class="btn me-md-3 btn-custom bg">Cacher les notes</button>
+                        <!-- </a> -->
                     <?php
                     }
                 ?>
@@ -150,7 +154,7 @@ if (!isConnectedUser()) {
 </body>
 
 </html>
-<script src="../js/toastr.min.js"></script>
+<script src="../../../js/toastr.min.js"></script>
 <script>
     toastr.options = {
         "closeButton": true,
@@ -169,6 +173,7 @@ if (!isConnectedUser()) {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+
 </script>
 <?php
 $success = $_SESSION['success'];
@@ -263,5 +268,61 @@ $_SESSION['success'] = 0;
                 filterRows();
             });
         });
+
+
+        const form = document.querySelector('#monitoring-validation-form');
+        const btnValider = document.querySelector('#btn-valider-scolarite');
+
+        if (btnValider) {
+
+            btnValider.addEventListener('click', function () {
+                if (confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")) {
+
+                    const data = new FormData(form);
+                    fetch('http://127.0.0.1/JAYA/JAYA/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
+                        method: 'POST',
+                        body: data
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.success) {
+                                toastr.success(data.message);
+
+                                location.reload();
+                            } else {
+                                toastr.error(data.message);
+                            }
+                        });
+                }
+            });
+        }
+
+        const btnCacher = document.querySelector('#btn-cacher-scolarite');
+
+        if (btnCacher) {
+
+            btnCacher.addEventListener('click', function() {
+                if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")) {
+
+                    const data = new FormData(form);
+                    fetch('http://127.0.0.1/JAYA/JAYA/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
+                        method: 'POST',
+                        body: data
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if(data.success) {
+                                toastr.success(data.message);
+
+                                location.reload();
+                            } else {
+                                toastr.error(data.message);
+                            }
+                        });
+                }
+            });
+        }
     });
 </script>

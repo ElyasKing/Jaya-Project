@@ -1,6 +1,7 @@
 <?php
 include "../../../../application_config/db_class.php";
 include "../../../../fonctions/functions.php";
+
 session_start();
 
 if(!isConnectedUser()){
@@ -29,9 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement = $db->query($query);
     $countUser = $statement->fetch();
 
+    $html = file_get_contents('../../../../fonctions/email_models/account_created.html');
+    $search = array('{{email}}', '{{mdp}}', '{{identifiant}}');
+    $replace = array($mail, $mdp, $user);
+    $html = str_replace($search, $replace, $html);
+    $subject = $user." vos identifiants sont là!";
+
     if ($countUser[0] > 0) {
         $_SESSION['success'] = 22;
-        header('Location: accountManager_administrateur.php');
+        header('Location: ../accountManager_administrateur.php');
     } else {
         // Insertion de l'utilisateur avec le mot de passe
         $query = "INSERT INTO utilisateur (Nom_Utilisateur, Mail_Utilisateur, MDP_Utilisateur) VALUES ('$user', '$mail', '$mdp')";
@@ -52,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $db->query($query);
 
         $_SESSION['success'] = 2;
-        header('Location: accountManager_administrateur.php');
+        send_email($mail, $subject, $html);
+        header('Location: ../accountManager_administrateur.php');
     }
 }

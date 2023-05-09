@@ -14,7 +14,7 @@ if(!isConnectedUser()){
 
 <head>
     <?php
-    include("../navigation/header.php");
+    include("../../navigation/header.php");
     ?>
 </head>
 
@@ -25,7 +25,7 @@ if(!isConnectedUser()){
         </div>
         <div id="content">
             <?php
-            include('../navigation/navbar.php');
+            include('../../navigation/navbar.php');
             ?>
             <div class="container">
                 <br>

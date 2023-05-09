@@ -41,5 +41,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $_SESSION['success'] = 1;
 
-    header('Location: accountManager_administrateur.php');
+    header('Location: ../accountManager_administrateur.php');
 }

@@ -173,7 +173,7 @@ if(!isConnectedUser()){
                         var id = $(this).data('id');
                         var user = $(this).data('nomutilisateur');
                         if (confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur "' + user + '" ?')) {
-                            window.location.href = 'accountManagerCheckUserDeletion_administrateur.php?id=' + id;
+                            window.location.href = 'admin/accountManagerCheckUserDeletion_administrateur.php?id=' + id;
                         }
                     });
 

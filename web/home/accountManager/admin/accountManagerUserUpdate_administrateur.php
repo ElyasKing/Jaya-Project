@@ -14,7 +14,7 @@ if(!isConnectedUser()){
 
 <head>
     <?php
-    include("../navigation/header.php");
+    include("../../navigation/header.php");
     $db = Database::connect();
     ?>
 </head>
@@ -26,7 +26,7 @@ if(!isConnectedUser()){
         </div>
         <div id="content">
             <?php
-            include('../navigation/navbar.php');
+            include('../../navigation/navbar.php');
 
             $id = $_GET['id'];
             $query = getAccountInformationsById($id);

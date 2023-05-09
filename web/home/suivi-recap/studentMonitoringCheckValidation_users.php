@@ -5,7 +5,9 @@ session_start();
 
 if(!isConnectedUser()){
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+
+    header('Content-Type: application/json; charset=utf-8');
+    echo returnDataWithMessage(false, 401, "KO");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {    
@@ -21,7 +23,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "UPDATE decisions SET Validation_NF = 'non'";
     }
     $db->query($query);
-    
+
+
+    $query2 = getStudentEmail();
+    $statement = $db->query($query2);
+    $result = $statement->fetchAll(PDO::FETCH_COLUMN);
+
+    $to_email = implode(', ', $result);
+    $to_emails = $to_email;
+
     $_SESSION['success'] = 1;
-    header('Location: studentMonitoring_users.php');   
+    foreach ($result as $to_email) {
+        send_email($to_email, "Note validées", "Les notes sont accessibles.");
+    }
+
+    header('Content-Type: application/json; charset=utf-8');
+    echo returnDataWithMessage(true, 200, "OK");
 }
+
+?>
