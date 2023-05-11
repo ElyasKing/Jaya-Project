@@ -1,6 +1,6 @@
 <?php
-include("../application_config/db_class.php");
-include("../fonctions/functions.php");
+include("../../../application_config/db_class.php");
+include("../../../fonctions/functions.php");
 session_start();
 
 if(!isConnectedUser()){
@@ -14,7 +14,7 @@ if(!isConnectedUser()){
 
 <head>
     <?php
-    include("home/navigation/header.php");
+    include("../navigation/header.php");
     ?>
 </head>
 
@@ -25,7 +25,7 @@ if(!isConnectedUser()){
         </div>
         <div id="content">
             <?php
-            include("home/navigation/navbar.php");
+            include("../navigation/navbar.php");
 
             $db = Database::connect();
 
@@ -57,7 +57,7 @@ if(!isConnectedUser()){
                     </div>
                     <br>
                     <div id="divPF">
-                        <form action="home/applicationSettings/applicationSettingsCheckFixedSettingsUpdate.php" method="post">
+                        <form action="applicationSettingsCheckFixedSettingsUpdate.php" method="post">
                             <?php
                             $numberOfCols = 0;
                             echo '
@@ -165,13 +165,13 @@ if(!isConnectedUser()){
         </div>
         <br>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="home/applicationSettings/applicationSettingsDynamicsSettingsCreation.php" class="btn me-lg-3 bg btn-custom">Ajouter un critère</a>
+            <a href="applicationSettingsDynamicsSettingsCreation.php" class="btn me-lg-3 bg btn-custom">Ajouter un critère</a>
         </div>
     </div>
 </body>
 
 </html>
-<script src="../js/toastr.min.js"></script>
+<script src="../../../js/toastr.min.js"></script>
 <script>
 	toastr.options = {
 		"closeButton": true,

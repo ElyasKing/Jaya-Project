@@ -84,7 +84,7 @@ if(!isConnectedUser()){
                             </div>
                             <div class="text-center">
                                 <button class="btn me-md-3 bg" type="submit">Modifier</button>
-                                <a type="button" href="../../applicationSettings.php" class="btn me-md-3 bg">Retour</a>
+                                <a type="button" href="applicationSettings.php" class="btn me-md-3 bg">Retour</a>
                             </div>
                         </div>
                     </div>

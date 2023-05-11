@@ -477,10 +477,10 @@ function getStudentMonitoringForTuteurUniversitaire($tuteurUniversitaire){
 
 //envoyer un email
 function send_email($to_email, $subject, $body) {
-    require_once "PHPMailer/PHPMailer.php";
-    require_once "PHPMailer/SMTP.php";
+    require_once 'phpmailer/PHPMailer.php';
+    require_once 'phpmailer/SMTP.php';
 
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    $mail = new \PHPMailer\PHPMailer\PHPMailer();
     $mail->IsSMTP();
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = 'ssl';

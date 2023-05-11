@@ -1,6 +1,9 @@
 <?php
 require_once 'stylizer.php';
+
+if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Flo ou Elias doit refacto cette partie
 ?>
+
 
 <nav class="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -11,6 +14,7 @@ require_once 'stylizer.php';
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="<?php echo $base_url; ?>/index.php"><img src="<?php echo $base_url_style; ?>images/JAYA-LOGO2.png" alt="logo_jaya"
                                                       width="180"></a>
+
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if ($_SESSION['active_profile'] == "ADMINISTRATEUR") { ?>
@@ -30,7 +34,7 @@ require_once 'stylizer.php';
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo $base_url; ?>/applicationSettings.php">Paramètres</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/applicationSettings/applicationSettings.php">Paramètres</a>
         </li>
       </ul>
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
@@ -95,7 +99,7 @@ require_once 'stylizer.php';
         <a class="nav-link active" href="<?php echo $base_url; ?>/home/soutenances/tuteurU/tuteurUniversitaire.php">Soutenances</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?php echo $base_url; ?>schedule/schedule_tuteurUniversitaire.php">Planning</a>
+        <a class="nav-link active" href="<?php echo $base_url; ?>/home/schedule/schedule_tuteurUniversitaire.php">Planning</a>
       </li>
         <li class="nav-item">
           <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
@@ -169,3 +173,12 @@ if (strpos($chaine, $souchaine)) {
     </div>
   </div>
 </nav>
+
+<?php } else { ?>
+  <nav class="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
+    <a class="navbar-brand" href="<?php echo $base_url; ?>/index.php">
+      <img src="<?php echo $base_url_style; ?>images/JAYA-LOGO2.png" alt="logo_jaya" width="180">
+    </a>
+  </nav>
+
+<?php } ?>

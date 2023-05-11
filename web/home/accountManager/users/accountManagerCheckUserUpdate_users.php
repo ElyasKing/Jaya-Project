@@ -28,6 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $db->query($query);
 
         $_SESSION['success'] = 1;
-        header('Location: accountManager_users.php');
+        header('Location: ../accountManager_users.php');
     }
 }

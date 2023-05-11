@@ -59,7 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $db->query($query);
 
         $_SESSION['success'] = 2;
-        send_email($mail, $subject, $html);
-        header('Location: ../accountManager_administrateur.php');
+        //send_email($mail, $subject, $html);
+        echo "envoi en cours";
+        send_email('flo80500@hotmail.fr', $subject, $html);
+        echo "envoyé";
+        //header('Location: ../accountManager_administrateur.php');
     }
 }
