@@ -1,6 +1,6 @@
 <?php
-include("../../../application_config/db_class.php");
-include("../../../fonctions/functions.php");
+include("../../../../application_config/db_class.php");
+include("../../../../fonctions/functions.php");
 session_start();
 
 if(!isConnectedUser()){
@@ -12,7 +12,7 @@ $db = Database::connect();
 
 
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-$query = getStudentForOral($_SESSION['user_id']);
+$query = getStudentForOral($_SESSION['user_id'],$_SESSION['active_profile']);
 $listEtud = $db->query($query)->fetchAll();
 
 // Requête SQL pour récupérer les informations des paramètres qui sont des notes
@@ -55,9 +55,6 @@ $nomEtudiant = $db->query($query)->fetchColumn();
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
         <?php include('../../navigation/navbar.php'); ?>
         <div class="container">
             <br><br>

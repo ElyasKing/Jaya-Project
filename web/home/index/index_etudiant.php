@@ -84,7 +84,7 @@ if ($result->rowCount() > 0) {
 
 <html>
 <div class="container-fluid">
-    <h2 class="center colored">Accueil</h2>
+    <h2 class="center margin-title colored">Accueil</h2>
     <hr>
     <br>
     <div class="container">

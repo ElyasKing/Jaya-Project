@@ -3,9 +3,11 @@ include("../../../../application_config/db_class.php");
 include("../../../../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
-    $_SESSION['success'] = 2;
-    header("Location: login.php");
+if($_SESSION['active_profile'] <> "INVITE") {
+    if (!isConnectedUser()) {
+        $_SESSION['success'] = 2;
+        header("Location: login.php");
+    }
 }
 
 $db = Database::connect();
@@ -54,9 +56,6 @@ $nomEtudiant = $db->query($query)->fetchColumn();
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
         <?php include('../../navigation/navbar.php'); ?>
         <div class="container">
             <br><br>

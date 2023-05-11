@@ -46,7 +46,7 @@ if(!isConnectedUser()){
 
             ?>
             <div class="container-fluid">
-                <h2 class="center colored">Paramètres</h2>
+                <h2 class="center margin-title colored">Paramètres</h2>
                 <hr>
                 <br>
                 <br>

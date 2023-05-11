@@ -140,7 +140,7 @@ if (!isConnectedUser()) {
 
 
             <div class="container-fluid">
-                <h2 class="center colored">Soutenances</h2>
+                <h2 class="center margin-title colored">Soutenances</h2>
                 <hr>
                 <br>
                 <br>

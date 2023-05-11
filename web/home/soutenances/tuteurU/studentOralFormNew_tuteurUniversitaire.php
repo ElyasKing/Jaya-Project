@@ -46,9 +46,6 @@ $conn = Database::disconnect();
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
         <?php include('../../navigation/navbar.php'); ?>
         <div class="container">
             <br><br>

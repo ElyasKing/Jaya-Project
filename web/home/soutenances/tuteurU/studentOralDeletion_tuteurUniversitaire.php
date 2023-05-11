@@ -3,9 +3,11 @@ include("../../../../application_config/db_class.php");
 include("../../../../fonctions/functions.php");
 session_start();
 
-if(!isConnectedUser()){
-    $_SESSION['success'] = 2;
-    header("Location: login.php");
+if($_SESSION['active_profile'] <> "INVITE") {
+    if (!isConnectedUser()) {
+        $_SESSION['success'] = 2;
+        header("Location: login.php");
+    }
 }
 
 $db = Database::connect();
@@ -21,6 +23,11 @@ if (isset($_GET['id'])) {
   $db = Database::disconnect();
 
   $_SESSION['success'] = 3;
+
+    if($_SESSION['active_profile'] == "INVITE") {
+        header("Location:" . $_SESSION['session_url']);
+    }
+
   // Redirige vers la page contenant la liste des utilisateurs
   header("Location: tuteurUniversitaire.php");
 }

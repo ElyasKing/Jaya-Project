@@ -28,10 +28,6 @@ $statement = $db->query($sql);
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
-        <div id="content">
             <?php
             include('../navigation/navbar.php');
 
@@ -106,9 +102,7 @@ $statement = $db->query($sql);
                 }
                 ?>
             </div>
-
         </div>
-    </div>
 </body>
 
 </html>

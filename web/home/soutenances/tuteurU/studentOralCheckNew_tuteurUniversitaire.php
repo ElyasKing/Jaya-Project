@@ -10,6 +10,7 @@ if($_SESSION['active_profile'] <> "INVITE") {
     }
 }
 
+
 $db = Database::connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -74,4 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $db = Database::disconnect();
 
 $_SESSION['success'] = 1;
+
+if($_SESSION['active_profile'] == "INVITE") {
+    header("Location:" . $_SESSION['session_url']);
+}
+
 header("Location: tuteurUniversitaire.php");

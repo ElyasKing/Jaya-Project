@@ -50,7 +50,7 @@ if(!isConnectedUser()){
             ?>
 
             <div class="container-fluid">
-                <h2 class="center colored">Comptes</h2>
+                <h2 class="center margin-title colored">Comptes</h2>
                 <hr>
                 <br>
                 <br>

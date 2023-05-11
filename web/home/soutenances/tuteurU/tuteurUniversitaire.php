@@ -5,15 +5,20 @@ session_start();
 
 
 
-
-
-if($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE"){
-    $_SESSION['user_name'] = $_GET['nom'];
-    $_SESSION['entreprise'] =  $_GET['entreprise'];
-    $_SESSION['user_id'] = $_GET['id'];
-    $_SESSION['change_profile_access'] = 6;
-    $_SESSION['active_profile'] = "INVITE";
+if(!isset($_SESSION['active_profile'])) {
+    $_SESSION['session_url']="";
+    $_SESSION['active_profile'] = "";
 }
+    if ($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE" && $_SESSION['session_url'] == "") {
+        $_SESSION['user_name'] = $_GET['nom'];
+        $_SESSION['entreprise'] = $_GET['entreprise'];
+        $_SESSION['user_id'] = $_GET['id'];
+        $_SESSION['change_profile_access'] = 6;
+        $_SESSION['active_profile'] = "INVITE";
+        //$_SERVER['REQUEST_URI'] = "http://localhost/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php?id=".$_SESSION['user_id']."&nom=".$_SESSION['user_name']."&entreprise=".$_SESSION['entreprise']."";
+        $_SESSION['session_url'] = $_SERVER['REQUEST_URI'];
+    }
+
 
 
 if($_SESSION['active_profile'] <> "INVITE") {
@@ -73,7 +78,7 @@ $isoral = isTimeForOral();
             ?>
 
             <div class="container-fluid space">
-                <h2 class="center colored">Soutenances</h2>
+                <h2 class="center margin-title colored">Soutenances</h2>
                 <hr>
                 <?php if ($_SESSION['active_profile'] == "INVITE") { ?>
                 <p>Bienvenue <?php echo $_SESSION['user_name']." de ".$_SESSION['entreprise']; ?></p>
@@ -144,21 +149,23 @@ $isoral = isTimeForOral();
                 }
             </script>
             <?php
-            $success = $_SESSION['success'];
-            switch ($success) {
-                case 1:
-                    echo '<script>toastr.success("Note ajoutée avec succès !");</script>';
-                    break;
-                case 2:
-                    echo '<script>toastr.success("Note modifée avec succès !");</script>';
-                    break;
-                case 3:
-                    echo '<script>toastr.success("Note supprimée avec succès !");</script>';
-                    break;
-                default:
-                    // rien
+            if(isset($_SESSION['success'])) {
+                $success = $_SESSION['success'];
+                switch ($success) {
+                    case 1:
+                        echo '<script>toastr.success("Note ajoutée avec succès !");</script>';
+                        break;
+                    case 2:
+                        echo '<script>toastr.success("Note modifée avec succès !");</script>';
+                        break;
+                    case 3:
+                        echo '<script>toastr.success("Note supprimée avec succès !");</script>';
+                        break;
+                    default:
+                        // rien
+                }
+                $_SESSION['success'] = 0;
             }
-            $_SESSION['success'] = 0;
             ?>
             <script>
                 $(document).ready(function() {

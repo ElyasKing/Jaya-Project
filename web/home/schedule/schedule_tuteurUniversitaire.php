@@ -30,7 +30,7 @@ if (!isConnectedUser()) {
             ?>
 
             <div class="container-fluid">
-                <h2 class="center colored">Planning</h2>
+                <h2 class="center margin-title colored">Planning</h2>
                 <hr>
                 <br>
                 <br>

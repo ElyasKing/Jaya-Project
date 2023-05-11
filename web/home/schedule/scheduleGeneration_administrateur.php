@@ -11,11 +11,11 @@
    $db = Database::connect();
 
    //recup la valeur du paramètre fixe "nb d'étudiant par session de soutenances"
-    $query = "SELECT Nom_param, Description_param FROM parametres WHERE NbPoint_param IS NULL";
+    $query = "SELECT ID_param, Nom_param, Description_param FROM parametres WHERE NbPoint_param IS NULL";
     $statement = $db->query($query);
 
     while ($row = $statement->fetch()){
-        if($row['Nom_param'] == "Nombre d'étudiants par session de soutenances"){
+        if($row['ID_param'] == "3"){
             $nbStudentIntoSession = $row['Description_param'];
         }
     }

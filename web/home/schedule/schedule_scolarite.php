@@ -30,7 +30,7 @@ if (!isConnectedUser()) {
             ?>
 
             <div class="container-fluid">
-                <h2 class="center colored">Planning</h2>
+                <h2 class="center margin-title colored">Planning</h2>
                 <hr>
                 <br>
                 <br>
@@ -155,7 +155,7 @@ if (!isConnectedUser()) {
                         </thead>
                         <tbody>
                             <?php
-                            $query = 'SELECT Description_param FROM parametres WHERE Nom_param = "Durée d\'une session de soutenances"';
+                            $query = 'SELECT Description_param FROM parametres WHERE ID_param = "3"';
                             $statement = $db->query($query);
                             $time = $statement->fetch();
 

@@ -43,7 +43,7 @@ if ($result->rowCount() > 0) {
             include('../navigation/navbar.php');
             ?>
             <div class="container-fluid">
-                <h2 class="center colored">Invité</h2>
+                <h2 class="center margin-title colored">Invité</h2>
                 <hr>
                 <br>
                 <br>

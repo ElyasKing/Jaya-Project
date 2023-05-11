@@ -29,7 +29,7 @@ if(!isConnectedUser()){
             include('../navigation/navbar.php');
             ?>
             <div class="container-fluid">
-                <h2 class="center colored">Compte</h2>
+                <h2 class="center margin-title colored">Compte</h2>
                 <hr>
                 <br>
                 <br>

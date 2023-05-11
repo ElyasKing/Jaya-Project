@@ -12,8 +12,13 @@ if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Fl
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <?php if ($_SESSION['active_profile'] <> "INVITE") { ?>
       <a class="navbar-brand" href="<?php echo $base_url; ?>/index.php"><img src="<?php echo $base_url_style; ?>images/JAYA-LOGO2.png" alt="logo_jaya"
                                                       width="180"></a>
+      <?php } else { ?>
+      <a class="navbar-brand"><img src="<?php echo $base_url_style; ?>images/JAYA-LOGO2.png" alt="logo_jaya"
+                                                      width="180"></a>
+      <?php } ?>
 
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -102,7 +107,7 @@ if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Fl
         <a class="nav-link active" href="<?php echo $base_url; ?>/home/schedule/schedule_tuteurUniversitaire.php">Planning</a>
       </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_users.php">Suivi recap</a>
+          <a class="nav-link active" href="<?php echo $base_url; ?>/home/suivi-recap/studentMonitoring_tuteurUniversitaire.php">Suivi recap</a>
         </li>
         </ul>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
@@ -131,7 +136,7 @@ if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Fl
         </ul>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class='nav-link active' href='#'><img id='notification-icon' src="<?php echo $base_url_style; ?>images/notification-icon2.svg" alt='logo_jaya'></a>
+            <a class='nav-link active' href='<?php echo $base_url; ?>/logout.php'><img id='logout-icon' src='<?php echo $base_url_style; ?>images/logout-icon2.svg' alt='logout-icon'></a>
           </li>
         </ul>
       <?php } ?>
@@ -172,6 +177,7 @@ if (strpos($chaine, $souchaine)) {
       </ul>
     </div>
   </div>
+  <br>
 </nav>
 
 <?php } else { ?>
@@ -179,6 +185,8 @@ if (strpos($chaine, $souchaine)) {
     <a class="navbar-brand" href="<?php echo $base_url; ?>/index.php">
       <img src="<?php echo $base_url_style; ?>images/JAYA-LOGO2.png" alt="logo_jaya" width="180">
     </a>
+    <br>
   </nav>
 
 <?php } ?>
+

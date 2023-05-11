@@ -19,7 +19,7 @@ if ($result->rowCount() > 0) {
 
 
 <div class="container-fluid">
-    <h2 class="center colored">Accueil</h2>
+    <h2 class="center margin-title colored">Accueil</h2>
     <hr>
     <br>
     <br>
