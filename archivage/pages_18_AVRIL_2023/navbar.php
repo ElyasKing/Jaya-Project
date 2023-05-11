@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="index.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
+      <a class="navbar-brand" href="index.php"><img src="<?php echo $base_url; ?>images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if($_SESSION['active_profile'] == "ADMINISTRATEUR"){ ?>
         <li class="nav-item">
@@ -30,7 +30,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='<?php echo $base_url; ?>images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -53,7 +53,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='<?php echo $base_url; ?>images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -76,7 +76,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='<?php echo $base_url; ?>images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -102,7 +102,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='<?php echo $base_url; ?>images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>
@@ -125,7 +125,7 @@
       <ul class="navbar-nav me-0 mb-2 mb-lg-0">
         <li class="nav-item">
           <?php
-            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='../images/notification-icon2.svg' alt='logo_jaya'></a>";
+            echo "<a class='nav-link active' href='index.php'><img id='notification-icon' src='<?php echo $base_url; ?>images/notification-icon2.svg' alt='logo_jaya'></a>";
             echo "<a class='nav-link active' href='logout.php'><img id='logout-icon' src='../images/logout-icon2.svg' alt='logout-icon'></a>";
           ?>
         </li>

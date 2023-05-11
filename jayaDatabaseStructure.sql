@@ -348,10 +348,10 @@ ALTER TABLE `notes_suivi`
 
 -- jeu de données de base
 INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VALUES
-('Date de début des sessions de soutenance', '', NULL),
-('Date de fin des sessions de soutenance', '', NULL),
+('Date de début des sessions de soutenances', '', NULL),
+('Date de fin des sessions de soutenances', '', NULL),
 ('Durée d\'une session de soutenance', '02:00', NULL),
-('Nombre d\'étudiants par session de soutenance', '13', NULL),
+('Nombre d\'étudiants par session de soutenances', '13', NULL),
 ('Nombre minimum de note(s) \"professionel\"', '1', NULL),
 ('Nombre minimum de note(s) \"enseignant\"', '2', NULL),
 ('Coefficient - note \"professionel\"', '1', NULL),

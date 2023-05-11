@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
 
 <head>
     <?php
-    include("header.php");
+    include("./navigation/header.php");
     ?>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div id="content">
             <?php
-            include("navbar.php");
+            include("home/navigation/navbar.php");
             ?>
 
             <div class="container-fluid">

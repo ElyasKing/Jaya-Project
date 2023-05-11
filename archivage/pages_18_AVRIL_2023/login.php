@@ -1,6 +1,6 @@
 <?php
 include("../application_config/db_class.php");
-include("header.php");
+include("./navigation/header.php");
 
 
 
@@ -23,7 +23,7 @@ if (isset($_SESSION['flag']) && $_SESSION['flag'] == 1) {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="index.php"><img src="../images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
+      <a class="navbar-brand" href="index.php"><img src="<?php echo $base_url; ?>images/JAYA-LOGO2.png" alt="logo_jaya" width="180"></a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 </nav>
 <head>

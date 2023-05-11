@@ -564,7 +564,7 @@
         // Alignment pattern ---------------------------------------------------
 
         // Positions of alignment patterns.
-        // This array includes only the second and the third position of the 
+        // This array home only the second and the third position of the
         // alignment patterns. Rest of them can be calculated from the distance 
         // between them.
          
@@ -2317,7 +2317,7 @@
 
             $rs = null;
             
-            // Check parameter ranges
+            // tuteurU parameter ranges
             if($symsize < 0 || $symsize > 8)                     return $rs;
             if($fcr < 0 || $fcr >= (1<<$symsize))                return $rs;
             if($prim <= 0 || $prim >= (1<<$symsize))             return $rs;

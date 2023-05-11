@@ -3,7 +3,7 @@ session_start();
 include "../application_config/db_class.php";
 //include "../application_config/get_connectUser.php";
 include 'header.php';
-include 'navbar.php';
+include 'home/navigation/navbar.php';
 
 $conn = Database::connect();
 
