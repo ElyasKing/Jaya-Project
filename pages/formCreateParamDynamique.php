@@ -3,7 +3,7 @@ session_start();
 include "../application_config/db_class.php";
 //include "../application_config/get_connectUser.php"; //Ce fichier existe pas
 include './header.php';
-include "./home/navigation/navbar.php";
+include "./navbar.php";
 $conn = Database::connect();
 
 $queryPoints = "SELECT ID_param, NbPoint_param FROM parametres

@@ -54,10 +54,6 @@ h2 {
     text-align: center;
 }
 
-.margin-title {
-    margin-top: 1rem; /* 1rem = 16px */
-}
-
 .bg {
     background-color: #23314e;
     color: white;
@@ -86,10 +82,6 @@ h2 {
     width: 250px !important;
 }
 
-.btn-qr-code {
-    width: 200px !important;
-}
-
 hr {
     clear: both;
     opacity: 1;
@@ -107,7 +99,7 @@ hr {
     margin: auto;
 }
 
-.tr-bgColor {
+.tr-bgColor{
     background-color: rgba(0, 191, 255, 0.115) !important;
 }
 
@@ -294,6 +286,7 @@ hr {
     }
 }
 
+/*
 #content {
     display: none;
-}
+}*/

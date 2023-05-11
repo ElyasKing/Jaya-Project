@@ -5,18 +5,18 @@
 
    $db = Database::connect();
 
-   //recup la valeur du paramètre fixe "nb d'étudiant par session de soutenances"
+   //recup la valeur du paramètre fixe "nb d'étudiant par session de soutenance"
     $query = "SELECT Nom_param, Description_param FROM parametres WHERE NbPoint_param IS NULL";
     $statement = $db->query($query);
 
     while ($row = $statement->fetch()){
-        if($row['Nom_param'] == "Nombre d'étudiants par session de soutenances"){
+        if($row['Nom_param'] == "Nombre d'étudiants par session de soutenance"){
             $nbStudentIntoSession = $row['Description_param'];
         }
     }
 
     /* Pour creer les plannings.
-    *Si "Nombre d'étudiants par session de soutenances" = 1 et que 4 étudiants:
+    *Si "Nombre d'étudiants par session de soutenance" = 1 et que 4 étudiants:
     *--> 1 étudiant M2 MIAGE, 2022-2023, non huis-clos;
     *--> 1 étudiant M1 MIAGE, 2022-2023, non huis-clos;
     *--> 1 étudiant M2 MIAGE, 2022-2023, huis-clos;

@@ -2,7 +2,7 @@
 session_start();
 include "../application_config/db_class.php";
 include 'header.php';
-include 'home/navigation/navbar.php';
+include 'navbar.php';
 $conn = Database::connect();
 
 $query = "SELECT ID_param, Nom_param, Description_param FROM parametres
@@ -46,7 +46,7 @@ if (isset($_GET['status'])) {
                 <?php
                 foreach ($parametres as $parametre) {
 
-                    if ($parametre['Nom_param'] == "Date de début des sessions de soutenances" || $parametre['Nom_param'] == "Date de fin des sessions de soutenances") {
+                    if ($parametre['Nom_param'] == "Date de début des sessions de soutenance" || $parametre['Nom_param'] == "Date de fin des sessions de soutenances") {
 
                 ?>
                         <div class="row mt-3">

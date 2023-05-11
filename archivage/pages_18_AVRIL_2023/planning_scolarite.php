@@ -8,7 +8,7 @@ session_start();
 
 <head>
     <?php
-    include("./navigation/header.php");
+    include("header.php");
     ?>
 </head>
 
@@ -19,7 +19,7 @@ session_start();
         </div>
         <div id="content">
             <?php
-            include("home/navigation/navbar.php");
+            include("navbar.php");
             ?>
 
             <div class="container-fluid">

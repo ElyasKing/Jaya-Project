@@ -8,7 +8,7 @@ session_start();
 <html>
 <head>
 	<title>Login Invités</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../styles.css" />
 </head>
 <body>
 

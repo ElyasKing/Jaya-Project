@@ -599,7 +599,7 @@ if (!class_exists('QRcode', false)) {
 
 		/**
 		 * @var array Positions of alignment patterns.
-		 * This array home only the second and the third position of the alignment patterns. Rest of them can be calculated from the distance between them.
+		 * This array includes only the second and the third position of the alignment patterns. Rest of them can be calculated from the distance between them.
 		 * See Table 1 in Appendix E (pp.71) of JIS X0510:2004.
 		 * @access protected
 		 */
@@ -2751,7 +2751,7 @@ if (!class_exists('QRcode', false)) {
 		protected function init_rs_char($symsize, $gfpoly, $fcr, $prim, $nroots, $pad) {
 			// Based on Reed solomon encoder by Phil Karn, KA9Q (GNU-LGPLv2)
 			$rs = null;
-			// tuteurU parameter ranges
+			// Check parameter ranges
 			if (($symsize < 0) OR ($symsize > 8)) {
 				return $rs;
 			}

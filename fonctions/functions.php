@@ -183,7 +183,7 @@ getStutdentGradeOral($User_ID)
             $noteFinale = $noteFinale / $division;
 
             //Et on retire le point d orthographe si y'a
-            // on récupère la durée d'une soutenances pour obtenir le début et la fin
+            // on récupère la durée d'une soutenance pour obtenir le début et la fin
             $sql ="SELECT Orthographe_NF FROM notes_suivi WHERE ID_Utilisateur='" . $User_ID . "';";
             $result = $db->query($sql);
             $ortho = $result->fetchColumn();
@@ -321,7 +321,7 @@ function getSettings($settingType)
 }
 
 // Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-function getStudentForOral($User_ID,$habilitation)
+function getStudentForOral($User_ID)
 {
     //  ID :3 : Duree d'une duree de soutenance, ID 11 : Temps supplémentaire (cf DB)
     $sql = "SELECT `Description_param` FROM `parametres` WHERE `ID_param`='3' OR `ID_param`='11';";
@@ -334,9 +334,8 @@ function getStudentForOral($User_ID,$habilitation)
     $duree_soutenance = $rows[0]['Description_param'];
     $duree_supp = $rows[1]['Description_param'];
 
-    if($habilitation<>"INVITE") {
-        $query =
-            "SELECT U.Nom_Utilisateur 
+    $query =
+    "SELECT U.Nom_Utilisateur 
         FROM utilisateur U 
         LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
         LEFT JOIN planning p ON U.ID_Planning = p.ID_Planning
@@ -351,25 +350,7 @@ function getStudentForOral($User_ID,$habilitation)
         AND ( U.SoutenanceSupp_Utilisateur='oui' OR (
         CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
         AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW()));";
-    }else{
-        $query =
-        "SELECT U.Nom_Utilisateur 
-        FROM utilisateur U 
-        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
-        LEFT JOIN planning p ON U.ID_Planning = p.ID_Planning
-        WHERE H.Etudiant_Habilitations = 'oui' 
-        AND U.ID_Utilisateur NOT IN (SELECT ID_UtilisateurEvalue 
-                                    FROM notes_soutenance 
-                                    WHERE ID_InviteEvaluateur = '" . $User_ID . "') 
-        AND U.ID_Utilisateur NOT IN (SELECT ID_Utilisateur
-                                    FROM est_apprenti
-                                    WHERE ID_Invite = '" . $User_ID . "')
-        AND U.ID_Utilisateur <> '" . $User_ID . "'
-        AND ( U.SoutenanceSupp_Utilisateur='oui' OR (
-        CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
-        AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW()));";
-    }
-    
+
     return $query;
 }
 
@@ -473,57 +454,4 @@ function getStudentMonitoringForTuteurUniversitaire($tuteurUniversitaire){
     WHERE h.Etudiant_Habilitations LIKE 'oui' AND et.ID_tuteur =".$tuteurUniversitaire;
 
     return $query;
-}
-
-//envoyer un email
-function send_email($to_email, $subject, $body) {
-    require_once 'phpmailer/PHPMailer.php';
-    require_once 'phpmailer/SMTP.php';
-
-    $mail = new \PHPMailer\PHPMailer\PHPMailer();
-    $mail->IsSMTP();
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = 'ssl';
-    $mail->Host = "smtp.gmail.com";
-    $mail->Port = 465;
-    $sender_email = "llias.gaming2@gmail.com";
-    $sender_password = "kfvxeonuvcscminf";
-    $mail->Username = $sender_email;
-    $mail->Password = $sender_password;
-
-    $mail->setFrom($sender_email);
-    $mail->addAddress($to_email);
-    $mail->Subject = utf8_decode($subject);
-    $mail->isHTML(true);
-    $mail->Body = utf8_decode($body);
-    $mail->addCustomHeader("Content-Type: text/html; charset=UTF-8");
-
-    if (!$mail->send()) {
-        return "Erreur lors de l'envoi de l'email: " . $mail->ErrorInfo;
-
-    } else {
-        return "L'email a été envoyé avec succès !";
-    }
-}
-
-function getStudentEmail()
-{
-    $date = getdate();
-    $currentYear = $date['year'];
-    $lastYear = $currentYear - 1;
-    $currentStudentYear = $lastYear . "-" . $currentYear;
-
-    $sql = "SELECT 
-    u1.Mail_Utilisateur AS Mail_Etudiant
-    FROM Utilisateur u1
-    LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-    WHERE h.Etudiant_Habilitations='oui' AND u1.Annee_Utilisateur = '$currentStudentYear'";
-
-    return $sql;
-}
-
-function returnDataWithMessage($success, $code, $message) {
-    http_response_code($code);
-    $data = array("success"=>$success, "message"=>$message);
-    return json_encode($data);
 }

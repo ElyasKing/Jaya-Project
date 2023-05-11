@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
   <?php
-  include("home/navigation/header.php");
+  include("header.php");
+
   ?>
 </head>
 
@@ -31,22 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div id="content">
       <?php
-      include("home/navigation/navbar.php");
+      include("navbar.php");
       switch ($_SESSION['active_profile']) {
         case "ADMINISTRATEUR":  // Si profil detecté dans get_connectUser = administrateur
-          include("./home/index/index_administrateur.php");
+          include("index_administrateur.php");
           break;
         case "RESPONSABLE UE":
-          include("./home/index/index_responsableUE.php"); // Si profil detecté dans get_connectUser = administrateur
+          include("index_responsableUE.php"); // Si profil detecté dans get_connectUser = administrateur
           break;
         case "SCOLARITE":
-          include("./home/index/index_scolarite.php"); // Si profil detecté dans get_connectUser = administrateur
+          include("index_scolarite.php"); // Si profil detecté dans get_connectUser = administrateur
           break;
         case "TUTEUR UNIVERSITAIRE":
-          include("./home/index/index_tuteurUniversitaire.php"); // Si profil detecté dans get_connectUser = administrateur
+          include("index_tuteurUniversitaire.php"); // Si profil detecté dans get_connectUser = administrateur
           break;
         case "ETUDIANT":
-          include("./home/index/index_etudiant.php"); // Si profil detecté dans get_connectUser = administrateur
+          include("index_etudiant.php"); // Si profil detecté dans get_connectUser = administrateur
           break;
         default:
           echo "Vous n'&ecirc;tes pas habilit&eacute; &agrave; acc&eacute;der &agrave; cette application.";

@@ -13,17 +13,17 @@ if (!isConnectedUser()) {
 
 <head>
     <?php
-    include("./home/navigation/header.php");
+    include("./header.php");
     ?>
 </head>
 
 <body>
     <?php
-    include("./home/navigation/navbar.php");
+    include("./navbar.php");
     ?>
 
     <div class="container-fluid">
-        <h2 class="center margin-title colored">Vos habilitations</h2>
+        <h2 class="center colored">Vos habilitations</h2>
         <hr>
         <br>
         <br>
