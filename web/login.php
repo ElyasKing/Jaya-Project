@@ -46,7 +46,7 @@ session_start();
 							<input type="submit" class="btn me-md-3 bg" value="Se connecter">
 							<!-- <hr class="my-4"> -->
 							<br><br>
-							<p class="form-label"><a href="#">Mot de passe oublié ?</a></p>
+							<p class="form-label"><a href="reset_password.php">Mot de passe oublié ?</a></p>
 						</div>
 					</div>
 				</div>
