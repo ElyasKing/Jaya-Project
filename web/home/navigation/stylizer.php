@@ -1,8 +1,8 @@
 <?php
 // Définition de la variable $base_url
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
-$base_url = $protocol . $_SERVER['HTTP_HOST'] . '/JAYA/JAYA/web';
-$base_url_style = $protocol . $_SERVER['HTTP_HOST'] . '/JAYA/JAYA/';
+$base_url = $protocol . $_SERVER['HTTP_HOST'] . '/JAYA/web';
+$base_url_style = $protocol . $_SERVER['HTTP_HOST'] . '/JAYA/';
 
 // Importation des styles
 //echo "Style importé avec succès!";

@@ -60,7 +60,7 @@ if ($result->rowCount() > 0) {
                             <td class="text-center"><abbr title="<?= $user['Mail_Tuteur_Universitaire']; ?>"><?= shortString($user['Mail_Tuteur_Universitaire'],10); ?></abbr></td>
                             <td class="text-center"><?= $user['HuisClos_Utilisateur']; ?></td>
                             <td class="text-center" style="display:none;"><?= $user['Roles']; ?>
-                            <td><a href="indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
+                            <td><a href="home/index/indexStudentUpdate_administrateur.php?id=<?= $user['ID_Etudiant'] ?>"><button type="button" class="btn bg bi bi-pencil-fill"></button></a></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>
