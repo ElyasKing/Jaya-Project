@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d9ad340-902e-4be2-b700-342def3c5607" name="Changes" comment="" />
+    <list default="true" id="3d9ad340-902e-4be2-b700-342def3c5607" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/accountManager/admin/accountManagerUserCreation_administrateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/accountManager/admin/accountManagerUserCreation_administrateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/accountManager/admin/accountManagerUserUpdate_administrateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/accountManager/admin/accountManagerUserUpdate_administrateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/applicationSettings/applicationSettingsDynamicsSettingsCreation.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/applicationSettings/applicationSettingsDynamicsSettingsCreation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/applicationSettings/applicationSettingsDynamicsSettingsUpdate.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/applicationSettings/applicationSettingsDynamicsSettingsUpdate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/guest/guestManagement_scolarite.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/guest/guestManagement_scolarite.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/home/index/indexStudentUpdate_administrateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/home/index/indexStudentUpdate_administrateur.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
