@@ -69,7 +69,7 @@ if ($result->rowCount() > 0) {
     </div>
 </div>
 <br>
-<form id="form" method="post" action="web/import_administrateur.php" enctype="multipart/form-data">
+<form id="form" method="post" action="../web/import_administrateur.php" enctype="multipart/form-data">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <input type="file" name="file" id="file_import" onchange="myFunction()" hidden>
         <label for="file_import" class="btn me-md-3 bg btn-custom">Importer</label>

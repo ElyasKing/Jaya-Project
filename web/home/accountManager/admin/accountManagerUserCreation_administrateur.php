@@ -20,10 +20,6 @@ if(!isConnectedUser()){
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
-        <div id="content">
             <?php
             include('../../navigation/navbar.php');
             ?>
@@ -95,7 +91,6 @@ if(!isConnectedUser()){
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 </body>
 

@@ -20,10 +20,6 @@ if (!isConnectedUser()) {
 
 <body>
     <div class="content">
-        <div class="bar">
-            <span class="sphere"></span>
-        </div>
-        <div id="content">
             <?php
             include('../navigation/navbar.php');
             ?>
@@ -31,7 +27,7 @@ if (!isConnectedUser()) {
             <div class="container">
                 <br>
                 <br>
-                <h4 class="text-center">Modifier un Invité</h4>
+                <h4 class="text-center">Ajouter un Invité</h4>
                 <br>
                 <br>
                 <form id="myForm" action="guestManagementCheckFormCreation_scolarite.php" method="post" onsubmit="return checkForm(this);">
@@ -91,7 +87,6 @@ if (!isConnectedUser()) {
                 </form>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

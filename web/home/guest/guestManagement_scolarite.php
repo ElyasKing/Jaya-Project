@@ -87,8 +87,8 @@ if ($result->rowCount() > 0) {
             </div>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn me-md-3 bg btn-custom">Générer QR code</button>
-                <form id="form" method="post" action="../../import_invite.php" enctype="multipart/form-data">
+                <a type="button" href="qrCodeGeneration.php" class="btn me-md-3 bg btn-custom" >Générer QR code</a>
+                <form id="form" method="post" action="../web/import_invite.php" enctype="multipart/form-data">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <input type="file" name="file" id="file_import" onchange="myFunction()" hidden>
                         <label for="file_import" class="btn me-md-3 bg btn-custom">Importer</label>
