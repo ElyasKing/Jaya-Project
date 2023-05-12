@@ -137,7 +137,7 @@ if (!isConnectedUser()) {
                             </thead>
                             <tbody>
                                 <?php
-                                $query = 'SELECT Description_param FROM parametres WHERE Nom_param = "Durée d\'une session de soutenances"';
+                                $query = 'SELECT Description_param FROM parametres WHERE ID_param = "3"';
                                 $statement = $db->query($query);
                                 $time = $statement->fetch();
 
