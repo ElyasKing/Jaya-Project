@@ -32,20 +32,36 @@ if (isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mi
 
         for ($i = 1; $i < count($sheetData); $i++) {
             if ($sheetData[$i][0] != NULL) {
-                $emailEtudiant = $sheetData[$i][8];
-                $nomEtudiant = $sheetData[$i][10];
-                $prenomEtudiant = $sheetData[$i][11];
+                if (filter_var($sheetData[$i][8], FILTER_VALIDATE_EMAIL)) {
+                    $emailEtudiant = $sheetData[$i][8];
+                } else {
+                    $emailEtudiant = "";
+                }
+                if (strlen($sheetData[$i][8]) < 30) {
+                    $nomEtudiant = $sheetData[$i][10];
+                } else {
+                    $nomEtudiant = "";
+                }
+                if (strlen($sheetData[$i][11]) < 30) {
+                    $prenomEtudiant = $sheetData[$i][11];
+                } else {
+                    $prenomEtudiant = "";
+                }
                 $nomEtudiant = $prenomEtudiant . "" . $nomEtudiant;
                 $nomFeuilles = $spreadsheet->getSheetNames();
                 $promotion = $nomFeuilles[$j];
                 //On prend la date en string et on troncate pour avoir l'année
-                $dateString = $sheetData[$i][14];
-                $anneeString = substr($dateString, -4);
-                //On le passe en int pour le calcul
-                $anneeInt = (int) $anneeString;
-                $anneePlusDeux = $anneeInt + 2;
-                $anneePlusDeuxString = (string) $anneePlusDeux;
-                $annee = $anneeString . "-" . $anneePlusDeuxString;
+                if (!empty($sheetData[$i][3])) {
+                    $dateString = $sheetData[$i][2];
+                    //On le passe en int pour le calcul
+                    $anneeInt = (int) $dateString;
+                    $anneePlusDeux = $anneeInt + 1;
+                    $anneePlusDeuxString = (string) $anneePlusDeux;
+                    $annee = $dateString . "-" . $anneePlusDeuxString;
+                } else {
+                    $annee = "";
+                }
+
 
                 $mdp = generatePassword();
 

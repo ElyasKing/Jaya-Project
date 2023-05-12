@@ -34,20 +34,52 @@ if (isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mi
 
         for ($i = 1; $i < count($sheetData); $i++) {
             if ($sheetData[$i][0] != NULL) {
-                $email = $sheetData[$i][1];
-                $nom = $sheetData[$i][0];
-                $telephone = $sheetData[$i][2];
-                $enseignant = $sheetData[$i][3];
-                $pro = $sheetData[$i][4];
-                $entreprise = $sheetData[$i][5];
-                $ville = $sheetData[$i][6];
+                if (filter_var($sheetData[$i][1], FILTER_VALIDATE_EMAIL)) {
+                    $email = $sheetData[$i][1];
+                } else {
+                    $email = "";
+                }
+
+                if (strlen($sheetData[$i][0]) < 30) {
+                    $nom = $sheetData[$i][0];
+                } else {
+                    $nom = "";
+                }
+
+                if (strlen($sheetData[$i][2]) < 25) {
+                    $telephone = $sheetData[$i][2];
+                } else {
+                    $telephone = "";
+                }
+                if (strlen($sheetData[$i][3]) < 10) {
+                    $enseignant = $sheetData[$i][3];
+                } else {
+                    $enseignant = "";
+                }
+
+                if (strlen($sheetData[$i][4]) < 10) {
+                    $pro = $sheetData[$i][4];
+                } else {
+                    $pro = "";
+                }
+                if (strlen($sheetData[$i][5]) < 30) {
+                    $entreprise = $sheetData[$i][5];
+                } else {
+                    $entreprise = "";
+                }
+                if (strlen($sheetData[$i][6]) < 30) {
+                    $ville = $sheetData[$i][6];
+                } else {
+                    $ville = "";
+                }
+
                 $queryVerify = "SELECT * FROM invite WHERE Mail_Invite LIKE '$email'";
                 $verify = $conn->query($queryVerify);
                 $nombre = $verify->fetchAll();
 
                 if (count($nombre) == 0) {
 
-                    $queryMA = "INSERT INTO invite(Nom_Invite, Mail_Invite, Entreprise_Invite, Ville_Invite, EstEnseignant_Invite, EstProfessionel_Invite) VALUES ('$nom', '$email', '$entreprise', '$ville', '$enseignant', '$pro')";
+                    $queryMA = "INSERT INTO invite(Nom_Invite, Mail_Invite, Telephone_Invite, Entreprise_Invite, Ville_Invite, EstEnseignant_Invite, EstProfessionel_Invite) VALUES ('$nom', '$email', '$telephone', '$entreprise', '$ville', '$enseignant', '$pro')";
                     $conn->query($queryMA);
                 }
             }
