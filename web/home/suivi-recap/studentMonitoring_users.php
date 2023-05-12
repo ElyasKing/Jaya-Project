@@ -279,7 +279,7 @@ $_SESSION['success'] = 0;
                 if (confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")) {
 
                     const data = new FormData(form);
-                    fetch('http://127.0.0.1/JAYA/JAYA/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
+                    fetch('http://127.0.0.1/Jaya-Project/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
                         method: 'POST',
                         body: data
                     })
