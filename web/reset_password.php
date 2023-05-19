@@ -2,36 +2,49 @@
 session_start();
 require_once("../application_config/db_class.php");
 include("../fonctions/functions.php");
+include("./home/navigation/header.php");
 ?>
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Mot de passe oublié</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css" />
-  </head>
-  <body>
-    <div class="container bg-light p-3">
-      <form method="post" action="reset_password.php">
-        <h2>Mot de passe oublié</h2>
-        <label for="email">Entrez votre adresse e-mail :</label>
-        <input type="email" id="email" name="email" required>
-        <input type="submit" name="submit" value="Réinitialiser le mot de passe">
-      </form>
+
+<head>
+  <title>Mot de passe oublié</title>
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+  <?php
+  include("./home/navigation/navbar.php");
+  ?>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12">
+        <div class="card shadow-2-strong css-login" style="width: auto; max-width: 1200px;">
+          <div class="card-body p-5 text-left" style="min-width: 1100px; max-width: 100%; overflow-x: auto;">
+            <form method="post" action="reset_password.php">
+              <label for="email">Entrez votre adresse e-mail :</label>
+              <input type="email" id="email" name="email" required>
+              <input type="submit" name="submit" value="Réinitialiser le mot de passe">
+            </form>
+            <?php if (isset($_SESSION['reset_password_success'])): ?>
+              <div class="alert alert-success">
+                <?php echo $_SESSION['reset_password_success']; unset($_SESSION['reset_password_success']); ?>
+              </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['reset_password_error'])): ?>
+              <div class="alert alert-danger">
+                <?php echo $_SESSION['reset_password_error']; unset($_SESSION['reset_password_error']); ?>
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <?php if (isset($_SESSION['reset_password_success'])): ?>
-  <div class="alert alert-success">
-    <?php echo $_SESSION['reset_password_success']; unset($_SESSION['reset_password_success']); ?>
   </div>
-<?php endif; ?>
+</body>
 
-<?php if (isset($_SESSION['reset_password_error'])): ?>
-  <div class="alert alert-danger">
-    <?php echo $_SESSION['reset_password_error']; unset($_SESSION['reset_password_error']); ?>
-  </div>
-<?php endif; ?>
-  </body>
 </html>
 
 <?php
