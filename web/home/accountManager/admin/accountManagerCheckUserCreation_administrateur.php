@@ -21,6 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $etudiant = isset($_POST['etudiant']) ? 'oui' : 'non';
     $mail = $_POST['mail'];
     $user = $_POST['user'];
+    //annee 
+    $currentYear = date('Y');
+    $nextYear = $currentYear + 1;
+    $annee = $currentYear . '-' . $nextYear;
 
     // Génération d'un mot de passe aléatoire
     $mdp = generatePassword();
@@ -41,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //header('Location: ../accountManager_administrateur.php');
     } else {
         // Insertion de l'utilisateur avec le mot de passe
-        $query = "INSERT INTO utilisateur (Nom_Utilisateur, Mail_Utilisateur, MDP_Utilisateur) VALUES ('$user', '$mail', '$mdp')";
+        $query = "INSERT INTO utilisateur (Nom_Utilisateur, Mail_Utilisateur, MDP_Utilisateur, Annee_Utilisateur) VALUES ('$user', '$mail', '$mdp','$annee')";
         $db->query($query);
         $id_utilisateur = $db->lastInsertId();
 

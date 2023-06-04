@@ -124,7 +124,7 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . $student['Remarque_NF'] . "</td>
                                         <td class='text-center'>" . $student['Rapport_NF'] . "</td>
                                         <td class='text-center'>" . $student['Appreciation_NF'] . "</td>
-                                        <td class='text-center'>" . $student['Orthographe_NF'] . "</td>
+                                        <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
                                         <td class='text-center'>" . $student['noteFinaleUE_NF'] . "</td>

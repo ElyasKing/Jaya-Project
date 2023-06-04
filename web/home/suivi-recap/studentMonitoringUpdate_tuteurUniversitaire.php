@@ -88,7 +88,7 @@ if (!isConnectedUser()) {
                             <div class='row'>
                                 <div class="col">
                                     <label for="orthographe" class="form-label">Orthographe (en moins) : </label>
-                                    <input id="orthographe" type="number" class="form-control" readonly min=0 max=20 step=0.01  required value="<?= $user['Orthographe_NF'] ?>" >    
+                                    <input id="orthographe" type="number" class="form-control" readonly min=0 max=20 step=0.01  value="<?= $user['Orthographe_NF'] ?>" >    
                                 </div>
                                 <div class="col">
                                     <label for="noteSuivi" class="form-label">Note de suivi : </label>
@@ -96,7 +96,7 @@ if (!isConnectedUser()) {
                                 </div>
                                 <div class="col">
                                     <label for="notePP" class="form-label">Note orale calculée : </label>
-                                    <input id="notePP" type="number" class="form-control" readonly value="<?= $user['noteFinaleUE_NF'] ?>">    
+                                    <input id="notePP" type="number" class="form-control" readonly value="<?= getStutdentGradeOral($id)?>">    
                                 </div>
                                 <div class="col">
                                     <label for="notePP" class="form-label">Note PP calculée : </label>

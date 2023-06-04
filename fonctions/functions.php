@@ -39,7 +39,7 @@ function getStudentInformationForIndexes()
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-    WHERE h.Etudiant_Habilitations='oui' AND u1.Annee_Utilisateur = '$currentStudentYear'
+    WHERE h.Etudiant_Habilitations = 'oui' AND YEAR(CURRENT_DATE()) BETWEEN SUBSTRING(u1.Annee_Utilisateur, 1, 4) AND SUBSTRING(u1.Annee_Utilisateur, 6, 4)
     GROUP BY u1.ID_Utilisateur;";
 
     return $sql;
@@ -73,7 +73,7 @@ getStudentInformation_TuteurUniversitaire($User_ID)
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
-    WHERE h.Etudiant_Habilitations='oui' and u2.ID_Utilisateur='" . $User_ID . "' AND u1.Annee_Utilisateur = '$currentStudentYear'
+    WHERE h.Etudiant_Habilitations = 'oui' AND YEAR(CURRENT_DATE()) BETWEEN SUBSTRING(u1.Annee_Utilisateur, 1, 4) AND SUBSTRING(u1.Annee_Utilisateur, 6, 4)
     GROUP BY u1.ID_Utilisateur;";
 
     return $sql;

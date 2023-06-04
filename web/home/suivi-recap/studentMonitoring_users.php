@@ -91,18 +91,18 @@ if (!isConnectedUser()) {
                         <tbody>
                             <?php
                             foreach ($studentsList as $student) { ?>
-                                <tr <?php
-                                    if (
-                                        empty($student['nom_Utilisateur']) || empty($student['Promo_Utilisateur']) ||
-                                        empty($student['Poster_NF']) || empty($student['Rapport_NF']) ||
-                                        empty($student['Orthographe_NF']) || empty($student['NoteFinaleTuteur_NF']) ||
-                                        empty($student['noteFinaleUE_NF'])
-                                    ) {
-                                        echo 'class="tr-bgColorRed"';
-                                    }
-                                    ?>>
-                                <?php
-                                echo "
+                                    <tr <?php
+                                        if (
+                                            empty($student['nom_Utilisateur']) || empty($student['Promo_Utilisateur']) ||
+                                            empty($student['Poster_NF']) || empty($student['Rapport_NF']) ||
+                                            empty($student['Orthographe_NF']) || empty($student['NoteFinaleTuteur_NF']) ||
+                                            empty($student['noteFinaleUE_NF'])
+                                        ) {
+                                            echo 'class="tr-bgColorRed"';
+                                        }
+                                        ?>>
+                                    <?php
+                                    echo "
                                         <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
                                         <td class='text-center'>" . $student['nom_Utilisateur'] . "</td>
                                         <td class='text-center'>" . $student['Promo_Utilisateur'] . "</td>
@@ -110,14 +110,14 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . $student['Remarque_NF'] . "</td>
                                         <td class='text-center'>" . $student['Rapport_NF'] . "</td>
                                         <td class='text-center'>" . $student['Appreciation_NF'] . "</td>
-                                        <td class='text-center'>" . $student['Orthographe_NF'] . "</td>
+                                        <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
                                         <td class='text-center'>" . $student['noteFinaleUE_NF'] . "</td>
                                         <td><a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
-                            }
-                                ?>
+                                }
+                                    ?>
                         </tbody>
                     </table>
                 </div>
@@ -125,29 +125,29 @@ if (!isConnectedUser()) {
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <?php
-                    $query = "SELECT Validation_NF FROM decisions";
-                    $statement = $db->query($query);
-                    $result = $statement->fetch();
+                $query = "SELECT Validation_NF FROM decisions";
+                $statement = $db->query($query);
+                $result = $statement->fetch();
 
-                    if($result[0] == "non"){
-                        ?> 
-                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
-                        </form>
-                        <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
-                            <button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button>
-                        <!-- </a> -->
-                    <?php
-                    }else{
-                        ?> 
-                        <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
-                        </form>
-                        <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
-                            <button id="btn-cacher-scolarite" class="btn me-md-3 btn-custom bg">Cacher les notes</button>
-                        <!-- </a> -->
-                    <?php
-                    }
+                if ($result[0] == "non") {
                 ?>
-                
+                    <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                    </form>
+                    <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                    <button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button>
+                    <!-- </a> -->
+                <?php
+                } else {
+                ?>
+                    <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                    </form>
+                    <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                    <button id="btn-cacher-scolarite" class="btn me-md-3 btn-custom bg">Cacher les notes</button>
+                    <!-- </a> -->
+                <?php
+                }
+                ?>
+
             </div>
         </div>
     </div>
@@ -173,7 +173,6 @@ if (!isConnectedUser()) {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-
 </script>
 <?php
 $success = $_SESSION['success'];
@@ -275,14 +274,14 @@ $_SESSION['success'] = 0;
 
         if (btnValider) {
 
-            btnValider.addEventListener('click', function () {
+            btnValider.addEventListener('click', function() {
                 if (confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")) {
 
                     const data = new FormData(form);
                     fetch('http://127.0.0.1/Jaya-Project/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
-                        method: 'POST',
-                        body: data
-                    })
+                            method: 'POST',
+                            body: data
+                        })
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
@@ -303,17 +302,17 @@ $_SESSION['success'] = 0;
         if (btnCacher) {
 
             btnCacher.addEventListener('click', function() {
-                if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")) {
+                if (confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")) {
 
                     const data = new FormData(form);
                     fetch('http://127.0.0.1/JAYA/JAYA/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
-                        method: 'POST',
-                        body: data
-                    })
+                            method: 'POST',
+                            body: data
+                        })
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
-                            if(data.success) {
+                            if (data.success) {
                                 toastr.success(data.message);
 
                                 location.reload();
