@@ -32,17 +32,16 @@ if (isset($_SESSION['flag']) && $_SESSION['flag'] == 1) {
 </head>
 <body>
 <div class="container bg-light p-3">
-	<form method="post" action="check_login.php">
-		<h2>Connexion</h2>
-		<label for="email">Email :</label>
-		<input type="text" id="email" name="email" required>
-		<label for="password">Mot de passe :</label>
-		<input type="password" id="password" name="password" required>
-		<!-- <form method="post" action="#"> -->
-			<!-- <label>Mot de passe oublié</label> -->
-		<!-- </form> -->
-		<input type="submit" value="Se connecter">
-	</form>
+<form method="post" action="check_login.php">
+  <h2>Connexion</h2>
+  <label for="email">Email :</label>
+  <input type="text" id="email" name="email" required>
+  <label for="password">Mot de passe :</label>
+  <input type="password" id="password" name="password" required>
+  <input type="submit" value="Se connecter">
+  <a href="reset_password.php">Mot de passe oublié ?</a>
+
+</form>
 </div>
 
 </body>
