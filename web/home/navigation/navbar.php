@@ -21,6 +21,7 @@ if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Fl
       <?php } ?>
 
 
+
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if ($_SESSION['active_profile'] == "ADMINISTRATEUR") { ?>
         <li class="nav-item">

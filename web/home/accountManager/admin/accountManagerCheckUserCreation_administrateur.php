@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Génération d'un mot de passe aléatoire
     $mdp = generatePassword();
 
-    //verif doublon ?
     $query = "SELECT count(*) FROM utilisateur WHERE Mail_Utilisateur LIKE '$mail'";
     $statement = $db->query($query);
     $countUser = $statement->fetch();
@@ -38,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($countUser[0] > 0) {
         $_SESSION['success'] = 22;
-        header('Location: ../accountManager_administrateur.php');
+        echo "KO";
+        //header('Location: ../accountManager_administrateur.php');
     } else {
         // Insertion de l'utilisateur avec le mot de passe
         $query = "INSERT INTO utilisateur (Nom_Utilisateur, Mail_Utilisateur, MDP_Utilisateur) VALUES ('$user', '$mail', '$mdp')";

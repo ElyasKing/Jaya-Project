@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once("../application_config/db_class.php");
+include("../fonctions/functions.php");
+include("./home/navigation/header.php");
 ?>
 
 <!DOCTYPE html>
