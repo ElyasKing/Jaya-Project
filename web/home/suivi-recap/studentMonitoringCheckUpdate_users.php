@@ -11,7 +11,7 @@ if (!isConnectedUser()) {
 $id = $ckeckPoster = $remarquePoster = $ckeckRapport = $remarqueRapport = $orthographe = $noteSuivi = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // var_dump($_POST);die;
+     //var_dump($_POST);
 
     $db = Database::connect();
 
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Rapport_NF='$ckeckRapport', Appreciation_NF='$remarqueRapport', Orthographe_NF=$orthographe
             WHERE ID_Utilisateur=$id"; 
     }
-    // var_dump($query); die;
+     //var_dump($query); die;
     $db->query($query);
 
     

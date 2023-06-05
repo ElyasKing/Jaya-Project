@@ -93,17 +93,16 @@ if (!isConnectedUser()) {
                             foreach ($studentsList as $student) { ?>
                                     <tr <?php
                                         if (
-                                            empty($student['nom_Utilisateur']) || empty($student['Promo_Utilisateur']) ||
                                             empty($student['Poster_NF']) || empty($student['Rapport_NF']) ||
-                                            empty($student['Orthographe_NF']) || empty($student['NoteFinaleTuteur_NF']) ||
-                                            empty($student['noteFinaleUE_NF'])
+                                            $student['Orthographe_NF'] === null || $student['Orthographe_NF'] === '' ||
+                                            empty($student['NoteFinaleTuteur_NF']) || empty($student['noteFinaleUE_NF'])
                                         ) {
                                             echo 'class="tr-bgColorRed"';
                                         }
                                         ?>>
                                     <?php
                                     echo "
-                                        <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
+                                      <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
                                         <td class='text-center'>" . $student['nom_Utilisateur'] . "</td>
                                         <td class='text-center'>" . $student['Promo_Utilisateur'] . "</td>
                                         <td class='text-center'>" . $student['Poster_NF'] . "</td>
@@ -113,9 +112,9 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
-                                        <td class='text-center'>" . $student['noteFinaleUE_NF'] . "</td>
+                                        <td class='text-center'>" . ($student['Poster_NF']=== "non" || $student['Rapport_NF']=== "non" || empty($student['NoteFinaleTuteur_NF']) || getStutdentGradeOral($student['ID_Utilisateur']) === "DEF" ? "DEF" : $student['noteFinaleUE_NF']) . "</td>
                                         <td><a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
-                                    </tr>";
+                                     </tr>";
                                 }
                                     ?>
                         </tbody>

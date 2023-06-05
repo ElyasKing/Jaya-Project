@@ -88,7 +88,7 @@ if (!isConnectedUser()) {
                             <div class='row'>
                                 <div class="col">
                                     <label for="orthographe" class="form-label">Orthographe (en moins) : </label>
-                                    <input id="orthographe" type="number" class="form-control" min=0 max=20 step=0.01 name="orthographe"  value="<?= $user['Orthographe_NF'] ?>" >    
+                                    <input id="orthographe" type="number" class="form-control" min=0 max=20 step=0.01 name="orthographe"  required value="<?= $user['Orthographe_NF'] ?>" >    
                                 </div>
                                 <div class="col">
                                     <label for="noteSuivi" class="form-label">Note de suivi : </label>

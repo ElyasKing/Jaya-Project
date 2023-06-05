@@ -168,7 +168,7 @@ if ($result->rowCount() > 0) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    if ($note['Note_Finale'] === null) {
+                                    if ($note['Note_Finale'] === null || $note['Poster_NF'] === "non" || $note['Rapport_NF'] === "non"  || $noteOral === "DEF") {
                                         echo '<span class="text-danger">DEF</span>';
                                     } else {
                                         echo $note['Note_Finale'];
