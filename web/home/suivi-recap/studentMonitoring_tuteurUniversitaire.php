@@ -107,9 +107,10 @@ if (!isConnectedUser()) {
                             foreach ($studentsList as $student) { ?>
                                 <tr <?php
                                     if (
-                                        empty($student['Poster_NF']) || empty($student['Rapport_NF']) ||
+                                        $student['Poster_NF'] === null || $student['Poster_NF'] === ''
+                                        || $student['Rapport_NF'] === null || $student['Rapport_NF'] === '' ||
                                         $student['Orthographe_NF'] === null || $student['Orthographe_NF'] === '' ||
-                                        empty($student['NoteFinaleTuteur_NF']) || empty($student['noteFinaleUE_NF'])
+                                        $student['NoteFinaleTuteur_NF'] === null || $student['NoteFinaleTuteur_NF'] === ''
                                     ) {
                                         echo 'class="tr-bgColorRed"';
                                     }
@@ -126,7 +127,8 @@ if (!isConnectedUser()) {
                                         <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
                                         <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
                                         <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
-                                        <td class='text-center'>" . ($student['Poster_NF'] === "non" || $student['Rapport_NF'] === "non" || empty($student['NoteFinaleTuteur_NF']) || getStutdentGradeOral($student['ID_Utilisateur']) === "DEF" ? "DEF" : $student['noteFinaleUE_NF']) . "</td>
+                                        <td class='text-center'>" . ($student['Poster_NF'] === "non" || $student['Rapport_NF'] === "non" || empty($student['NoteFinaleTuteur_NF']) || getStutdentGradeOral($student['ID_Utilisateur']) === "DEF"
+                                        || getStutdentGradeOral($student['ID_Utilisateur']) === "" ? "DEF" : $student['noteFinaleUE_NF']) . "</td>
                                         <td><a href='studentMonitoringUpdate_tuteurUniversitaire.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
                                     </tr>";
                             }

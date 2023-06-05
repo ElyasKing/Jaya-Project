@@ -171,7 +171,8 @@ CREATE TABLE `utilisateur` (
   `Promo_Utilisateur` varchar(50) DEFAULT NULL,
   `Annee_Utilisateur` varchar(10) DEFAULT NULL,
   `HuisClos_Utilisateur` varchar(3) DEFAULT NULL,
-  `ID_Planning` int(11) DEFAULT NULL
+  `ID_Planning` int(11) DEFAULT NULL,
+  'SoutenanceSupp_Utilisateur' VARCHAR(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -373,7 +374,7 @@ INSERT INTO `parametres` (`Nom_param`, `Description_param`, `NbPoint_param`) VAL
 ('Coefficient - note de suivi', '1', NULL),
 ('Temps supplémentaire accordé aux évaluateurs lors des sessions de soutenance', '00:00', NULL);
 
-ALTER TABLE utilisateur ADD SoutenanceSupp_Utilisateur VARCHAR(3) NULL AFTER ID_Planning;
+
 
 INSERT INTO `decisions` (`ValidationScolarite_Planning`, `ValidationResponsableUE_Planning`, `Validation_NF`) VALUES ('non', 'non', 'non');
 

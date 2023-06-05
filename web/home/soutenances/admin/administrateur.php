@@ -251,6 +251,9 @@ if (!isConnectedUser()) {
                     </div>
                 </div>
             </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a type="button" href="../tuteurU/tuteurUniversitaire.php" class="btn me-md-3 btn-custom bg">Ajouter note</a>
+            </div>
         </div>
     </div>
 </body>
