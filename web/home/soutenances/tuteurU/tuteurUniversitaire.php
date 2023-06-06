@@ -9,7 +9,7 @@ if(!isset($_SESSION['active_profile'])) {
     $_SESSION['session_url']="";
     $_SESSION['active_profile'] = "";
 }
-    if (($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE" || $_SESSION['active_profile'] <> "ADMINISTRATEUR") && $_SESSION['session_url'] == "") {
+    if (($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE" && $_SESSION['active_profile'] <> "ADMINISTRATEUR") && $_SESSION['session_url'] == "") {
         $_SESSION['user_name'] = $_GET['nom'];
         $_SESSION['entreprise'] = $_GET['entreprise'];
         $_SESSION['user_id'] = $_GET['id'];

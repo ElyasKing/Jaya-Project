@@ -191,7 +191,7 @@ if (!isConnectedUser()) {
                                 <thead>
                                     <tr class="bg">
                                         <th>Etudiant</th>
-                                        <th>Nombre de note professionnels</th>
+                                        <th>Nombre de notes professionnelles</th>
                                         <th>Nombre de notes enseignants</th>
                                         <th>Note calculée</th>
                                     </tr>

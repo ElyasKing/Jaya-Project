@@ -38,7 +38,8 @@ $statement = $db->query($sql);
             require_once '../../../lib/phpqrcode/qrlib.php';
 
             // Texte à encoder en QR code (URL dans le futur)
-            $text = "ratio florian!";
+            $invitedm_qr = "http://localhost/JAYA/web/home/guest/NewGuestForm.php";
+            $tuteurU_qr = "http://localhost/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php";
 
             // Chemin du fichier où le QR code sera enregistré
             $filename_invitedm = '../../../images/QR_IMG/qrcode_invitedm.png';
@@ -49,8 +50,8 @@ $statement = $db->query($sql);
             $level = 'F';
 
             // Générer le QR code
-             QRcode::png($text, $filename_invitedm, $level, $size);
-             QRcode::png($text, $filename_tuteurU, $level, $size);
+             QRcode::png($invitedm_qr, $filename_invitedm, $level, $size);
+             QRcode::png($tuteurU_qr, $filename_tuteurU, $level, $size);
             ?>
 
             <h4 class="qr-title">Liste des QR Codes invités</h4>

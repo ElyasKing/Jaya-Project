@@ -91,34 +91,37 @@ if (!isConnectedUser()) {
                         <tbody>
                             <?php
                             foreach ($studentsList as $student) { ?>
-                                    <tr <?php
-                                        if (
-                                            $student['Poster_NF'] === null || $student['Poster_NF'] === '' 
-                                            || $student['Rapport_NF'] === null ||$student['Rapport_NF'] === '' ||
-                                            $student['Orthographe_NF'] === null || $student['Orthographe_NF'] === '' ||
-                                            $student['NoteFinaleTuteur_NF'] === null || $student['NoteFinaleTuteur_NF'] === ''
-                                        ) {
-                                            echo 'class="tr-bgColorRed"';
-                                        }
-                                        ?>>
-                                    <?php
-                                    echo "
-                                      <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
-                                        <td class='text-center'>" . $student['nom_Utilisateur'] . "</td>
-                                        <td class='text-center'>" . $student['Promo_Utilisateur'] . "</td>
-                                        <td class='text-center'>" . $student['Poster_NF'] . "</td>
-                                        <td class='text-center'>" . $student['Remarque_NF'] . "</td>
-                                        <td class='text-center'>" . $student['Rapport_NF'] . "</td>
-                                        <td class='text-center'>" . $student['Appreciation_NF'] . "</td>
-                                        <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
-                                        <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
-                                        <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
-                                        <td class='text-center'>" . ($student['Poster_NF']=== "non" || $student['Rapport_NF']=== "non" || empty($student['NoteFinaleTuteur_NF']) || getStutdentGradeOral($student['ID_Utilisateur']) === "DEF"
-                                        || getStutdentGradeOral($student['ID_Utilisateur']) === "" ? "DEF" : $student['noteFinaleUE_NF']) . "</td>
-                                        <td><a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a></td>
-                                     </tr>";
+                                <tr <?php
+                                    if (
+                                        $student['Poster_NF'] === null || $student['Poster_NF'] === ''
+                                        || $student['Rapport_NF'] === null || $student['Rapport_NF'] === '' ||
+                                        $student['Orthographe_NF'] === null || $student['Orthographe_NF'] === '' ||
+                                        $student['NoteFinaleTuteur_NF'] === null || $student['NoteFinaleTuteur_NF'] === ''
+                                    ) {
+                                        echo 'class="tr-bgColorRed"';
+                                    }
+                                    ?>>
+                                <?php
+                                echo "
+                                            <td class='text-center' style='display:none;'>" . $student['Annee_Utilisateur'] . "</td>
+                                            <td class='text-center'>" . $student['nom_Utilisateur'] . "</td>
+                                            <td class='text-center'>" . $student['Promo_Utilisateur'] . "</td>
+                                            <td class='text-center'>" . $student['Poster_NF'] . "</td>
+                                            <td class='text-center'>" . $student['Remarque_NF'] . "</td>
+                                            <td class='text-center'>" . $student['Rapport_NF'] . "</td>
+                                            <td class='text-center'>" . $student['Appreciation_NF'] . "</td>
+                                            <td class='text-center'>" . ($student['Orthographe_NF'] !== null ? '-' . $student['Orthographe_NF'] : '') . "</td>
+                                            <td class='text-center'>" . $student['NoteFinaleTuteur_NF'] . "</td>
+                                            <td class='text-center'>" . getStutdentGradeOral($student['ID_Utilisateur']) . "</td>
+                                            <td class='text-center'>" . (($student['Poster_NF'] === "non" || $student['Rapport_NF'] === "non" || empty($student['NoteFinaleTuteur_NF']) || getStutdentGradeOral($student['ID_Utilisateur']) === "DEF" || getStutdentGradeOral($student['ID_Utilisateur']) === "") ? "DEF" : $student['noteFinaleUE_NF']) . "</td>
+                                            <td>";
+                                if (date('Y') >= substr($student['Annee_Utilisateur'], 0, 4) && date('Y') <= substr($student['Annee_Utilisateur'], 5, 4)) {
+                                    echo "<a href='studentMonitoringUpdate_users.php?id=" . $student["ID_Utilisateur"] . "'><button type='button' class='btn bg bi bi-pencil-fill'></button></a>";
                                 }
-                                    ?>
+                                echo "
+                                            </td>
+                                        </tr>";
+                            } ?>
                         </tbody>
                     </table>
                 </div>

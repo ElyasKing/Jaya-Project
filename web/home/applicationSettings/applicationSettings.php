@@ -138,7 +138,7 @@ if(!isConnectedUser()){
             <table id="tablePD" class="display" style="width:100%">
                 <thead>
                     <tr class="bg">
-                        <th>Description du critère d'évaluation oral</th>
+                        <th>Description du critère d'évaluation orale</th>
                         <th>Nombre de points</th>
                         <th></th>
                     </tr>
