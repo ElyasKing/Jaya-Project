@@ -5,7 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 ?>
 
@@ -137,17 +137,17 @@ if (!isConnectedUser()) {
                 ?>
                     <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
                     </form>
-                    <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                    <a href="#" onclick='if(confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'>
                     <button id="btn-valider-scolarite" class="btn me-md-3 btn-custom bg">Valider les notes</button>
-                    <!-- </a> -->
+                    </a>
                 <?php
                 } else {
                 ?>
-                    <form id="monitoring-validation-form" action="studentMonitoringCheckValidation_users.php" method="post">
+                    <form id="monitoring-unvalidation-form" action="studentMonitoringCheckValidation_users.php" method="post">
                     </form>
-                    <!-- <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-validation-form").submit();}else{return false;};'> -->
+                    <a href="#" onclick='if(confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")){document.getElementById("monitoring-unvalidation-form").submit();}else{return false;};'>
                     <button id="btn-cacher-scolarite" class="btn me-md-3 btn-custom bg">Cacher les notes</button>
-                    <!-- </a> -->
+                    </a>
                 <?php
                 }
                 ?>
@@ -273,59 +273,59 @@ $_SESSION['success'] = 0;
         });
 
 
-        const form = document.querySelector('#monitoring-validation-form');
-        const btnValider = document.querySelector('#btn-valider-scolarite');
+        // const form = document.querySelector('#monitoring-validation-form');
+        // const btnValider = document.querySelector('#btn-valider-scolarite');
 
-        if (btnValider) {
+        // if (btnValider) {
 
-            btnValider.addEventListener('click', function() {
-                if (confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")) {
+        //     btnValider.addEventListener('click', function() {
+        //         if (confirm("Souhaitez-vous vraiment valider les notes des étudiants ? Cette action aura pour effet de donner à chaque étudiant, un accès en consultation à ses notes. Vous pourrez toujours mettre à jour ces données plus tard.")) {
 
-                    const data = new FormData(form);
-                    fetch('http://127.0.0.1/Jaya-Project/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
-                            method: 'POST',
-                            body: data
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            if (data.success) {
-                                toastr.success(data.message);
+        //             const data = new FormData(form);
+        //             fetch('http://127.0.0.1/PERSO/JAYA/Jaya-Project/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
+        //                     method: 'POST',
+        //                     body: data
+        //                 })
+        //                 .then(response => response.json())
+        //                 .then(data => {
+        //                     console.log(data);
+        //                     if (data.success) {
+        //                         toastr.success(data.message);
 
-                                location.reload();
-                            } else {
-                                toastr.error(data.message);
-                            }
-                        });
-                }
-            });
-        }
+        //                         location.reload();
+        //                     } else {
+        //                         toastr.error(data.message);
+        //                     }
+        //                 });
+        //         }
+        //     });
+        // }
 
-        const btnCacher = document.querySelector('#btn-cacher-scolarite');
+        // const btnCacher = document.querySelector('#btn-cacher-scolarite');
 
-        if (btnCacher) {
+        // if (btnCacher) {
 
-            btnCacher.addEventListener('click', function() {
-                if (confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")) {
+        //     btnCacher.addEventListener('click', function() {
+        //         if (confirm("Souhaitez-vous vraiment retirer la visibilité des notes aux étudiants ?")) {
 
-                    const data = new FormData(form);
-                    fetch('http://127.0.0.1/JAYA/JAYA/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
-                            method: 'POST',
-                            body: data
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            if (data.success) {
-                                toastr.success(data.message);
+        //             const data = new FormData(form);
+        //             fetch('http://127.0.0.1//PERSO/JAYA/Jaya-Project/web/home/suivi-recap/studentMonitoringCheckValidation_users.php', {
+        //                     method: 'POST',
+        //                     body: data
+        //                 })
+        //                 .then(response => response.json())
+        //                 .then(data => {
+        //                     console.log(data);
+        //                     if (data.success) {
+        //                         toastr.success(data.message);
 
-                                location.reload();
-                            } else {
-                                toastr.error(data.message);
-                            }
-                        });
-                }
-            });
-        }
+        //                         location.reload();
+        //                     } else {
+        //                         toastr.error(data.message);
+        //                     }
+        //                 });
+        //         }
+        //     });
+        // }
     });
 </script>

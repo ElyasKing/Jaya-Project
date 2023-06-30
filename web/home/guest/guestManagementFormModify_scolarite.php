@@ -5,7 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 ?>
 
@@ -32,6 +32,7 @@ if (!isConnectedUser()) {
             $Nom = $user['Nom_Invite'];
             $Mail = $user['Mail_Invite'];
             $Entreprise = $user['Entreprise_Invite'];
+            $villeEntreprise = $user['Ville_Invite'];
             $Telephone = $user['Telephone_Invite'];
             $est_enseignant = $user['EstEnseignant_Invite'] == 'oui';
             $est_professionnel = $user['EstProfessionel_Invite'] == 'oui';
@@ -62,6 +63,12 @@ if (!isConnectedUser()) {
                                         <div class="col">
                                             <label for="pw1" class="form-label">Entreprise de l'invité : </label>
                                             <input class="form-control" type="text" id="entreprise" name="entreprise" value="<?= $Entreprise ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="pw1" class="form-label">Ville de l'entreprise : </label>
+                                            <input class="form-control" type="text" id="villeEntreprise" name="villeEntreprise" value="<?= $villeEntreprise ?>" required>
                                         </div>
                                     </div>
                                     <div class='row'>

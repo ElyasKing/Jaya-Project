@@ -40,7 +40,7 @@
                     header("Content-type: image/png");
                     ImagePng($image);
                 }else{
-                    ImagePng($image, $filename);
+                    @ImagePng($image, $filename);
                 }
             }
             

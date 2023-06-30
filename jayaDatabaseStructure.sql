@@ -172,7 +172,7 @@ CREATE TABLE `utilisateur` (
   `Annee_Utilisateur` varchar(10) DEFAULT NULL,
   `HuisClos_Utilisateur` varchar(3) DEFAULT NULL,
   `ID_Planning` int(11) DEFAULT NULL,
-  'SoutenanceSupp_Utilisateur' VARCHAR(3) DEFAULT NULL
+  `SoutenanceSupp_Utilisateur` VARCHAR(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------

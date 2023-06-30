@@ -1,7 +1,7 @@
 <?php
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 
 $db = Database::connect();

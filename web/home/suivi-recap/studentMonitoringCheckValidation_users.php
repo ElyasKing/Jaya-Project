@@ -24,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $db->query($query);
 
+    header("Location: studentMonitoring_users.php");
+
 
     $query2 = getStudentEmail();
     $statement = $db->query($query2);

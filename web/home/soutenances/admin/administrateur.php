@@ -5,7 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 ?>
 
@@ -251,7 +251,8 @@ if (!isConnectedUser()) {
                     </div>
                 </div>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end container">
                 <a type="button" href="../tuteurU/tuteurUniversitaire.php" class="btn me-md-3 btn-custom bg">Ajouter note</a>
             </div>
         </div>

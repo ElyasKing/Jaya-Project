@@ -5,8 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    print("SUC : " + $_SESSION['success']);
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 
 // Elias

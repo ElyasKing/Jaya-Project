@@ -146,6 +146,15 @@ if (isset($_SESSION['active_profile']) || isset($_SESSION['user_name'])) { // Fl
 <?php
 $chaine = $_SERVER['REQUEST_URI'];
 $souchaine = "changeProfile.php";
+
+if($chaine == "/AYA/web/home/guest/NewGuestForm.php"){ 
+  @session_destroy();
+  @session_start();
+  ?>
+<?php }else
+
+
+
 if (strpos($chaine, $souchaine)) {
   echo "<div class='nav-link active'>";
   echo "<table>";

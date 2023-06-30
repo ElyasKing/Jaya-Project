@@ -1,6 +1,8 @@
 <?php
 include("../../../application_config/db_class.php");
 include("../../../fonctions/functions.php");
+include("../navigation/header.php");
+
 session_start();
 
 ?>
@@ -10,7 +12,7 @@ session_start();
 
 <head>
     <?php
-    include("../navigation/header.php");
+        include("../../home/navigation/navbar.php");
     ?>
 </head>
 
@@ -39,6 +41,12 @@ session_start();
                                     <div class="col">
                                         <label for="pw1" class="form-label">Entreprise  : </label>
                                         <input class="form-control" type="text" id="entreprise" name="entreprise" required>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class="col">
+                                        <label for="pw1" class="form-label">Ville entreprise  : </label>
+                                        <input class="form-control" type="text" id="villeEntreprise" name="villeEntreprise" required>
                                     </div>
                                 </div>
                                 <div class='row'>
@@ -83,3 +91,38 @@ session_start();
 </body>
 
 </html>
+
+<script src="../../../js/toastr.min.js"></script>
+<script>
+	toastr.options = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-center",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "7000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+</script>
+<?php
+if (isset($_SESSION['success'])) {
+	$doublon = $_SESSION['success'];
+
+	switch ($doublon) {
+		case 1:
+			echo '<script>toastr.error("Cette personne exite déjà !");</script>';
+			break;
+		default:
+			// rien
+	}
+	$_SESSION['success'] = 0;
+}
+?>

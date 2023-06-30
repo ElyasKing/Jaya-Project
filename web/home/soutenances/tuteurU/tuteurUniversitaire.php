@@ -3,30 +3,31 @@ include("../../../../application_config/db_class.php");
 include("../../../../fonctions/functions.php");
 session_start();
 
-
-
 if(!isset($_SESSION['active_profile'])) {
     $_SESSION['session_url']="";
     $_SESSION['active_profile'] = "";
 }
-    if (($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE" && $_SESSION['active_profile'] <> "ADMINISTRATEUR") && $_SESSION['session_url'] == "") {
-        $_SESSION['user_name'] = $_GET['nom'];
-        $_SESSION['entreprise'] = $_GET['entreprise'];
-        $_SESSION['user_id'] = $_GET['id'];
-        $_SESSION['change_profile_access'] = 6;
-        $_SESSION['active_profile'] = "INVITE";
-        //$_SERVER['REQUEST_URI'] = "http://localhost/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php?id=".$_SESSION['user_id']."&nom=".$_SESSION['user_name']."&entreprise=".$_SESSION['entreprise']."";
-        $_SESSION['session_url'] = $_SERVER['REQUEST_URI'];
-    }
 
-
+if (($_SESSION['active_profile'] <> "TUTEUR UNIVERSITAIRE" && $_SESSION['active_profile'] <> "ADMINISTRATEUR") && $_SESSION['session_url'] == "") {
+    $_SESSION['user_name'] = $_GET['nom'];
+    $_SESSION['entreprise'] = $_GET['entreprise'];
+    $_SESSION['user_id'] = $_GET['id'];
+    $_SESSION['change_profile_access'] = 6;
+    $_SESSION['active_profile'] = "INVITE";
+    //$_SERVER['REQUEST_URI'] = "http://localhost/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php?id=".$_SESSION['user_id']."&nom=".$_SESSION['user_name']."&entreprise=".$_SESSION['entreprise']."";
+    $_SESSION['session_url'] = $_SERVER['REQUEST_URI'];
+}
 
 if($_SESSION['active_profile'] <> "INVITE") {
     if (!isConnectedUser()) {
         $_SESSION['success'] = 2;
-        header("Location: login.php");
+        header("Location: ./../../../logout.php");
     }
 }
+
+if($_SERVER['REQUEST_URI'] == "/JAYA/web/home/soutenances/tuteurU/tuteurUniversitaire.php"){
+    header("Location: ./../../../logout.php");
+} 
 
 $isoral = isTimeForOral();
 

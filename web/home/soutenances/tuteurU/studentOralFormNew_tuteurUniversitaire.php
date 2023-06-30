@@ -6,7 +6,7 @@ session_start();
 if($_SESSION['active_profile'] <> "INVITE") {
     if (!isConnectedUser()) {
         $_SESSION['success'] = 2;
-        header("Location: login.php");
+        header("Location: logout.php");
     }
 }
 

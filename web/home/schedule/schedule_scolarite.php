@@ -5,7 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 ?>
 
@@ -133,7 +133,7 @@ if (!isConnectedUser()) {
                         echo "</select>";
                         if ($cpt > 0) {
                         ?>
-                            <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans plannification. Il se peut qu'il n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {
+                            <p class="text-center"><abbr title="Certains étudiants n'ont pas été pris en compte dans la planification. Il se peut qu'ils n'aient pas été associés à un tuteur entreprise. Ils sont donc considérés comme non-alternants et ne peuvent soutenir (c.f. onglet Accueil - Administrateur) : <?php foreach ($studentsWithoutSchedule as $sws) {
                                                                                                                                                                                                                                                                                                                             echo $sws['Nom_Etudiant'] . " (" . $sws['Promo_Utilisateur'] . ")" . " ; ";
                                                                                                                                                                                                                                                                                                                         } ?> ">
                                     <span style="color: red;" class="bi bi-exclamation-triangle-fill"></span> Etudiant non plannifiés : <?= $cpt ?></abbr></p>

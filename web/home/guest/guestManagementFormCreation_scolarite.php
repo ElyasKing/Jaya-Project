@@ -5,7 +5,7 @@ session_start();
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;
-    header("Location: login.php");
+    header("Location: logout.php");
 }
 ?>
 
@@ -45,6 +45,12 @@ if (!isConnectedUser()) {
                                         <div class="col">
                                             <label for="pw1" class="form-label">Entreprise de l'invité : </label>
                                             <input class="form-control" type="text" id="entreprise" name="entreprise" required>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class="col">
+                                            <label for="pw1" class="form-label">Ville de l'entreprise : </label>
+                                            <input class="form-control" type="text" id="villeEntreprise" name="villeEntreprise" required>
                                         </div>
                                     </div>
                                     <div class='row'>
