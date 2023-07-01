@@ -80,4 +80,8 @@ if($_SESSION['active_profile'] == "INVITE") {
     header("Location:" . $_SESSION['session_url']);
 }
 
+if($_SESSION['active_profile'] == "ADMINISTRATEUR"){
+    header("Location: ../admin/administrateur.php");
+}
+
 header("Location: tuteurUniversitaire.php");

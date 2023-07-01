@@ -13,9 +13,12 @@ if($_SESSION['active_profile'] <> "INVITE") {
 $db = Database::connect();
 
 
-// Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
-$query = getStudentForOral($_SESSION['user_id'],$_SESSION['active_profile']);
-$listEtud = $db->query($query)->fetchAll();
+// Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste (hors admin)
+if($_SESSION['active_profile'] <> "ADMINISTRATEUR"){
+    $query = getStudentForOral($_SESSION['user_id'],$_SESSION['active_profile']);
+} else { $query = getStudentForOralAdmin();}
+    $listEtud = $db->query($query)->fetchAll();
+
 
 // Requête SQL pour récupérer les informations des paramètres qui sont des notes
 $query = "SELECT nom_param, nbpoint_param from parametres where nbpoint_param is not null";
@@ -103,7 +106,13 @@ $conn = Database::disconnect();
                                 <br>
                                 <div class="text-center">
                                     <button class="btn me-md-3 bg" type="submit">Confirmer</button>
-                                    <a type="button" href="tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>
+                                    <?php
+                                if ($_SESSION['active_profile'] == "ADMINISTRATEUR") {
+                                    echo '<a type="button" href="../admin/administrateur.php" class="btn me-md-3 bg">Retour</a>';
+                                } else {
+                                    echo '<a type="button" href="tuteurUniversitaire.php" class="btn me-md-3 bg">Retour</a>';
+                                }
+                                ?>
                                 </div>
                             </div>
                         </div>

@@ -373,6 +373,18 @@ function getStudentForOral($User_ID,$habilitation)
     return $query;
 }
 
+// Requête SQL pour récupérer les informations de tous les étudiants à insérer dans la liste 
+function getStudentForOralAdmin()
+{
+        $query =
+        "SELECT U.Nom_Utilisateur 
+        FROM utilisateur U 
+        LEFT JON habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
+        WHERE H.Etudiant_Habilitations = 'oui' "
+    
+    return $query;
+}
+
 // Racourcir les chaines de caractères trop longues dans les datatables
 function shortString($string, $maxLength) {
     if (strlen($string) > $maxLength) {
