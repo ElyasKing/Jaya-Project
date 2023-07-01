@@ -57,7 +57,7 @@ $isoral = isTimeForOral();
             NS.NoteFinale_NS,
             NS.Commentaire_NS
             FROM notes_soutenance NS 
-            LEFT JOINutilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
+            LEFT JOIN utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
             WHERE NS.ID_UtilisateurEvaluateur = '".$_SESSION['user_id']."'";
                 $result = $db->query($sql);
             } else {
@@ -66,7 +66,7 @@ $isoral = isTimeForOral();
             NS.NoteFinale_NS,
             NS.Commentaire_NS
             FROM notes_soutenance NS 
-            LEFT JOINutilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
+            LEFT JOIN utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
             WHERE NS.ID_InviteEvaluateur = '".$_SESSION['user_id']."'";
                 $result = $db->query($sql);
             }

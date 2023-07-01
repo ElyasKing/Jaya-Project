@@ -63,7 +63,7 @@ if (!isConnectedUser()) {
                 FROM
                    utilisateur u1
                         LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
-                        LEFT JOINutilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+                        LEFT JOIN utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
                         LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
                         LEFT JOIN invite i ON ea.id_invite = i.id_invite
                         LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur

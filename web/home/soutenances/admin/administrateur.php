@@ -49,8 +49,8 @@ if (!isConnectedUser()) {
                     NS.NoteFinale_NS, 
                     NS.Commentaire_NS 
                     FROM notes_soutenance NS 
-                    LEFT JOINutilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
-                    LEFT JOINutilisateur U2 ON NS.ID_UtilisateurEvaluateur=U2.ID_Utilisateur 
+                    LEFT JOIN utilisateur U ON NS.ID_UtilisateurEvalue=U.ID_Utilisateur 
+                    LEFT JOIN utilisateur U2 ON NS.ID_UtilisateurEvaluateur=U2.ID_Utilisateur 
                     LEFT JOIN invite I ON NS.ID_InviteEvaluateur=I.ID_Invite;";
 
             $result = $db->query($sql);
