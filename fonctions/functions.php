@@ -379,8 +379,8 @@ function getStudentForOralAdmin()
         $query =
         "SELECT U.Nom_Utilisateur 
         FROM utilisateur U 
-        LEFT JON habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
-        WHERE H.Etudiant_Habilitations = 'oui' "
+        LEFT JOIN habilitations H ON U.ID_Utilisateur = H.ID_Utilisateur
+        WHERE H.Etudiant_Habilitations = 'oui' ";
     
     return $query;
 }
