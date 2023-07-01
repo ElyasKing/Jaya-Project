@@ -49,7 +49,7 @@
         i.Ville_Invite,
         u1.Promo_Utilisateur, 
         u1.HuisClos_Utilisateur 
-    FROM Utilisateur u1 
+    FROM utilisateur u1 
     LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant 
     INNER JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur 
     INNER JOIN invite i ON ea.id_invite = i.id_invite

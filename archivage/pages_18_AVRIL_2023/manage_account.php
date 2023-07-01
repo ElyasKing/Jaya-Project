@@ -85,7 +85,7 @@ session_start();
 
          <?php
      } else {
-         // Utilisateur non trouvé
+         //utilisateur non trouvé
          $error_message = "Aucun utilisateur trouvé";
          echo $error_message;
      }

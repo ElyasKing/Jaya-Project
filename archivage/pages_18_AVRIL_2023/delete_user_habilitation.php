@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
   $id = $_GET['id'];
 /*
   // Supprime l'utilisateur de la table utilisateur
-  $sql_delete = "DELETE FROM Utilisateurs WHERE Id_Utilisateur = :id";
+  $sql_delete = "DELETE FROM utilisateurs WHERE Id_Utilisateur = :id";
   $stmt_delete = $conn->prepare($sql_delete);
   $stmt_delete->bindParam(':id', $id, PDO::PARAM_INT);
   $stmt_delete->execute();

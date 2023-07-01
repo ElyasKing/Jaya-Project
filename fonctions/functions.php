@@ -33,9 +33,9 @@ function getStudentInformationForIndexes()
     GROUP_CONCAT(DISTINCT i.Mail_Invite SEPARATOR ';') AS Mail_Invite,
     u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
     u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire
-    FROM Utilisateur u1
+    FROM utilisateur u1
     LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
-    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOINutilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
@@ -67,9 +67,9 @@ getStudentInformation_TuteurUniversitaire($User_ID)
     GROUP_CONCAT(DISTINCT i.Mail_Invite SEPARATOR ';') AS Mail_Invite,
     u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
     u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire
-    FROM Utilisateur u1
+    FROM utilisateur u1
     LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
-    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOINutilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
@@ -95,9 +95,9 @@ getStudentInformation_Etudiant($User_ID)
     GROUP_CONCAT(DISTINCT i.Mail_Invite SEPARATOR ';') AS Mail_Invite,
     u2.Nom_Utilisateur AS Nom_Tuteur_Universitaire,
     u2.Mail_Utilisateur AS Mail_Tuteur_Universitaire
-    FROM Utilisateur u1
+    FROM utilisateur u1
     LEFT JOIN etudiant_tuteur et ON u1.id_Utilisateur = et.id_Etudiant
-    LEFT JOIN Utilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
+    LEFT JOINutilisateur u2 ON et.id_Tuteur = u2.id_Utilisateur
     LEFT JOIN est_apprenti ea ON u1.id_utilisateur = ea.id_utilisateur
     LEFT JOIN invite i ON ea.id_invite = i.id_invite
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
@@ -526,7 +526,7 @@ function getStudentEmail()
 
     $sql = "SELECT 
     u1.Mail_Utilisateur AS Mail_Etudiant
-    FROM Utilisateur u1
+    FROM utilisateur u1
     LEFT JOIN habilitations h ON u1.ID_Utilisateur = h.ID_Utilisateur
     WHERE h.Etudiant_Habilitations='oui' AND u1.Annee_Utilisateur = '$currentStudentYear'";
 
