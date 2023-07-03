@@ -38,14 +38,12 @@ if (isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mi
                 $nomEtudiant = $prenomEtudiant . "" . $nomEtudiant;
                 $nomFeuilles = $spreadsheet->getSheetNames();
                 $promotion = $nomFeuilles[$j];
-                //On prend la date en string et on troncate pour avoir l'année
-                $dateString = $sheetData[$i][14];
-                $anneeString = substr($dateString, -4);
+                $anneeString = $sheetData[$i][2];
                 //On le passe en int pour le calcul
                 $anneeInt = (int) $anneeString;
-                $anneePlusDeux = $anneeInt + 2;
-                $anneePlusDeuxString = (string) $anneePlusDeux;
-                $annee = $anneeString . "-" . $anneePlusDeuxString;
+                $anneePlusUn = $anneeInt + 1;
+                $anneePlusUnString = (string) $anneePlusUn;
+                $annee = $anneeString . "-" . $anneePlusUnString;
 
                 $mdp = generatePassword();
 
@@ -141,3 +139,4 @@ if (isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mi
 
 header("Location: index.php");
 $db = Database::disconnect();
+
