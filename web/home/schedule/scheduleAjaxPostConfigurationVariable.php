@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../../../fonctions/functions.php");
 
 if (!isConnectedUser()) {
     $_SESSION['success'] = 2;

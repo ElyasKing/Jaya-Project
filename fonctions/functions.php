@@ -408,7 +408,7 @@ function isTimeForOral(){
     $duree_supp = $rows[1]['Description_param'];
 
     $squery="SELECT DateSession_Planning, HeureDebutSession_Planning 
-    FROM Planning p
+    FROM planning p
     LEFT JOIN utilisateur u ON u.ID_Planning = p.ID_Planning
     WHERE ((CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning) <= NOW() 
     AND ADDTIME(CONCAT(DateSession_Planning, ' ', HeureDebutSession_Planning, ':00'), SEC_TO_TIME(TIME_TO_SEC('$duree_soutenance') + TIME_TO_SEC('$duree_supp'))) >= NOW())) OR u.SoutenanceSupp_Utilisateur='oui';";
