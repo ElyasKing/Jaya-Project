@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Envoyer un email
     $subject = "Réinitialisation de votre mot de passe";
-    $reset_link = "http://localhost/Jaya-Project/web/reset_password_action.php?token=" . $token;
+    $reset_link = "http://".$_SERVER['SERVER_NAME']."/JAYA/web/reset_password_action.php?token=" . $token;
     $body = "<p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien suivant pour le réinitialiser :</p>
             <p><a href='$reset_link'>$reset_link</a></p>
             <p>Si vous n'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer cet email.</p>";

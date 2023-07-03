@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $etudiant = isset($_POST['etudiant']) ? 'oui' : 'non';
     $mail = $_POST['mail'];
     $user = $_POST['user'];
+    $ndd =  $_SERVER['SERVER_NAME']."/web";
     //annee 
     $currentYear = date('Y');
     $nextYear = $currentYear + 1;
@@ -34,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $countUser = $statement->fetch();
 
     $html = file_get_contents('../../../../fonctions/email_models/account_created.html');
-    $search = array('{{email}}', '{{mdp}}', '{{identifiant}}');
-    $replace = array($mail, $mdp, $user);
+    $search = array('{{email}}', '{{mdp}}', '{{identifiant}}', '{{ndd}}');
+    $replace = array($mail, $mdp, $user, $ndd);
     $html = str_replace($search, $replace, $html);
     $subject = $user." vos identifiants sont là!";
 

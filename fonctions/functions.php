@@ -486,7 +486,7 @@ function getStudentMonitoringForTuteurUniversitaire($tuteurUniversitaire){
 
     return $query;
 }
-//envoyer un email
+//envoyer un email : A MODIFIER AVEC VOTRE SERVEUR SMTP
 function send_email($to_email, $subject, $body) {
     require_once 'phpmailer/PHPMailer.php';
     require_once 'phpmailer/SMTP.php';
